@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
+
 {
     /**
      * @ORM\Id
@@ -22,7 +26,7 @@ class User
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $username;
+    private $nickname;
 
     /**
      * @ORM\Column(type="string", length=128)
@@ -45,9 +49,10 @@ class User
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="json")
+     * 
      */
-    private $role;
+    private $roles = [];
 
     /**
      * @ORM\Column(type="datetime")
@@ -74,14 +79,18 @@ class User
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    /**
+     * 
+     */
+    
+    public function getNickname(): ?string
     {
-        return $this->username;
+        return $this->nickname;
     }
 
-    public function setUsername(string $username): self
+    public function setNickname(string $nickname): self
     {
-        $this->username = $username;
+        $this->nickname = $nickname;
 
         return $this;
     }
@@ -134,14 +143,18 @@ class User
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getRoles(): array
     {
-        return $this->role;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        
+
+        return array_unique($roles);    
     }
 
-    public function setRole(string $role): self
+    public function setRoles(array $roles): self
     {
-        $this->role = $role;
+        $this->roles = $roles;
 
         return $this;
     }
@@ -198,5 +211,68 @@ class User
         }
 
         return $this;
+    }
+
+    public function getRolesNames(){
+        return array(
+            "ROLE_ADMIN" => "Administrateur",
+            "ROLE_MANAGER" => "Gestionnaire",
+            "ROLE_USER" => "Utilisateur",        
+        );
+    }
+
+   
+
+
+
+     /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->nickname;
+    }
+    
+     /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->nickname;
+    }
+
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+
+
+    /**
+     * Mise à jour de la date automatique
+     * 
+     */
+    public function setCreatedAtValue()
+    {
+        // Date Courante
+        $now =  new \DateTime('now', new \DateTimeZone('Europe/Berlin'));
+        $this->setCreatedAt($now);
     }
 }
