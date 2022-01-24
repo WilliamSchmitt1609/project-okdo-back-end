@@ -6,6 +6,8 @@ use Faker;
 use App\Entity\User;
 use App\Entity\Product;
 use App\Entity\Category;
+use App\Entity\Profiles;
+use App\Entity\FilterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -43,7 +45,8 @@ class AppFixtures extends Fixture
         $this->connection->executeQuery('TRUNCATE TABLE user');
         $this->connection->executeQuery('TRUNCATE TABLE product');
         $this->connection->executeQuery('TRUNCATE TABLE category');
-        
+        $this->connection->executeQuery('TRUNCATE TABLE filter_type');
+        $this->connection->executeQuery('TRUNCATE TABLE profiles');
     }
     public function load(ObjectManager $manager): void
     {
@@ -56,7 +59,7 @@ class AppFixtures extends Fixture
                 
 
 
-                    // User 
+           // User 
 
 
        // here we create our custom fixtures admin for our user
@@ -86,7 +89,7 @@ class AppFixtures extends Fixture
         // Attention $manager = le Manager de Doctrine :D
         $manager->persist($managerUser);
 
-
+        // user 
         $user = new User();
         $user->setNickname('user');
         $user->setEmail('user@user.com');
@@ -97,11 +100,75 @@ class AppFixtures extends Fixture
         $user->setLastname('Guinez');
         $user->setCreatedAt(new \datetime('now'));
         
-
         $manager->persist($user);
 
+        //user 1 
+        $user1 = new User();
+        $user1->setNickname('francois');
+        $user1->setEmail('francois@lefrancais.com');
+        $user1->setRoles(['ROLE_USER']);
+        $password = $this->hasher->hashPassword($user1, 'francois');
+        $user1->setPassword($password);
+        $user1->setFirstname('Francois');
+        $user1->setLastname('Lefrancais');
+        $user1->setCreatedAt(new \datetime('now'));
+        
 
-                    // Products
+        $manager->persist($user1);
+
+
+        // category fixtures
+
+        // category 1
+        $category1 = new Category();
+        $category1->setName('geek');
+        $category1->setcreatedAt(new \datetime('now'));
+
+        $manager->persist($category1);
+       
+        //category 2
+        $category2 = new Category();
+        $category2->setName('Sport et Bien-être');
+        $category2->setcreatedAt(new \datetime('now'));
+
+        $manager->persist($category2);
+
+        // category 3
+        $category3 = new Category();
+        $category3->setName('Food & Drink Lovers');
+        $category3->setcreatedAt(new \datetime('now'));
+
+        $manager->persist($category3);
+
+        // category 4
+        $category4 = new Category();
+        $category4->setName('Voyages');
+        $category4->setcreatedAt(new \datetime('now'));
+
+        $manager->persist($category4);
+
+        // category 5
+        $category5 = new Category();
+        $category5->setName('Musique');
+        $category5->setcreatedAt(new \datetime('now'));
+
+        $manager->persist($category5);
+
+        // category 6
+        $category6 = new Category();
+        $category6->setName('Bijoux');
+        $category6->setcreatedAt(new \datetime('now'));
+
+        $manager->persist($category6);
+
+        // category 7
+        $category7 = new Category();
+        $category7->setName('Décoration');
+        $category7->setcreatedAt(new \datetime('now'));
+        
+
+        $manager->persist($category7);
+        // Products
 
 
         // product 1
@@ -116,6 +183,8 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
+        $product->addCategory($category1);
+        $product->addCategory($category3);
 
         $manager->persist($product);
 
@@ -131,6 +200,7 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
+        $product->addCategory($category1);
 
         $manager->persist($product);
 
@@ -146,6 +216,8 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
+        $product->addCategory($category1);
+        $product->addCategory($category7);
 
         $manager->persist($product);
 
@@ -161,6 +233,7 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
+        $product->addCategory($category1);
 
         $manager->persist($product);
 
@@ -176,6 +249,7 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
+        $product->addCategory($category1);
 
         $manager->persist($product);
 
@@ -191,6 +265,8 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
+        $product->addCategory($category3);
+        $product->addCategory($category7);
 
         $manager->persist($product);
 
@@ -206,6 +282,7 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
+        $product->addCategory($category3);
 
         $manager->persist($product);
 
@@ -221,6 +298,7 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus('femme');
+        $product->addCategory($category6);
 
         $manager->persist($product);
 
@@ -236,6 +314,7 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
+        $product->addCategory($category6);
 
         $manager->persist($product);
 
@@ -251,6 +330,7 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
+        $product->addCategory($category1);
 
         $manager->persist($product);
 
@@ -266,60 +346,93 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
+        $product->addCategory($category1);
 
         $manager->persist($product);
         
-        // category fixtures
-
-        // category 1
-        $category = new Category();
-        $category->setName('geek');
-        $category->setcreatedAt(new \datetime('now'));
-
-        $manager->persist($category);
-       
-        //category 2
-        $category = new Category();
-        $category->setName('Sport et Bien-être');
-        $category->setcreatedAt(new \datetime('now'));
-
-        $manager->persist($category);
-
-        // category 3
-        $category = new Category();
-        $category->setName('Food & Drink Lovers');
-        $category->setcreatedAt(new \datetime('now'));
-
-        $manager->persist($category);
-
-        // category 4
-        $category = new Category();
-        $category->setName('Voyages');
-        $category->setcreatedAt(new \datetime('now'));
-
-        $manager->persist($category);
-
-        // category 5
-        $category = new Category();
-        $category->setName('Musique');
-        $category->setcreatedAt(new \datetime('now'));
-
-        $manager->persist($category);
-
-        // category 6
-        $category = new Category();
-        $category->setName('Bijoux');
-        $category->setcreatedAt(new \datetime('now'));
-
-        $manager->persist($category);
-
-        // category 7
-        $category = new Category();
-        $category->setName('Décoration');
-        $category->setcreatedAt(new \datetime('now'));
-
-        $manager->persist($category);
         
+
+        // filter_type fixtures
+
+        $filterType = new FilterType();
+        $filterType->setEventName('Anniversaire');
+        $filterType->setEventNumber(1);
+        $filterType->setCreatedAt(new \datetime('now'));
+        $filterType->addCategory($category1);
+        $filterType->addCategory($category2);
+        $filterType->addCategory($category3);
+        $filterType->addCategory($category4);
+        $filterType->addCategory($category5);
+        $filterType->addCategory($category6);
+        $filterType->addCategory($category7);
+        $manager->persist($filterType);
+        
+        $filterType = new FilterType();
+        $filterType->setEventName('Mariage');
+        $filterType->setEventNumber(2);
+        $filterType->setCreatedAt(new \datetime('now'));
+        $filterType->addCategory($category3);
+        $filterType->addCategory($category4);
+        $filterType->addCategory($category6);
+        $manager->persist($filterType);
+
+        $filterType = new FilterType();
+        $filterType->setEventName('Naissance');
+        $filterType->setEventNumber(3);
+        $filterType->setCreatedAt(new \datetime('now'));
+        $filterType->addCategory($category5);
+        $filterType->addCategory($category7);
+
+        $manager->persist($filterType);
+
+        $filterType = new FilterType();
+        $filterType->setEventName('Plaisir d\'offrir');
+        $filterType->setEventNumber(4);
+        $filterType->setCreatedAt(new \datetime('now'));
+        $filterType->addCategory($category1);
+        $filterType->addCategory($category2);
+        $filterType->addCategory($category3);
+        $filterType->addCategory($category5);
+        $filterType->addCategory($category6);
+
+        $manager->persist($filterType);
+
+        $filterType = new FilterType();
+        $filterType->setEventName('Saint Valentin');
+        $filterType->setEventNumber(5);
+        $filterType->setCreatedAt(new \datetime('now'));
+        $filterType->addCategory($category2);
+        $filterType->addCategory($category3);
+        $filterType->addCategory($category6);
+
+        $manager->persist($filterType);
+
+        // Profiles fixtures
+
+        $profiles = new Profiles;
+        $profiles->setName('Anniversaire de Max');
+        $profiles->setCreatedAt(new \datetime('now'));
+        $profiles->setUser($user);
+        $profiles->addCategory($category1);
+        $profiles->addCategory($category2);
+        $profiles->addCategory($category3);
+        $profiles->addCategory($category4);
+        $profiles->addCategory($category5);
+        $profiles->addCategory($category6);
+        $profiles->addCategory($category7);
+
+        $manager->persist($profiles);
+
+        $profiles = new Profiles;
+        $profiles->setName('Saint-Valentin avec Martine');
+        $profiles->setCreatedAt(new \datetime('now'));
+        $profiles->setUser($user1);
+        $profiles->addCategory($category2);
+        $profiles->addCategory($category3);
+        $profiles->addCategory($category6);
+
+        $manager->persist($profiles);
+
         // insert on BDD
         $manager->flush();
 

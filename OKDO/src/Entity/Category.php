@@ -46,7 +46,7 @@ class Category
     private $products;
 
     /**
-     * @ORM\ManyToMany(targetEntity=FilterType::class, mappedBy="category")
+     * @ORM\ManyToMany(targetEntity=FilterType::class, mappedBy="category", cascade={"persist"})
      */
     private $filterTypes;
 
