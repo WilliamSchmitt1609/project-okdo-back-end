@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Faker;
 use App\Entity\User;
 use App\Entity\Product;
+use App\Entity\Category;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -41,6 +42,7 @@ class AppFixtures extends Fixture
         // We truncate
         $this->connection->executeQuery('TRUNCATE TABLE user');
         $this->connection->executeQuery('TRUNCATE TABLE product');
+        $this->connection->executeQuery('TRUNCATE TABLE category');
         
     }
     public function load(ObjectManager $manager): void
@@ -266,8 +268,61 @@ class AppFixtures extends Fixture
         $product->setStatus(1);
 
         $manager->persist($product);
-        // push in our database
+        
+        // category fixtures
+
+        // category 1
+        $category = new Category();
+        $category->setName('geek');
+        $category->setcreatedAt(new \datetime('now'));
+
+        $manager->persist($category);
+       
+        //category 2
+        $category = new Category();
+        $category->setName('Sport et Bien-être');
+        $category->setcreatedAt(new \datetime('now'));
+
+        $manager->persist($category);
+
+        // category 3
+        $category = new Category();
+        $category->setName('Food & Drink Lovers');
+        $category->setcreatedAt(new \datetime('now'));
+
+        $manager->persist($category);
+
+        // category 4
+        $category = new Category();
+        $category->setName('Voyages');
+        $category->setcreatedAt(new \datetime('now'));
+
+        $manager->persist($category);
+
+        // category 5
+        $category = new Category();
+        $category->setName('Musique');
+        $category->setcreatedAt(new \datetime('now'));
+
+        $manager->persist($category);
+
+        // category 6
+        $category = new Category();
+        $category->setName('Bijoux');
+        $category->setcreatedAt(new \datetime('now'));
+
+        $manager->persist($category);
+
+        // category 7
+        $category = new Category();
+        $category->setName('Décoration');
+        $category->setcreatedAt(new \datetime('now'));
+
+        $manager->persist($category);
+        
+        // insert on BDD
         $manager->flush();
+
     }
 
 

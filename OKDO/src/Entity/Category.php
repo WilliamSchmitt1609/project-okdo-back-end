@@ -24,10 +24,6 @@ class Category
      */
     private $name;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $typeFilter;
 
     /**
      * @ORM\Column(type="datetime")
@@ -49,10 +45,16 @@ class Category
      */
     private $products;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=FilterType::class, mappedBy="category")
+     */
+    private $filterTypes;
+
     public function __construct()
     {
         $this->profiles = new ArrayCollection();
         $this->products = new ArrayCollection();
+        $this->filterTypes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,18 +70,6 @@ class Category
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getTypeFilter(): ?int
-    {
-        return $this->typeFilter;
-    }
-
-    public function setTypeFilter(int $typeFilter): self
-    {
-        $this->typeFilter = $typeFilter;
 
         return $this;
     }
@@ -154,6 +144,33 @@ class Category
     {
         if ($this->products->removeElement($product)) {
             $product->removeCategory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FilterType[]
+     */
+    public function getFilterTypes(): Collection
+    {
+        return $this->filterTypes;
+    }
+
+    public function addFilterType(FilterType $filterType): self
+    {
+        if (!$this->filterTypes->contains($filterType)) {
+            $this->filterTypes[] = $filterType;
+            $filterType->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFilterType(FilterType $filterType): self
+    {
+        if ($this->filterTypes->removeElement($filterType)) {
+            $filterType->removeCategory($this);
         }
 
         return $this;
