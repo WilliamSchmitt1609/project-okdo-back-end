@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProfilesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,16 +17,22 @@ class Profiles
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"get_profiles_collection"})
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"get_users_collection"})
+     * @Groups({"get_profiles_collection"})
+     * @Groups({"create_profiles_item"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"create_profiles_item"})
      */
     private $createdAt;
 
@@ -35,8 +42,10 @@ class Profiles
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="profiles")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="profiles", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"get_profiles_collection"})
+     * @Groups({"create_profiles_item"})
      */
     private $User;
 

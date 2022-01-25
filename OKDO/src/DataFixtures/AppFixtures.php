@@ -174,7 +174,7 @@ class AppFixtures extends Fixture
         // product 1
         $product = new Product();
         $product->setName('Mug overflow');
-        $product->setPrice('15');
+        $product->setPrice('13');
         $product->setDescription($faker->text());   
         $product->setPicture('https://wp.oclock.io/wp-content/uploads/2016/10/DSC_0250-800x550.jpg');
         $product->setShoppingLink('https://www.oclock.io');

@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
@@ -20,52 +21,71 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"get_users_collection"})
+     * @Groups({"create_profiles_item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"get_users_collection"})
+     * @Groups({"get_profiles_collection"})
+     * @Groups({"create_user_item"})
+     * 
      */
     private $nickname;
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Groups({"get_users_collection"})
+     * @Groups({"create_user_item"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"get_users_collection"})
+     * @Groups({"create_user_item"})
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"get_users_collection"})
+     * @Groups({"create_user_item"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"get_users_collection"})
+     * @Groups({"create_user_item"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="json")
-     * 
+     * @Groups({"get_users_collection"})
+     * @Groups({"create_user_item"})
      */
     private $roles = [];
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"get_users_collection"})
+     * @Groups({"create_user_item"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"get_users_collection"})
      */
     private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Profiles::class, mappedBy="User", orphanRemoval=true)
+     * @Groups({"get_users_collection"})
      */
     private $profiles;
 
