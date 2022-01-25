@@ -42,7 +42,7 @@ class Profiles
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="profiles", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="profiles")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"get_profiles_collection"})
      * @Groups({"create_profiles_item"})

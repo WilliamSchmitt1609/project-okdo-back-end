@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Entity\User;
+use App\Normalizer;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,7 +46,7 @@ class ApiUsersController extends AbstractController
     /**
      * @Route("/api/users/{id<\d+>}", name="api_users_get_item", methods={"GET"})
      */
-    public function userGet(User $user = null): Response
+    public function getItem(User $user = null): Response
     {
 
         // 404 ?
@@ -98,6 +99,10 @@ class ApiUsersController extends AbstractController
         $hashedPassword = $hasher->hashPassword($user, $user->getPassword());
             // then we send it to our bdd.
         $user->setPassword($hashedPassword); 
+            // determine role user 
+        $user->setRoles(['ROLE_USER']);
+            // creation date = now
+        $user->setCreatedAt(new \DateTime('now'));
 
         
         // On sauvegarde l'entité

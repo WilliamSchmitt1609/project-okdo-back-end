@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
@@ -37,6 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Assert\Email
      * @Groups({"get_users_collection"})
      * @Groups({"create_user_item"})
      */
