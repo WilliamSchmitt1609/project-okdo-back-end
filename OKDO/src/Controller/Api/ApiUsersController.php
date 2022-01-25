@@ -2,9 +2,10 @@
 
 namespace App\Controller\Api;
 
-use App\Entity\User;
 use App\Normalizer;
+use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Repository\ProfilesRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -95,13 +96,13 @@ class ApiUsersController extends AbstractController
             return $this->json($errorsClean, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
  
-            // Here, we hashed our password getting by json.
+        // Here, we hashed our password getting by json.
         $hashedPassword = $hasher->hashPassword($user, $user->getPassword());
-            // then we send it to our bdd.
-        $user->setPassword($hashedPassword); 
-            // determine role user 
+        // then we send it to our bdd.
+        $user->setPassword($hashedPassword);
+        // determine role user
         $user->setRoles(['ROLE_USER']);
-            // creation date = now
+        // creation date = now
         $user->setCreatedAt(new \DateTime('now'));
 
         
@@ -113,13 +114,12 @@ class ApiUsersController extends AbstractController
 
         // Get adapted responsed
         return $this->json(
-
             $user,
 
             // status code
             //en constante de classe
             Response::HTTP_CREATED,
-            // REST demande un header Location + URL de la ressource 
+            // REST demande un header Location + URL de la ressource
             [
                 // nom de l'en-tête + URL
                 'Location' => $this->generateUrl('api_users_get_item', ['id' => $user->getId()])
@@ -128,5 +128,58 @@ class ApiUsersController extends AbstractController
             // Groupe
             ['groups' => 'create_user_item']
         );
+    }
+
+    /**
+    * @Route("/api/users/{id<\d+>}", name="api_users_put", methods={"PUT"})
+    */
+    public function updateItem($id, UserRepository $userRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $hasher, ProfilesRepository $profilesRepository): Response
+    {
+        $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+        $user = $userRepository->findOneBy(['id'=> $id]);
+        $jsonContent = json_decode($request->getContent(), true);
+
+        // if ($user->getProfiles()) {
+        //     $profiles = $profilesRepository->find($jsonContent["id"]);
+        // }
+        
+        $hashedPassword = $hasher->hashPassword($user, $user->getPassword());
+        
+        empty($jsonContent['nickname']) ? true : $user->setNickname($jsonContent['nickname']);
+        empty($jsonContent['firstname']) ? true : $user->setFirstname($jsonContent['firstname']);
+        empty($jsonContent['lastname']) ? true : $user->setLastname($jsonContent['lastname']);
+        empty($jsonContent['email']) ? true : $user->setEmail($jsonContent['email']);
+        empty($jsonContent['password']) ? true : $user->setPassword($hashedPassword);
+        // Valider l'entité
+          // @link : https://symfony.com/doc/current/validation.html#using-the-validator-service
+          $errors = $validator->validate($user);
+        
+        // Y'a-t-il des erreurs ?
+        if (count($errors) > 0) {
+            // tableau de retour
+            $errorsClean = [];
+            // @Retourner des erreurs de validation propres
+            /** @var ConstraintViolation $error */
+            foreach ($errors as $error) {
+                $errorsClean[$error->getPropertyPath()][] = $error->getMessage();
+            };
+
+            return $this->json($errorsClean, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+     
+
+        
+
+        // $user->getProfiles($profiles);
+        $user->setUpdatedAt(new \DateTime('now'));
+        $user->setRoles(['ROLE_USER']);
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->json($user, Response::HTTP_OK, [], ['groups' => 'get_users_collection']);
+
+
     }
 }
