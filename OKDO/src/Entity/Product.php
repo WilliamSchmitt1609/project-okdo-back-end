@@ -6,6 +6,8 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -16,41 +18,58 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"get_products_collection"})
+     * @Groups({"get_products_categories_collection"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"get_products_collection"})
+     * @Groups({"get_products_categories_collection"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"get_products_collection"})
+     * @Groups({"get_products_categories_collection"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"get_products_collection"})
+     * @Groups({"get_products_categories_collection"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=2000)
+     * @Groups({"get_products_collection"})
+     * @Groups({"get_products_categories_collection"})
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=2000)
+     * @Groups({"get_products_collection"})
+     * @Groups({"get_products_categories_collection"})
      */
     private $shoppingLink;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * 
+     * @Groups({"get_products_collection"})
+     * @Groups({"get_products_categories_collection"})
      */
     private $ageRange;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"get_products_collection"})
+     * @Groups({"get_products_categories_collection"})
      */
     private $gender;
 
@@ -71,6 +90,8 @@ class Product
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="products")
+     * @Groups({"get_products_collection"})
+     * @Groups({"get_products_categories_collection"})
      */
     private $category;
 

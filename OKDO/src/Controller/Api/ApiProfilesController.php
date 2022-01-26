@@ -8,6 +8,7 @@ use App\Entity\Profiles;
 use App\Repository\UserRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ProfilesRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -119,25 +120,23 @@ class ApiProfilesController extends AbstractController
         );
     }
 
-     /**
+    /**
      *   
      * 
     * @Route("/api/profiles/{id<\d+>}", name="api_profiles_put", methods={"PUT"})
     */
     public function updateItem($id, ProfilesRepository $profilesRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator): Response
     {
-        // $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+        $profiles = $serializer->deserialize($request->getContent(), ApiProfilesController::class, 'json');
         
         $profiles = $profilesRepository->findOneBy(['id'=> $id]);
         $jsonContent = json_decode($request->getContent(), true);
-
-        // if ($user->getProfiles()) {
-        //     $profiles = $profilesRepository->find($jsonContent["id"]);
-        // }
         
+        // $category = $profiles->getCategories();
         
-        
+        $category = new Category; 
         empty($jsonContent['name']) ? true : $profiles->setName($jsonContent['name']);
+        empty($jsonContent['categories']) ? true : $profiles->addCategory($category);
         // empty($jsonContent['user']) ? true : $profiles->getUser($jsonContent['user']);
         // empty($jsonContent['category']) ? true : $profiles->setCategories($jsonContent['category']); 
 
@@ -159,7 +158,7 @@ class ApiProfilesController extends AbstractController
         }
      
 
-        
+        //$profiles->getCategories($category); 
 
         // $user->getProfiles($profiles);
         $profiles->setUpdatedAt(new \DateTime('now'));
@@ -169,8 +168,21 @@ class ApiProfilesController extends AbstractController
         $entityManager->persist($profiles);
         $entityManager->flush();
 
-        return $this->json($profiles, Response::HTTP_OK, [], ['groups' => 'update_profiles_category_items']);
+        return $this->json($profiles, Response::HTTP_OK, [], ['groups' => 'create_profiles_item']);
 
 
+    }
+
+  /** 
+    * @Route("/api/profiles/{id<\d+>}", name="api_profiles_delete", methods={"DELETE"})
+    */
+    public function deleteProfiles($id, ProfilesRepository $profiles, EntityManagerInterface $entityManager): Response
+    {
+       $existingProfiles = $profiles->find($id);
+        $entityManager->remove($existingProfiles);
+        $entityManager->flush();
+
+        return $this->json($existingProfiles, Response::HTTP_OK, [], ['groups' => 'create_profiles_item']);
+        
     }
 }
