@@ -63,7 +63,7 @@ class ApiProfilesController extends AbstractController
 
 
     /**
-     * @Route("/api/profiles", name="api_profiles_post", methods={"POST"})
+     * @Route("/api/secure/profiles", name="api_profiles_post", methods={"POST"})
      * 
      */
     public function createItem(CategoryRepository $categoryRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserRepository $userRepository): Response
@@ -122,22 +122,24 @@ class ApiProfilesController extends AbstractController
      /**
      *   
      * 
-    * @Route("/api/profiles/{id<\d+>}", name="api_profiles_put", methods={"PUT"})
+    * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_put", methods={"PUT"})
     */
     public function updateItem($id, ProfilesRepository $profilesRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator): Response
     {
-        // $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+        //$user = $serializer->deserialize($request->getContent(), User::class, 'json');
         
         $profiles = $profilesRepository->findOneBy(['id'=> $id]);
         $jsonContent = json_decode($request->getContent(), true);
+        // $category = $categoryRepository->findOneBy(['id'=> $id]);
 
-        // if ($user->getProfiles()) {
+       // // if ($user->getProfiles()) {
         //     $profiles = $profilesRepository->find($jsonContent["id"]);
         // }
         
         
         
         empty($jsonContent['name']) ? true : $profiles->setName($jsonContent['name']);
+        empty($jsonContent['categories']) ? true : $profiles->categories->setId($jsonContent['id']);
         // empty($jsonContent['user']) ? true : $profiles->getUser($jsonContent['user']);
         // empty($jsonContent['category']) ? true : $profiles->setCategories($jsonContent['category']); 
 
@@ -159,7 +161,7 @@ class ApiProfilesController extends AbstractController
         }
      
 
-        
+        //$profiles->getCategories($category); 
 
         // $user->getProfiles($profiles);
         $profiles->setUpdatedAt(new \DateTime('now'));
@@ -169,7 +171,7 @@ class ApiProfilesController extends AbstractController
         $entityManager->persist($profiles);
         $entityManager->flush();
 
-        return $this->json($profiles, Response::HTTP_OK, [], ['groups' => 'update_profiles_category_items']);
+        return $this->json($profiles, Response::HTTP_OK, [], ['groups' => 'create_profiles_item']);
 
 
     }
