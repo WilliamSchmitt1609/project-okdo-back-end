@@ -18,7 +18,7 @@ class Profiles
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"get_profiles_collection"})
-     * 
+     * @Groups({"update_profiles_category_items"})
      */
     private $id;
 
@@ -27,17 +27,20 @@ class Profiles
      * @Groups({"get_users_collection"})
      * @Groups({"get_profiles_collection"})
      * @Groups({"create_profiles_item"})
+     * @Groups({"update_profiles_category_items"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"create_profiles_item"})
+     * @Groups({"update_profiles_category_items"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"update_profiles_category_items"})
      */
     private $updatedAt;
 
@@ -51,6 +54,9 @@ class Profiles
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="profiles")
+     * @Groups({"update_profiles_category_items"})
+     * @Groups({"get_profiles_collection"})
+     * @Groups({"create_profiles_item"})
      */
     private $categories;
 

@@ -10,6 +10,29 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+
+         # On place les deux firewalls de LexikJWT avant notre firewall "main"
+        login:
+            pattern: ^/api/login
+            stateless: true
+            json_login:
+                check_path: /api/login_check
+                username_path: nickname
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            
+                # Le firewall de notre API => à adapter selon nos besoins
+        api_secure:
+            pattern:   ^/api/secure
+            stateless: true
+            jwt: ~
+        
+        api_public:
+            pattern:   ^/api
+            stateless: true
+
         main:
             lazy: true
             provider: users_in_memory
