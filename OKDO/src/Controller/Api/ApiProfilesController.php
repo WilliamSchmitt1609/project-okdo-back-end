@@ -132,7 +132,7 @@ class ApiProfilesController extends AbstractController
         $jsonContent = json_decode($request->getContent(), true);
         // $category = $categoryRepository->findOneBy(['id'=> $id]);
 
-        // if ($user->getProfiles()) {
+       // // if ($user->getProfiles()) {
         //     $profiles = $profilesRepository->find($jsonContent["id"]);
         // }
         
