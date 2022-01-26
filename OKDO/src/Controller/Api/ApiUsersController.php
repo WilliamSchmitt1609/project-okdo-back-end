@@ -131,11 +131,14 @@ class ApiUsersController extends AbstractController
     }
 
     /**
+     *   
+     * 
     * @Route("/api/users/{id<\d+>}", name="api_users_put", methods={"PUT"})
     */
     public function updateItem($id, UserRepository $userRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $hasher, ProfilesRepository $profilesRepository): Response
     {
-        $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+        // $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+        
         $user = $userRepository->findOneBy(['id'=> $id]);
         $jsonContent = json_decode($request->getContent(), true);
 
@@ -150,6 +153,7 @@ class ApiUsersController extends AbstractController
         empty($jsonContent['lastname']) ? true : $user->setLastname($jsonContent['lastname']);
         empty($jsonContent['email']) ? true : $user->setEmail($jsonContent['email']);
         empty($jsonContent['password']) ? true : $user->setPassword($hashedPassword);
+
         // Valider l'entité
           // @link : https://symfony.com/doc/current/validation.html#using-the-validator-service
           $errors = $validator->validate($user);

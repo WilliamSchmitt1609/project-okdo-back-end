@@ -2,10 +2,12 @@
 
 namespace App\Controller\Api;
 
-use App\Entity\Profiles;
 use App\Normalizer;
-use App\Repository\ProfilesRepository;
+use App\Entity\Category;
+use App\Entity\Profiles;
 use App\Repository\UserRepository;
+use App\Repository\CategoryRepository;
+use App\Repository\ProfilesRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ApiProfilesController extends AbstractController
 {
@@ -22,7 +26,7 @@ class ApiProfilesController extends AbstractController
      *
      * @Route("/api/profiles", name="api_profiles_get", methods={"GET"})
      */
-    public function getProfilessCollection(ProfilesRepository $profilesRepository): Response
+    public function getProfilesCollection(ProfilesRepository $profilesRepository): Response
     {
         // @todo : retourner les films de la BDD
         
@@ -33,7 +37,7 @@ class ApiProfilesController extends AbstractController
             // les données à serializer
             $profilesList,
             // status code
-            200,
+            Response::HTTP_OK,
             // Les en-têtes de réponse à ajouter (aucune)
             [],
             // Les groupes à utiliser par le Serializer
@@ -55,29 +59,23 @@ class ApiProfilesController extends AbstractController
         return $this->json($profiles, Response::HTTP_OK, [], ['groups' => 'get_profiles_collection']);
     }
 
+    
+
 
     /**
      * @Route("/api/profiles", name="api_profiles_post", methods={"POST"})
+     * 
      */
-    public function createItem(Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserRepository $userRepository): Response
+    public function createItem(CategoryRepository $categoryRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserRepository $userRepository): Response
     {
         $profiles = $serializer->deserialize($request->getContent(), Profiles::class, 'json');
         $jsonContent = json_decode($request->getContent(), true);
         $user = $userRepository->find($jsonContent["User"]);
+        $category = $categoryRepository->find("id");
+        /* $category = $categoryRepository->findAll();
+        $profiles->addCategory($category, ['name']); */
         $profiles->setCreatedAt(new \DateTime('now'));
-          // Récupérer le contenu JSON
-        //   $jsonContent = $request->getContent();
-
-        /*try {
-              // Désérialiser (convertir) le JSON en entité Doctrine Movie
-              $profiles = $serializer->deserialize($jsonContent, Profiles::class, 'json');
-          } catch (NotEncodableValueException $e) {
-              // Si le JSON fourni est "malformé" ou manquant, on prévient le client
-              return $this->json(
-                  ['error' => 'JSON invalide'],
-                  Response::HTTP_UNPROCESSABLE_ENTITY
-              );
-          }*/
+       
   
           // Valider l'entité
           // @link : https://symfony.com/doc/current/validation.html#using-the-validator-service
@@ -97,6 +95,8 @@ class ApiProfilesController extends AbstractController
           }
   
           $profiles->setUser($user);
+          $profiles->getCategories($category);
+          
           // On sauvegarde l'entité
           $entityManager = $doctrine->getManager();
           $entityManager->persist($profiles);
@@ -117,5 +117,60 @@ class ApiProfilesController extends AbstractController
             // Groupe
             ['groups' => 'create_profiles_item']
         );
+    }
+
+     /**
+     *   
+     * 
+    * @Route("/api/profiles/{id<\d+>}", name="api_profiles_put", methods={"PUT"})
+    */
+    public function updateItem($id, ProfilesRepository $profilesRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator): Response
+    {
+        // $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+        
+        $profiles = $profilesRepository->findOneBy(['id'=> $id]);
+        $jsonContent = json_decode($request->getContent(), true);
+
+        // if ($user->getProfiles()) {
+        //     $profiles = $profilesRepository->find($jsonContent["id"]);
+        // }
+        
+        
+        
+        empty($jsonContent['name']) ? true : $profiles->setName($jsonContent['name']);
+        // empty($jsonContent['user']) ? true : $profiles->getUser($jsonContent['user']);
+        // empty($jsonContent['category']) ? true : $profiles->setCategories($jsonContent['category']); 
+
+        // Valider l'entité
+          // @link : https://symfony.com/doc/current/validation.html#using-the-validator-service
+          $errors = $validator->validate($profiles);
+        
+        // Y'a-t-il des erreurs ?
+        if (count($errors) > 0) {
+            // tableau de retour
+            $errorsClean = [];
+            // @Retourner des erreurs de validation propres
+            /** @var ConstraintViolation $error */
+            foreach ($errors as $error) {
+                $errorsClean[$error->getPropertyPath()][] = $error->getMessage();
+            };
+
+            return $this->json($errorsClean, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+     
+
+        
+
+        // $user->getProfiles($profiles);
+        $profiles->setUpdatedAt(new \DateTime('now'));
+        
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($profiles);
+        $entityManager->flush();
+
+        return $this->json($profiles, Response::HTTP_OK, [], ['groups' => 'update_profiles_category_items']);
+
+
     }
 }
