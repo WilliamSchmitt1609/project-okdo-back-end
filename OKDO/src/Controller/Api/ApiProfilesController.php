@@ -13,8 +13,10 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
@@ -64,7 +66,7 @@ class ApiProfilesController extends AbstractController
 
 
     /**
-     * @Route("/api/profiles", name="api_profiles_post", methods={"POST"})
+     * @Route("/api/secure/profiles", name="api_profiles_post", methods={"POST"})
      * 
      */
     public function createItem(CategoryRepository $categoryRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserRepository $userRepository): Response
@@ -123,45 +125,70 @@ class ApiProfilesController extends AbstractController
     /**
      *   
      * 
-    * @Route("/api/profiles/{id<\d+>}", name="api_profiles_put", methods={"PUT"})
+    * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_put", methods={"PUT"})
     */
-    public function updateItem($id, ProfilesRepository $profilesRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator): Response
+    public function updateItem(/* Profiles $profile, request $request, SerializerInterface $serializer */ $id, ProfilesRepository $profilesRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator): Response
     {
-        $profiles = $serializer->deserialize($request->getContent(), ApiProfilesController::class, 'json');
+
+       /*  $jsonContent = json_decode($request->getContent(), true);
+        $serializer->deserialize($request->getContent(),
+        Profile::class,
+        'json',
+        [AbstractNormalizer::OBJECT_TO_POPULATE => $profile]
+    );
+
+    return $this->json(
+        $profile,
+        JsonResponse::HTTP_OK,
+        // REST demande un header Location + URL de la ressource
+        [],
+      // Groupe
+      ['groups' => 'create_profiles_item']
+    );
+ */
+
+
+
+        $user = $serializer->deserialize($request->getContent(), User::class, 'json');
         
-        $profiles = $profilesRepository->findOneBy(['id'=> $id]);
-        $jsonContent = json_decode($request->getContent(), true);
+         $profiles = $profilesRepository->findOneBy(['id'=> $id]);
+        $jsonContent = json_decode($request->getContent(), true); 
+        // $category = $categoryRepository->findOneBy(['id'=> $id]);
+
+        // if ($user->getProfiles()) {
+        //     $profiles = $profilesRepository->find($jsonContent["id"]);
+        // }
+        
         
         // $category = $profiles->getCategories();
         
-        $category = new Category; 
-        empty($jsonContent['name']) ? true : $profiles->setName($jsonContent['name']);
-        empty($jsonContent['categories']) ? true : $profiles->addCategory($category);
+         empty($jsonContent['name']) ? true : $profiles->setName($jsonContent['name']);
+        empty($jsonContent['categories']) ? true : $profiles->categories->setId($jsonContent['id']); 
         // empty($jsonContent['user']) ? true : $profiles->getUser($jsonContent['user']);
         // empty($jsonContent['category']) ? true : $profiles->setCategories($jsonContent['category']); 
 
         // Valider l'entité
           // @link : https://symfony.com/doc/current/validation.html#using-the-validator-service
-          $errors = $validator->validate($profiles);
+           $errors = $validator->validate($profiles); 
         
         // Y'a-t-il des erreurs ?
-        if (count($errors) > 0) {
+         if (count($errors) > 0) { 
             // tableau de retour
-            $errorsClean = [];
+             $errorsClean = []; 
             // @Retourner des erreurs de validation propres
             /** @var ConstraintViolation $error */
-            foreach ($errors as $error) {
+             foreach ($errors as $error) {
                 $errorsClean[$error->getPropertyPath()][] = $error->getMessage();
             };
 
             return $this->json($errorsClean, Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
+        } 
      
 
         //$profiles->getCategories($category); 
 
         // $user->getProfiles($profiles);
-        $profiles->setUpdatedAt(new \DateTime('now'));
+         $profiles->setUpdatedAt(new \DateTime('now'));
         
 
         $entityManager = $doctrine->getManager();
@@ -170,11 +197,11 @@ class ApiProfilesController extends AbstractController
 
         return $this->json($profiles, Response::HTTP_OK, [], ['groups' => 'create_profiles_item']);
 
-
-    }
-
-  /** 
-    * @Route("/api/profiles/{id<\d+>}", name="api_profiles_delete", methods={"DELETE"})
+        
+    } 
+    
+    /** 
+    * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_delete", methods={"DELETE"})
     */
     public function deleteProfiles($id, ProfilesRepository $profiles, EntityManagerInterface $entityManager): Response
     {

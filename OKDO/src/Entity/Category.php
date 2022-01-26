@@ -19,18 +19,14 @@ class Category
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"create_profiles_item"})
-     * @Groups({"get_profiles_collection"})
      * @Groups({"get_products_collection"})
-     * @Groups({"get_products_categories_collection"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"create_profiles_item"})
-     * @Groups({"get_profiles_collection"})
      * @Groups({"get_products_collection"})
-     * @Groups({"get_products_categories_collection"})
      */
     private $name;
 

@@ -60,7 +60,7 @@ class ApiUsersController extends AbstractController
     }
 
     /**
-     * @Route("/api/users", name="api_users_post", methods={"POST"})
+     * @Route("/api/secure/users", name="api_users_post", methods={"POST"})
      */
     public function createItem(Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $hasher)
     {
@@ -134,7 +134,7 @@ class ApiUsersController extends AbstractController
     /**
      *   
      * 
-    * @Route("/api/users/{id<\d+>}", name="api_users_put", methods={"PUT"})
+    * @Route("/api/secure/users/{id<\d+>}", name="api_users_put", methods={"PUT"})
     */
     public function updateItem($id, UserRepository $userRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $hasher, ProfilesRepository $profilesRepository): Response
     {
@@ -188,8 +188,8 @@ class ApiUsersController extends AbstractController
 
     }
 
-     /** 
-    * @Route("/api/users/{id<\d+>}", name="api_users_delete", methods={"DELETE"})
+         /** 
+    * @Route("/api/secure/users/{id<\d+>}", name="api_users_delete", methods={"DELETE"})
     */
     public function deleteUsers($id, UserRepository $user, EntityManagerInterface $entityManager): Response
     {
