@@ -6,6 +6,7 @@ use App\Normalizer;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Repository\ProfilesRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -185,5 +186,18 @@ class ApiUsersController extends AbstractController
         return $this->json($user, Response::HTTP_OK, [], ['groups' => 'get_users_collection']);
 
 
+    }
+
+         /** 
+    * @Route("/api/secure/users/{id<\d+>}", name="api_users_delete", methods={"DELETE"})
+    */
+    public function deleteUsers($id, UserRepository $user, EntityManagerInterface $entityManager): Response
+    {
+       $existingUser = $user->find($id);
+        $entityManager->remove($existingUser);
+        $entityManager->flush();
+
+        return $this->json($existingUser, Response::HTTP_OK, [], ['groups' => 'reate_user_item']);
+        
     }
 }
