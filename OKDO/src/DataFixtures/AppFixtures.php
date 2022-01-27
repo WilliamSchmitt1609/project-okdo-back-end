@@ -3,11 +3,13 @@
 namespace App\DataFixtures;
 
 use Faker;
+use App\Entity\Age;
 use App\Entity\User;
+use App\Entity\Genre;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\Profiles;
-use App\Entity\FilterType;
+use App\Entity\Event;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -45,8 +47,10 @@ class AppFixtures extends Fixture
         $this->connection->executeQuery('TRUNCATE TABLE user');
         $this->connection->executeQuery('TRUNCATE TABLE product');
         $this->connection->executeQuery('TRUNCATE TABLE category');
-        $this->connection->executeQuery('TRUNCATE TABLE filter_type');
+        $this->connection->executeQuery('TRUNCATE TABLE event');
         $this->connection->executeQuery('TRUNCATE TABLE profiles');
+        $this->connection->executeQuery('TRUNCATE TABLE age');
+        $this->connection->executeQuery('TRUNCATE TABLE genre');
     }
     public function load(ObjectManager $manager): void
     {
@@ -168,6 +172,73 @@ class AppFixtures extends Fixture
         
 
         $manager->persist($category7);
+
+        // genres fixtures
+
+        //genre 1
+        $genre1 = new Genre;
+        $genre1->setType('Homme');
+                
+        $manager->persist($genre1);
+
+        //genre 2
+        $genre2 = new Genre;
+        $genre2->setType('Femme');
+        
+        $manager->persist($genre2);
+
+        //genre 3 
+        $genre3 = new Genre;
+        $genre3->setType('Mixte');
+        $manager->persist($genre3);
+
+        // Age fixtures
+
+        $age1 = new Age();
+        $age1->setAgeRange('Enfant');
+        $manager->persist($age1);
+
+        $age2 = new Age();
+        $age2->setAgeRange('Adolescent');
+        $manager->persist($age2);
+
+        $age3 = new Age();
+        $age3->setAgeRange('Adulte');
+        $manager->persist($age3);
+
+        $age4 = new Age();
+        $age4->setAgeRange('Senior');
+        $manager->persist($age4);
+
+
+        //Events
+
+        $event1 = new Event();
+        $event1->setName('Anniversaire');
+        $event1->setNumber('1');
+        $manager->persist($event1);
+
+        $event2 = new Event();
+        $event2->setName('Mariage');
+        $event2->setNumber('2');
+        $manager->persist($event2);
+
+        $event3 = new Event();
+        $event3->setName('Naissance');
+        $event3->setNumber('3');
+        $manager->persist($event3);
+
+        $event4 = new Event();
+        $event4->setName('Plaisir d\'offrir');
+        $event4->setNumber('4');
+        $manager->persist($event4);
+
+        $event5 = new Event();
+        $event5->setName('Saint Valentin');
+        $event5->setNumber('5');
+        $manager->persist($event5);
+
+
         // Products
 
 
@@ -180,11 +251,17 @@ class AppFixtures extends Fixture
         $product->setShoppingLink('https://www.oclock.io');
         $product->setAgeRange('19-34 ans');
         $product->setGender('homme');
+        $product->addAge($age2);
+        $product->addAge($age3);
+        $product->addAge($age4);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
+        $product->setGenre($genre3);
         $product->addCategory($category1);
         $product->addCategory($category3);
+        $product->addEvent($event1);
+        $product->addEvent($event4);
 
         $manager->persist($product);
 
@@ -197,10 +274,17 @@ class AppFixtures extends Fixture
         $product->setShoppingLink('https://www.monpcmarchepas.fr');
         $product->setAgeRange('19-34 ans');
         $product->setGender('homme');
+        $product->addAge($age2);
+        $product->addAge($age3);
+        $product->addAge($age4);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
+        $product->setGenre($genre3);
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
         $product->addCategory($category1);
+        $product->addEvent($event1);
+        $product->addEvent($event2);
+        $product->addEvent($event4);
 
         $manager->persist($product);
 
@@ -208,32 +292,46 @@ class AppFixtures extends Fixture
         $product = new Product();
         $product->setName('Figurine');
         $product->setPrice('10');
-        $product->setDescription($faker->text());   
+        $product->setDescription($faker->text());  
         $product->setPicture('https://images.unsplash.com/photo-1514302240736-b1fee5985889?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Z2Vla3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60');
         $product->setShoppingLink('https://www.mabellefigurine.fr');
         $product->setAgeRange('19-34 ans');
         $product->setGender('homme');
+        $product->addAge($age1);
+        $product->addAge($age2);
+        $product->addAge($age3);
+        $product->addAge($age4);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
+        $product->setGenre($genre1);
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
         $product->addCategory($category1);
         $product->addCategory($category7);
-
+        $product->addEvent($event1);
+        $product->addEvent($event2);
+        $product->addEvent($event4);
         $manager->persist($product);
 
         // product 4
         $product = new Product();
         $product->setName('casque micro');
         $product->setPrice('20');
-        $product->setDescription($faker->text());   
+        $product->setDescription($faker->text());  
+        $product->addAge($age3); 
         $product->setPicture('https://images.pexels.com/photos/7682341/pexels-photo-7682341.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
         $product->setShoppingLink('https://www.monmicromarchepas.fr');
         $product->setAgeRange('19-34 ans');
         $product->setGender('homme');
+        $product->addAge($age2);
+        $product->addAge($age3);
+        $product->addAge($age4);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
+        $product->setGenre($genre3);
         $product->setStatus(1);
         $product->addCategory($category1);
+        $product->addEvent($event1);
+        $product->addEvent($event4);
 
         $manager->persist($product);
 
@@ -246,8 +344,16 @@ class AppFixtures extends Fixture
         $product->setShoppingLink('https://www.vendunreinpouruncasqueVR.com');
         $product->setAgeRange('19-34 ans');
         $product->setGender('homme');
+        $product->addAge($age1);
+        $product->addAge($age2);
+        $product->addAge($age3);
+        $product->addAge($age4);
+        $product->addEvent($event1);
+        $product->addEvent($event2);
+        $product->addEvent($event4);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
+        $product->setGenre($genre3);
         $product->setStatus(1);
         $product->addCategory($category1);
 
@@ -262,8 +368,13 @@ class AppFixtures extends Fixture
         $product->setShoppingLink('https://www.unebouteillealamer.net');
         $product->setAgeRange('35-50 ans');
         $product->setGender('femme');
+        $product->addAge($age3);
+        $product->addAge($age4);
+        $product->addEvent($event4);
+        $product->addEvent($event5);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
+        $product->setGenre($genre2);
         $product->setStatus(1);
         $product->addCategory($category3);
         $product->addCategory($category7);
@@ -281,8 +392,13 @@ class AppFixtures extends Fixture
         $product->setGender('femme');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
+        $product->setGenre($genre3);
         $product->setStatus(1);
-        $product->addCategory($category3);
+        $product->addCategory($category2);
+        $product->addAge($age3);
+        $product->addAge($age4);
+        $product->addEvent($event4);
+        $product->addEvent($event5);
 
         $manager->persist($product);
 
@@ -290,14 +406,21 @@ class AppFixtures extends Fixture
         $product = new Product();
         $product->setName('Montre Femme');
         $product->setPrice('100');
-        $product->setDescription($faker->text());   
+        $product->setDescription($faker->text());
+        $product->addAge($age3);   
         $product->setPicture('https://images.pexels.com/photos/9981093/pexels-photo-9981093.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
         $product->setShoppingLink('https://www.ocaro.fr');
         $product->setAgeRange('35-50 ans');
         $product->setGender('femme');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
-        $product->setStatus('femme');
+        $product->setGenre($genre2);
+        $product->setStatus(1);
+        $product->addAge($age3);
+        $product->addAge($age4);
+        $product->addEvent($event1);
+        $product->addEvent($event4);
+        $product->addEvent($event5);
         $product->addCategory($category6);
 
         $manager->persist($product);
@@ -310,11 +433,17 @@ class AppFixtures extends Fixture
         $product->setPicture('https://cdn.pixabay.com/photo/2014/12/31/14/11/wedding-ring-584974_960_720.jpg');
         $product->setShoppingLink('https://www.clear.com');
         $product->setAgeRange('35-50 ans');
-        $product->setGender('femme');
+        $product->setGender('Femme');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
+        $product->setGenre($genre2);
         $product->setStatus(1);
         $product->addCategory($category6);
+        $product->addAge($age3);
+        $product->addAge($age4);
+        $product->addEvent($event1);
+        $product->addEvent($event4);
+        $product->addEvent($event5);
 
         $manager->persist($product);
 
@@ -326,9 +455,13 @@ class AppFixtures extends Fixture
         $product->setPicture('https://www.programme-tv.net/imgre/fit/https.3A.2F.2Fprd2-tel-epg-img.2Es3-eu-west-1.2Eamazonaws.2Ecom.2Fprogram.2F44691aba5c165697.2Ejpg/630x355/quality/80/malcolm.jpg');
         $product->setShoppingLink('http://www.haladustyle.com');
         $product->setAgeRange('35-50 ans');
-        $product->setGender('femme');
+        $product->setGender('Mixte');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
+        $product->setGenre($genre3);
+        $product->addAge($age3);
+        $product->addAge($age4);
+        $product->addEvent($event1);     
         $product->setStatus(1);
         $product->addCategory($category1);
 
@@ -342,9 +475,13 @@ class AppFixtures extends Fixture
         $product->setPicture('https://images.pexels.com/photos/7005769/pexels-photo-7005769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
         $product->setShoppingLink('https://www.grosport.fr');
         $product->setAgeRange('35-50 ans');
-        $product->setGender('femme');
+        $product->setGender('Mixte');
+        $product->addAge($age3);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
+        $product->setGenre($genre3);
+        $product->addEvent($event1);
+        $product->addEvent($event5);
         $product->setStatus(1);
         $product->addCategory($category1);
 
@@ -352,67 +489,15 @@ class AppFixtures extends Fixture
         
         
 
-        // filter_type fixtures
-
-        $filterType = new FilterType();
-        $filterType->setEventName('Anniversaire');
-        $filterType->setEventNumber(1);
-        $filterType->setCreatedAt(new \datetime('now'));
-        $filterType->addCategory($category1);
-        $filterType->addCategory($category2);
-        $filterType->addCategory($category3);
-        $filterType->addCategory($category4);
-        $filterType->addCategory($category5);
-        $filterType->addCategory($category6);
-        $filterType->addCategory($category7);
-        $manager->persist($filterType);
-        
-        $filterType = new FilterType();
-        $filterType->setEventName('Mariage');
-        $filterType->setEventNumber(2);
-        $filterType->setCreatedAt(new \datetime('now'));
-        $filterType->addCategory($category3);
-        $filterType->addCategory($category4);
-        $filterType->addCategory($category6);
-        $manager->persist($filterType);
-
-        $filterType = new FilterType();
-        $filterType->setEventName('Naissance');
-        $filterType->setEventNumber(3);
-        $filterType->setCreatedAt(new \datetime('now'));
-        $filterType->addCategory($category5);
-        $filterType->addCategory($category7);
-
-        $manager->persist($filterType);
-
-        $filterType = new FilterType();
-        $filterType->setEventName('Plaisir d\'offrir');
-        $filterType->setEventNumber(4);
-        $filterType->setCreatedAt(new \datetime('now'));
-        $filterType->addCategory($category1);
-        $filterType->addCategory($category2);
-        $filterType->addCategory($category3);
-        $filterType->addCategory($category5);
-        $filterType->addCategory($category6);
-
-        $manager->persist($filterType);
-
-        $filterType = new FilterType();
-        $filterType->setEventName('Saint Valentin');
-        $filterType->setEventNumber(5);
-        $filterType->setCreatedAt(new \datetime('now'));
-        $filterType->addCategory($category2);
-        $filterType->addCategory($category3);
-        $filterType->addCategory($category6);
-
-        $manager->persist($filterType);
-
         // Profiles fixtures
 
         $profiles = new Profiles;
         $profiles->setName('Anniversaire de Max');
         $profiles->setCreatedAt(new \datetime('now'));
         $profiles->setUser($user);
+        $profiles->addAge($age3);
+        $profiles->setGenre($genre1);
+        $profiles->setEvent($event1);
         $profiles->addCategory($category1);
         $profiles->addCategory($category2);
         $profiles->addCategory($category3);
@@ -421,17 +506,22 @@ class AppFixtures extends Fixture
         $profiles->addCategory($category6);
         $profiles->addCategory($category7);
 
+
         $manager->persist($profiles);
 
         $profiles = new Profiles;
         $profiles->setName('Saint-Valentin avec Martine');
         $profiles->setCreatedAt(new \datetime('now'));
         $profiles->setUser($user1);
+        $profiles->addAge($age4);
+        $profiles->setGenre($genre2);
+        $profiles->setEvent($event5);
         $profiles->addCategory($category2);
         $profiles->addCategory($category3);
         $profiles->addCategory($category6);
 
         $manager->persist($profiles);
+
 
         // insert on BDD
         $manager->flush();
