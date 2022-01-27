@@ -61,9 +61,26 @@ class Profiles
      */
     private $categories;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Genre::class, inversedBy="profiles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $genre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="profiles")
+     */
+    private $event;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Age::class, mappedBy="profiles")
+     */
+    private $ages;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->ages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -142,6 +159,57 @@ class Profiles
     {
         if ($this->categories->removeElement($category)) {
             $category->removeProfile($this);
+        }
+
+        return $this;
+    }
+
+    public function getGenre(): ?Genre
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?Genre $genre): self
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Age[]
+     */
+    public function getAges(): Collection
+    {
+        return $this->ages;
+    }
+
+    public function addAge(Age $age): self
+    {
+        if (!$this->ages->contains($age)) {
+            $this->ages[] = $age;
+            $age->addProfile($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAge(Age $age): self
+    {
+        if ($this->ages->removeElement($age)) {
+            $age->removeProfile($this);
         }
 
         return $this;

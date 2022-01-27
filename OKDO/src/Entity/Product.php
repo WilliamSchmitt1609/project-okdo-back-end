@@ -87,9 +87,27 @@ class Product
      */
     private $category;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Genre::class, inversedBy="products", cascade={"persist"}))
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $genre;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="product")
+     */
+    private $events;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Age::class, mappedBy="product")
+     */
+    private $ages;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->events = new ArrayCollection();
+        $this->ages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -237,6 +255,73 @@ class Product
     public function removeCategory(Category $category): self
     {
         $this->category->removeElement($category);
+
+        return $this;
+    }
+
+
+    public function getGenre(): ?Genre
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?Genre $genre): self
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            $event->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Age[]
+     */
+    public function getAges(): Collection
+    {
+        return $this->ages;
+    }
+
+    public function addAge(Age $age): self
+    {
+        if (!$this->ages->contains($age)) {
+            $this->ages[] = $age;
+            $age->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAge(Age $age): self
+    {
+        if ($this->ages->removeElement($age)) {
+            $age->removeProduct($this);
+        }
 
         return $this;
     }
