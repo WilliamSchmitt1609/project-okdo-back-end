@@ -24,7 +24,7 @@ class ApiUsersController extends AbstractController
     /**
      * Get users collection
      *
-     * @Route("/api/users", name="api_users_get", methods={"GET"})
+     * @Route("/api/secure/users", name="api_users_get", methods={"GET"})
      */
     public function getUsersCollection(UserRepository $userRepository): Response
     {
@@ -46,7 +46,7 @@ class ApiUsersController extends AbstractController
     }
 
     /**
-     * @Route("/api/users/{id<\d+>}", name="api_users_get_item", methods={"GET"})
+     * @Route("/api/secure/users/{id<\d+>}", name="api_users_get_item", methods={"GET"})
      */
     public function getItem(User $user = null): Response
     {
@@ -60,7 +60,7 @@ class ApiUsersController extends AbstractController
     }
 
     /**
-     * @Route("/api/secure/users", name="api_users_post", methods={"POST"})
+     * @Route("/api/users", name="api_users_post", methods={"POST"})
      */
     public function createItem(Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $hasher)
     {

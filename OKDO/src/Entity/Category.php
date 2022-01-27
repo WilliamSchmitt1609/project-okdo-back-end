@@ -48,6 +48,7 @@ class Category
 
     /**
      * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="category")
+     * @Groups({"get_products_categories_collection"})
      */
     private $products;
 
@@ -65,6 +66,12 @@ class Category
 
     public function getId(): ?int
     {
+        return $this->id;
+    }
+
+    public function setId($id): ?int
+    {
+        $this->id = $id;
         return $this->id;
     }
 
