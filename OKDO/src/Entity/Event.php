@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,11 +23,13 @@ class Event
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"create_profiles_item"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
      */
     private $number;
 
