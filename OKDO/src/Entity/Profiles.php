@@ -64,16 +64,19 @@ class Profiles
     /**
      * @ORM\ManyToOne(targetEntity=Genre::class, inversedBy="profiles")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"create_profiles_item"})
      */
     private $genre;
 
     /**
      * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="profiles")
+     * @Groups({"create_profiles_item"})
      */
     private $event;
 
     /**
      * @ORM\ManyToMany(targetEntity=Age::class, mappedBy="profiles")
+     * @Groups({"create_profiles_item"})
      */
     private $ages;
 
