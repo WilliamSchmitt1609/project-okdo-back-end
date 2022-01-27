@@ -52,10 +52,6 @@ class Category
      */
     private $products;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=FilterType::class, mappedBy="category", cascade={"persist"})
-     */
-    private $filterTypes;
 
     public function __construct()
     {
@@ -162,30 +158,5 @@ class Category
         return $this;
     }
 
-    /**
-     * @return Collection|FilterType[]
-     */
-    public function getFilterTypes(): Collection
-    {
-        return $this->filterTypes;
-    }
-
-    public function addFilterType(FilterType $filterType): self
-    {
-        if (!$this->filterTypes->contains($filterType)) {
-            $this->filterTypes[] = $filterType;
-            $filterType->addCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFilterType(FilterType $filterType): self
-    {
-        if ($this->filterTypes->removeElement($filterType)) {
-            $filterType->removeCategory($this);
-        }
-
-        return $this;
-    }
+    
 }
