@@ -36,6 +36,7 @@ class ApiProfilesController extends AbstractController
         
         // On va chercher les données
         $profilesList = $profilesRepository->findAll();
+        
 
         return $this->json(
             // les données à serializer
