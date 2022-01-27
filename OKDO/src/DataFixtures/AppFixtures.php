@@ -81,7 +81,7 @@ class AppFixtures extends Fixture
         $managerUser->setNickname('manager');
         $managerUser->setEmail('manager@manager.com');
         $managerUser->setRoles(['ROLE_MANAGER']);
-        $password = $this->hasher->hashPassword($managerUser, 'managerUser');
+        $password = $this->hasher->hashPassword($managerUser, 'manager');
         $managerUser->setPassword($password);
         $managerUser->setFirstname('William');
         $managerUser->setLastname('Schmitt');

@@ -17,6 +17,8 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"get_products_collection"})
+     * @Groups({"get_products_categories_collection"})
      */
     private $id;
 
@@ -80,6 +82,8 @@ class Product
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="products")
+     * @Groups({"get_products_collection"})
+     * @Groups({"get_products_categories_collection"})
      */
     private $category;
 

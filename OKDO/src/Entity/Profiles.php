@@ -127,6 +127,7 @@ class Profiles
         return $this->categories;
     }
 
+
     public function addCategory(Category $category): self
     {
         if (!$this->categories->contains($category)) {
