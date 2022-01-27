@@ -28,7 +28,7 @@ class ApiProfilesController extends AbstractController
     /**
      * Get profiles collection
      *
-     * @Route("/api/profiles", name="api_profiles_get", methods={"GET"})
+     * @Route("/api/secure/profiles", name="api_profiles_get", methods={"GET"})
      */
     public function getProfilesCollection(ProfilesRepository $profilesRepository): Response
     {
@@ -51,7 +51,7 @@ class ApiProfilesController extends AbstractController
     }
 
     /**
-     * @Route("/api/profiles/{id<\d+>}", name="api_profiles_get_item", methods={"GET"})
+     * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_get_item", methods={"GET"})
      */
     public function getItem(Profiles $profiles = null): Response
     {
