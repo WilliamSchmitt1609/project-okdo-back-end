@@ -122,82 +122,33 @@ class ApiProfilesController extends AbstractController
         );
     }
 
-     /**
+    /**
      *   
      * 
     * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_put", methods={"PUT"})
     */
-    public function updateItem(/* Profiles $profile, request $request, SerializerInterface $serializer */ $id, ProfilesRepository $profilesRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator): Response
-    {
+    public function updateItem(Profiles $profile, ProfilesRepository $profilesRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator): Response {
 
-       /*  $jsonContent = json_decode($request->getContent(), true);
-        $serializer->deserialize($request->getContent(),
-        Profile::class,
-        'json',
-        [AbstractNormalizer::OBJECT_TO_POPULATE => $profile]
-    );
-
-    return $this->json(
-        $profile,
-        JsonResponse::HTTP_OK,
-        // REST demande un header Location + URL de la ressource
-        [],
-      // Groupe
-      ['groups' => 'create_profiles_item']
-    );
- */
-
-
-
-        $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+        // $profile est récupéré en argument via l'id passé à la route, on peut donc en profiter pour le mettre à jour avec les données qu'on envoi
+         $serializer->deserialize($request->getContent(),
+            Profiles::class,
+            'json',
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $profile]
+        );
         
-         $profiles = $profilesRepository->findOneBy(['id'=> $id]);
-        $jsonContent = json_decode($request->getContent(), true); 
-        // $category = $categoryRepository->findOneBy(['id'=> $id]);
-
-        // if ($user->getProfiles()) {
-        //     $profiles = $profilesRepository->find($jsonContent["id"]);
-        // }
-        
-        
-        
-         empty($jsonContent['name']) ? true : $profiles->setName($jsonContent['name']);
-        empty($jsonContent['categories']) ? true : $profiles->categories->setId($jsonContent['id']); 
-        // empty($jsonContent['user']) ? true : $profiles->getUser($jsonContent['user']);
-        // empty($jsonContent['category']) ? true : $profiles->setCategories($jsonContent['category']); 
-
-        // Valider l'entité
-          // @link : https://symfony.com/doc/current/validation.html#using-the-validator-service
-           $errors = $validator->validate($profiles); 
-        
-        // Y'a-t-il des erreurs ?
-         if (count($errors) > 0) { 
-            // tableau de retour
-             $errorsClean = []; 
-            // @Retourner des erreurs de validation propres
-            /** @var ConstraintViolation $error */
-             foreach ($errors as $error) {
-                $errorsClean[$error->getPropertyPath()][] = $error->getMessage();
-            };
-
-            return $this->json($errorsClean, Response::HTTP_UNPROCESSABLE_ENTITY);
-        } 
-     
-
-        //$profiles->getCategories($category); 
-
-        // $user->getProfiles($profiles);
-         $profiles->setUpdatedAt(new \DateTime('now'));
-        
-
+        // On le sauvegarde avec les nouvelles données, et voilà !
         $entityManager = $doctrine->getManager();
-        $entityManager->persist($profiles);
         $entityManager->flush();
-
-        return $this->json($profiles, Response::HTTP_OK, [], ['groups' => 'create_profiles_item']);
-
         
-    } 
+        return $this->json(
+            $profile,
+            JsonResponse::HTTP_OK,
+            // REST demande un header Location + URL de la ressource
+            [],
+            // Groupe
+            ['groups' => 'create_profiles_item']
+        );
+      }
     
     /** 
     * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_delete", methods={"DELETE"})
