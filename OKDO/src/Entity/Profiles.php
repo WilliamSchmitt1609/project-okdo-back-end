@@ -65,18 +65,21 @@ class Profiles
      * @ORM\ManyToOne(targetEntity=Genre::class, inversedBy="profiles")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"create_profiles_item"})
+     * @Groups({"get_profiles_collection"})
      */
     private $genre;
 
     /**
      * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="profiles")
      * @Groups({"create_profiles_item"})
+     * @Groups({"get_profiles_collection"})
      */
     private $event;
 
     /**
      * @ORM\ManyToMany(targetEntity=Age::class, mappedBy="profiles")
      * @Groups({"create_profiles_item"})
+     * @Groups({"get_profiles_collection"})
      */
     private $ages;
 
