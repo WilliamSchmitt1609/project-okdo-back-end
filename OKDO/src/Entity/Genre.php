@@ -18,12 +18,14 @@ class Genre
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"get_profiles_collection"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"create_profiles_item"})
+     * @Groups({"get_profiles_collection"})
      */
     private $type;
 
