@@ -51,7 +51,7 @@ class ApiProfilesController extends AbstractController
     }
 
     /**
-     * @Route("/api/profiles/{id<\d+>}", name="api_profiles_get_item", methods={"GET"})
+     * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_get_item", methods={"GET"})
      */
     public function getItem(Profiles $profiles = null): Response
     {
@@ -138,8 +138,7 @@ class ApiProfilesController extends AbstractController
             [AbstractNormalizer::OBJECT_TO_POPULATE => $profile]
         );
         $profile->setUser($user);
-        $profile->setUpdatedAt(new \DateTime('now'));
-        
+        $profile->setUpdatedAt(new \DateTime());
         // On le sauvegarde avec les nouvelles données, et voilà !
         $entityManager = $doctrine->getManager();
         $entityManager->flush();

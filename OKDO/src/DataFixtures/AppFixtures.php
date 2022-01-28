@@ -47,8 +47,8 @@ class AppFixtures extends Fixture
         $this->connection->executeQuery('TRUNCATE TABLE user');
         $this->connection->executeQuery('TRUNCATE TABLE product');
         $this->connection->executeQuery('TRUNCATE TABLE category');
-        $this->connection->executeQuery('TRUNCATE TABLE event');
         $this->connection->executeQuery('TRUNCATE TABLE profiles');
+        $this->connection->executeQuery('TRUNCATE TABLE event');
         $this->connection->executeQuery('TRUNCATE TABLE age');
         $this->connection->executeQuery('TRUNCATE TABLE genre');
     }

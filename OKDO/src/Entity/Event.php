@@ -26,6 +26,7 @@ class Event
      * @ORM\Column(type="string", length=50)
      * @Groups({"create_profiles_item"})
      * @Groups({"get_profiles_collection"})
+     * @Groups({"get_events_collection"})
      */
     private $name;
 

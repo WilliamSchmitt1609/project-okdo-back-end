@@ -26,6 +26,7 @@ class Age
      * @ORM\Column(type="string", length=50)
      * @Groups({"create_profiles_item"})
      * @Groups({"get_profiles_collection"})
+     * @Groups({"get_ages_collection"})
      */
     private $ageRange;
 
