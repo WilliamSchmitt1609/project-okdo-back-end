@@ -27,6 +27,7 @@ class Genre
      * @Groups({"create_profiles_item"})
      * @Groups({"get_profiles_collection"})
      * @Groups({"get_genres_collection"})
+     * @Groups({"get_products_collection"})
      */
     private $type;
 
