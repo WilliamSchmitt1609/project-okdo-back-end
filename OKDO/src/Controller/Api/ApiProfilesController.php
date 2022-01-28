@@ -28,7 +28,7 @@ class ApiProfilesController extends AbstractController
     /**
      * Get profiles collection
      *
-     * @Route("/api/profiles", name="api_profiles_get", methods={"GET"})
+     * @Route("/api/secure/profiles", name="api_profiles_get", methods={"GET"})
      */
     public function getProfilesCollection(ProfilesRepository $profilesRepository): Response
     {
@@ -51,7 +51,7 @@ class ApiProfilesController extends AbstractController
     }
 
     /**
-     * @Route("/api/profiles/{id<\d+>}", name="api_profiles_get_item", methods={"GET"})
+     * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_get_item", methods={"GET"})
      */
     public function getItem(Profiles $profiles = null): Response
     {
@@ -129,7 +129,7 @@ class ApiProfilesController extends AbstractController
      * 
     * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_put", methods={"PUT"})
     */
-    public function updateItem(Profiles $profile, User $user, ProfilesRepository $profilesRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator): Response {
+    public function updateItem(Profiles $profile, User $user, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine): Response {
 
         // $profile est récupéré en argument via l'id passé à la route, on peut donc en profiter pour le mettre à jour avec les données qu'on envoi
          $serializer->deserialize($request->getContent(),
@@ -138,6 +138,7 @@ class ApiProfilesController extends AbstractController
             [AbstractNormalizer::OBJECT_TO_POPULATE => $profile]
         );
         $profile->setUser($user);
+        $profile->setUpdatedAt(new \DateTime());
         // On le sauvegarde avec les nouvelles données, et voilà !
         $entityManager = $doctrine->getManager();
         $entityManager->flush();

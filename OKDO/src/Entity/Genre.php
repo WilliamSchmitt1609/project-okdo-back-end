@@ -26,6 +26,7 @@ class Genre
      * @ORM\Column(type="string", length=50)
      * @Groups({"create_profiles_item"})
      * @Groups({"get_profiles_collection"})
+     * @Groups({"get_genres_collection"})
      */
     private $type;
 
