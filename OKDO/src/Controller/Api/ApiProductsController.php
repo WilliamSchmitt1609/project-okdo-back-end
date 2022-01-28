@@ -19,6 +19,7 @@ class ApiProductsController extends AbstractController
     public function getProductsByCategory($id, CategoryRepository $categoryRepository): Response
     {
         // 404 ?
+        
         // if ($product === null) {
         //     return $this->json(['error' => 'Genre non trouvé.'], Response::HTTP_NOT_FOUND);
         // }
