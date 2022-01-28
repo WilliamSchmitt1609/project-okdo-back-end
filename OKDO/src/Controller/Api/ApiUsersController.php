@@ -138,7 +138,6 @@ class ApiUsersController extends AbstractController
     */
     public function updateItem($id, UserRepository $userRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $hasher, ProfilesRepository $profilesRepository): Response
     {
-        // $user = $serializer->deserialize($request->getContent(), User::class, 'json');
         
         $user = $userRepository->findOneBy(['id'=> $id]);
         $jsonContent = json_decode($request->getContent(), true);
