@@ -99,6 +99,7 @@ class Genre
      */
     public function getProducts(): Collection
     {
+        
         return $this->products;
     }
 
