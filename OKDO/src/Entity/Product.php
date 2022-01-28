@@ -90,6 +90,7 @@ class Product
     /**
      * @ORM\ManyToOne(targetEntity=Genre::class, inversedBy="products", cascade={"persist"}))
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"get_products_collection"})
      */
     private $genre;
 
