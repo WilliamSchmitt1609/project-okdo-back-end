@@ -41,7 +41,7 @@ class Profiles
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"update_profiles_category_items"})
+     * @Groups({"create_profiles_item"})
      */
     private $updatedAt;
 

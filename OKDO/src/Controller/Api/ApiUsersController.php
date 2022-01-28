@@ -138,22 +138,16 @@ class ApiUsersController extends AbstractController
     */
     public function updateItem($id, UserRepository $userRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $hasher, ProfilesRepository $profilesRepository): Response
     {
-        // $user = $serializer->deserialize($request->getContent(), User::class, 'json');
         
         $user = $userRepository->findOneBy(['id'=> $id]);
         $jsonContent = json_decode($request->getContent(), true);
-
-        // if ($user->getProfiles()) {
-        //     $profiles = $profilesRepository->find($jsonContent["id"]);
-        // }
         
-        $hashedPassword = $hasher->hashPassword($user, $user->getPassword());
         
         empty($jsonContent['nickname']) ? true : $user->setNickname($jsonContent['nickname']);
         empty($jsonContent['firstname']) ? true : $user->setFirstname($jsonContent['firstname']);
         empty($jsonContent['lastname']) ? true : $user->setLastname($jsonContent['lastname']);
         empty($jsonContent['email']) ? true : $user->setEmail($jsonContent['email']);
-        empty($jsonContent['password']) ? true : $user->setPassword($hashedPassword);
+        empty($jsonContent['password']) ? true : $user->setPassword($hasher->hashPassword($user, $jsonContent['password']));
 
         // Valider l'entité
           // @link : https://symfony.com/doc/current/validation.html#using-the-validator-service
