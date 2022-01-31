@@ -80,6 +80,7 @@ class ApiUsersController extends AbstractController
             ['groups' => 'get_users_collection']
         );
     }
+
     /**
      * @Route("/api/users", name="api_users_post", methods={"POST"})
      */
