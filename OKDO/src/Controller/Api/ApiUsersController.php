@@ -28,8 +28,6 @@ class ApiUsersController extends AbstractController
      */
     public function getUsersCollection(UserRepository $userRepository): Response
     {
-        // @todo : retourner les films de la BDD
-        
         // On va chercher les données
         $usersList = $userRepository->findAll();
 

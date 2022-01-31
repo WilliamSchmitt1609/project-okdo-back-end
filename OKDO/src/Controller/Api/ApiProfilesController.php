@@ -2,9 +2,8 @@
 
 namespace App\Controller\Api;
 
-use App\Normalizer;
+
 use App\Entity\User;
-use App\Entity\Category;
 use App\Entity\Profiles;
 use App\Repository\UserRepository;
 use App\Repository\CategoryRepository;
@@ -19,9 +18,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\Serializer\Exception\NotEncodableValueException;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ApiProfilesController extends AbstractController
 {
