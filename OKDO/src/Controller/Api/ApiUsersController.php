@@ -63,7 +63,7 @@ class ApiUsersController extends AbstractController
     /**
      * Get the profil of the user authenticated 
      * 
-     * @Route("/api/users/login_check", name="login_check", methods={"GET"})
+     * @Route("/api/login_check", name="login_check", methods={"GET"})
      */
     public function getLogin(): Response
     {
