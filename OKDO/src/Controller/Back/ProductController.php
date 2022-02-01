@@ -2,14 +2,15 @@
 
 namespace App\Controller\Back;
 
+use DateTime;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/back/product")
@@ -36,6 +37,7 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $product->setCreatedAt(new DateTime);
             $entityManager->persist($product);
             $entityManager->flush();
 
@@ -67,6 +69,7 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $product->setUpdatedAt(new DateTime);
             $entityManager->flush();
 
             return $this->redirectToRoute('back_product_index', [], Response::HTTP_SEE_OTHER);
