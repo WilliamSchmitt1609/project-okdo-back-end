@@ -63,7 +63,7 @@ class Profiles
     private $categories;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Genre::class, inversedBy="profiles")
+     * @ORM\ManyToOne(targetEntity=Genre::class, inversedBy="profiles", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"create_profiles_item"})
      * @Groups({"get_profiles_collection"})
@@ -71,14 +71,14 @@ class Profiles
     private $genre;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="profiles")
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="profiles", cascade={"remove"})
      * @Groups({"create_profiles_item"})
      * @Groups({"get_profiles_collection"})
      */
     private $event;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Age::class, mappedBy="profiles")
+     * @ORM\ManyToMany(targetEntity=Age::class, mappedBy="profiles", cascade={"remove"})
      * @Groups({"create_profiles_item"})
      * @Groups({"get_profiles_collection"})
      */
