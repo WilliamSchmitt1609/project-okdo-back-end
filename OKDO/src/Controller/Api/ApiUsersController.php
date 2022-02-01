@@ -28,8 +28,6 @@ class ApiUsersController extends AbstractController
      */
     public function getUsersCollection(UserRepository $userRepository): Response
     {
-        // @todo : retourner les films de la BDD
-        
         // On va chercher les données
         $usersList = $userRepository->findAll();
 
@@ -82,7 +80,7 @@ class ApiUsersController extends AbstractController
     }
 
     /**
-     * @Route("/api/users", name="api_users_post", methods={"POST"})
+    * @Route("/api/secure/users", name="api_users_post", methods={"POST"})
      */
     public function createItem(Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $hasher)
     {

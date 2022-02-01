@@ -12,7 +12,7 @@ class ApiGenresContollerController extends AbstractController
     /**
      * Get profiles collection
      *
-     * @Route("/api/secure/genres", name="api_genres_get", methods={"GET"})
+     * @Route("/api/genres", name="api_genres_get", methods={"GET"})
      */
     public function getGenresCollection(GenreRepository $genreRepository): Response
     {

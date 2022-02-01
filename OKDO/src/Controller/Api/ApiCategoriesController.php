@@ -12,7 +12,7 @@ class ApiCategoriesController extends AbstractController
     /**
      * Get categories collection
      *
-     * @Route("/api/secure/categories", name="api_categories_get", methods={"GET"})
+     * @Route("/api/categories", name="api_categories_get", methods={"GET"})
      */
     public function getCategoriesCollection(CategoryRepository $categoryRepository): Response
     {

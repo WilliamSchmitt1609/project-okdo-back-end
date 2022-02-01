@@ -12,7 +12,7 @@ class ApiAgeController extends AbstractController
    /**
      * Get profiles collection
      *
-     * @Route("/api/secure/ages", name="api_ages_get", methods={"GET"})
+     * @Route("/api/ages", name="api_ages_get", methods={"GET"})
      */
     public function getCategoriesCollection(AgeRepository $ageRepository): Response
     {

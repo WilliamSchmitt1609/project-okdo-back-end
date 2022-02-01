@@ -51,6 +51,7 @@ class Profiles
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"get_profiles_collection"})
      * @Groups({"create_profiles_item"})
+     * @ORM\JoinColumn(onDelete="CASCADE") 
      */
     private $User;
 
@@ -67,6 +68,7 @@ class Profiles
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"create_profiles_item"})
      * @Groups({"get_profiles_collection"})
+     * @ORM\JoinColumn(onDelete="CASCADE") 
      */
     private $genre;
 
@@ -74,6 +76,7 @@ class Profiles
      * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="profiles", cascade={"remove"})
      * @Groups({"create_profiles_item"})
      * @Groups({"get_profiles_collection"})
+     * @ORM\JoinColumn(onDelete="CASCADE") 
      */
     private $event;
 
