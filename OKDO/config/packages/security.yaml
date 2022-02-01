@@ -14,8 +14,6 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-
          # On place les deux firewalls de LexikJWT avant notre firewall "main"
         login:
             pattern: ^/api/login
@@ -33,9 +31,10 @@ security:
             stateless: true
             jwt: ~
         
-        api_public:
+        api:
             pattern:   ^/api
             stateless: true
+            jwt: ~ 
 
         main:
             lazy: true
