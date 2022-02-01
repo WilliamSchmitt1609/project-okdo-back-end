@@ -14,8 +14,6 @@ class AgeType extends AbstractType
         $builder
             ->add('label')
             ->add('value')
-            ->add('profiles')
-            ->add('product')
         ;
     }
 
