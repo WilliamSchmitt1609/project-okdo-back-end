@@ -29,7 +29,7 @@ class Genre
      * @Groups({"get_genres_collection"})
      * @Groups({"get_products_collection"})
      */
-    private $type;
+    private $label;
 
     /**
      * @ORM\OneToMany(targetEntity=Profiles::class, mappedBy="genre", orphanRemoval=true)
@@ -40,6 +40,12 @@ class Genre
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="genre", orphanRemoval=true)
      */
     private $products;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"get_genres_collection"})
+     */
+    private $value;
 
     public function __construct()
     {
@@ -52,14 +58,14 @@ class Genre
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getLabel(): ?string
     {
-        return $this->type;
+        return $this->label;
     }
 
-    public function setType(string $type): self
+    public function setLabel(string $label): self
     {
-        $this->type = $type;
+        $this->label = $label;
 
         return $this;
     }
@@ -121,6 +127,18 @@ class Genre
                 $product->setGenre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    public function setValue(?string $value): self
+    {
+        $this->value = $value;
 
         return $this;
     }

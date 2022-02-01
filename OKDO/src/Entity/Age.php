@@ -18,6 +18,7 @@ class Age
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"get_ages_collection"})
      * @Groups({"get_profiles_collection"})
      */
     private $id;
@@ -28,7 +29,7 @@ class Age
      * @Groups({"get_profiles_collection"})
      * @Groups({"get_ages_collection"})
      */
-    private $ageRange;
+    private $label;
 
     /**
      * @ORM\ManyToMany(targetEntity=Profiles::class, inversedBy="ages")
@@ -39,6 +40,12 @@ class Age
      * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="ages")
      */
     private $product;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"get_ages_collection"})
+     */
+    private $value;
 
     public function __construct()
     {
@@ -51,14 +58,14 @@ class Age
         return $this->id;
     }
 
-    public function getAgeRange(): ?string
+    public function getLabel(): ?string
     {
-        return $this->ageRange;
+        return $this->label;
     }
 
-    public function setAgeRange(string $ageRange): self
+    public function setLabel(string $label): self
     {
-        $this->ageRange = $ageRange;
+        $this->label = $label;
 
         return $this;
     }
@@ -107,6 +114,18 @@ class Age
     public function removeProduct(Product $product): self
     {
         $this->product->removeElement($product);
+
+        return $this;
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    public function setValue(?string $value): self
+    {
+        $this->value = $value;
 
         return $this;
     }

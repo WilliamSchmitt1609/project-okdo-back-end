@@ -125,49 +125,56 @@ class AppFixtures extends Fixture
 
         // category 1
         $category1 = new Category();
-        $category1->setName('geek');
+        $category1->setLabel('geek');
+        $category1->setValue('geek');
         $category1->setcreatedAt(new \datetime('now'));
 
         $manager->persist($category1);
        
         //category 2
         $category2 = new Category();
-        $category2->setName('Sport et Bien-être');
+        $category2->setLabel('Sport et Bien-être');
+        $category2->setValue('Sport et Bien-être');
         $category2->setcreatedAt(new \datetime('now'));
 
         $manager->persist($category2);
 
         // category 3
         $category3 = new Category();
-        $category3->setName('Food & Drink Lovers');
+        $category3->setLabel('Food & Drink Lovers');
+        $category3->setValue('Food & Drink Lovers');
         $category3->setcreatedAt(new \datetime('now'));
 
         $manager->persist($category3);
 
         // category 4
         $category4 = new Category();
-        $category4->setName('Voyages');
+        $category4->setLabel('Voyages');
+        $category4->setValue('Voyages');
         $category4->setcreatedAt(new \datetime('now'));
 
         $manager->persist($category4);
 
         // category 5
         $category5 = new Category();
-        $category5->setName('Musique');
+        $category5->setLabel('Musique');
+        $category5->setValue('Musique');
         $category5->setcreatedAt(new \datetime('now'));
 
         $manager->persist($category5);
 
         // category 6
         $category6 = new Category();
-        $category6->setName('Bijoux');
+        $category6->setLabel('Bijoux');
+        $category6->setValue('Bijoux');
         $category6->setcreatedAt(new \datetime('now'));
 
         $manager->persist($category6);
 
         // category 7
         $category7 = new Category();
-        $category7->setName('Décoration');
+        $category7->setLabel('Décoration');
+        $category7->setValue('Décoration');
         $category7->setcreatedAt(new \datetime('now'));
         
 
@@ -177,64 +184,77 @@ class AppFixtures extends Fixture
 
         //genre 1
         $genre1 = new Genre;
-        $genre1->setType('Homme');
-                
+        $genre1->setLabel('Homme');
+        $genre1->setValue('Homme');
+        
         $manager->persist($genre1);
 
         //genre 2
         $genre2 = new Genre;
-        $genre2->setType('Femme');
-        
+        $genre2->setLabel('Femme');
+        $genre2->setValue('Femme');
+
         $manager->persist($genre2);
 
         //genre 3 
         $genre3 = new Genre;
-        $genre3->setType('Mixte');
+        $genre3->setLabel('Mixte');
+        $genre3->setValue('Mixte');
+
         $manager->persist($genre3);
 
         // Age fixtures
 
         $age1 = new Age();
-        $age1->setAgeRange('Enfant');
+        $age1->setLabel('Enfant');
+        $age1->setValue('Enfant');
         $manager->persist($age1);
 
         $age2 = new Age();
-        $age2->setAgeRange('Adolescent');
+        $age2->setLabel('Adolescent');
+        $age2->setValue('Adolescent');
         $manager->persist($age2);
 
         $age3 = new Age();
-        $age3->setAgeRange('Adulte');
+        $age3->setLabel('Adulte');
+        $age3->setValue('Adulte');
         $manager->persist($age3);
 
         $age4 = new Age();
-        $age4->setAgeRange('Senior');
+        $age4->setLabel('Senior');
+        $age4->setValue('Senior');
         $manager->persist($age4);
 
 
         //Events
 
         $event1 = new Event();
-        $event1->setName('Anniversaire');
+        $event1->setLabel('Anniversaire');
+        $event1->setValue('Anniversaire');
         $event1->setNumber('1');
         $manager->persist($event1);
 
         $event2 = new Event();
-        $event2->setName('Mariage');
+        $event2->setLabel('Mariage');
+        $event2->setValue('Mariage');
         $event2->setNumber('2');
         $manager->persist($event2);
 
         $event3 = new Event();
-        $event3->setName('Naissance');
+        $event3->setLabel('Naissance');
+        $event3->setLabel('Naissance');
         $event3->setNumber('3');
         $manager->persist($event3);
 
         $event4 = new Event();
-        $event4->setName('Plaisir d\'offrir');
+        $event4->setLabel('Plaisir d\'offrir');
+        $event4->setValue('Plaisir d\'offrir');
         $event4->setNumber('4');
         $manager->persist($event4);
 
         $event5 = new Event();
-        $event5->setName('Saint Valentin');
+        $event5->setLabel('Saint Valentin');
+        $event5->setValue('Saint Valentin');
         $event5->setNumber('5');
         $manager->persist($event5);
 
