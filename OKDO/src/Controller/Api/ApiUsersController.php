@@ -49,6 +49,7 @@ class ApiUsersController extends AbstractController
     public function getItem(User $user = null): Response
     {
 
+        
         // 404 ?
         if ($user === null) {
             return $this->json(['error' => 'Utilisateur non trouvé.'], Response::HTTP_NOT_FOUND);
@@ -58,7 +59,28 @@ class ApiUsersController extends AbstractController
     }
 
     /**
-     * @Route("/api/secure/users", name="api_users_post", methods={"POST"})
+     * Get the profil of the user authenticated 
+     * 
+     * @Route("/api/login_check", name="login_check", methods={"GET"})
+     */
+    public function getLogin(): Response
+    {
+        $user = $this->getUser();
+
+        return $this->json(
+            // Data to serialized
+            $user,
+            // Status code
+            200,
+            // Headers
+            [],
+            // Groups used for the serializer
+            ['groups' => 'get_users_collection']
+        );
+    }
+
+    /**
+    * @Route("/api/secure/users", name="api_users_post", methods={"POST"})
      */
     public function createItem(Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $hasher)
     {
