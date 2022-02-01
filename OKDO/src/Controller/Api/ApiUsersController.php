@@ -61,7 +61,7 @@ class ApiUsersController extends AbstractController
     /**
      * Get the profil of the user authenticated 
      * 
-     * @Route("/api/login_check", name="login_check", methods={"GET"})
+     * @Route("/api/secure/login_check", name="profil", methods={"GET"})
      */
     public function getLogin(): Response
     {
@@ -75,7 +75,7 @@ class ApiUsersController extends AbstractController
             // Headers
             [],
             // Groups used for the serializer
-            ['groups' => 'get_users_collection']
+            ['groups' => 'get_login_collection']
         );
     }
 

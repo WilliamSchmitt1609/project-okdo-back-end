@@ -32,6 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"get_users_collection"})
      * @Groups({"get_profiles_collection"})
      * @Groups({"create_user_item"})
+     * @Groups({"get_login_collection"})
      * 
      */
     private $nickname;
