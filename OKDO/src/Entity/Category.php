@@ -33,7 +33,7 @@ class Category
      * @Groups({"get_profiles_collection"})
      * @Groups({"get_categories_collection"})
      */
-    private $name;
+    private $label;
 
 
     /**
@@ -57,6 +57,12 @@ class Category
      */
     private $products;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"get_categories_collection"})
+     */
+    private $value;
+
 
     public function __construct()
     {
@@ -76,14 +82,14 @@ class Category
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getLabel(): ?string
     {
-        return $this->name;
+        return $this->label;
     }
 
-    public function setName(string $name): self
+    public function setLabel(string $label): self
     {
-        $this->name = $name;
+        $this->label = $label;
 
         return $this;
     }
@@ -159,6 +165,18 @@ class Category
         if ($this->products->removeElement($product)) {
             $product->removeCategory($this);
         }
+
+        return $this;
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    public function setValue(?string $value): self
+    {
+        $this->value = $value;
 
         return $this;
     }

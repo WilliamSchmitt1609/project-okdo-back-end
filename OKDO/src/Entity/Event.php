@@ -28,7 +28,7 @@ class Event
      * @Groups({"get_profiles_collection"})
      * @Groups({"get_events_collection"})
      */
-    private $name;
+    private $label;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -46,6 +46,12 @@ class Event
      */
     private $product;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"get_events_collection"})
+     */
+    private $value;
+
     public function __construct()
     {
         $this->profiles = new ArrayCollection();
@@ -57,14 +63,14 @@ class Event
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getLabel(): ?string
     {
-        return $this->name;
+        return $this->label;
     }
 
-    public function setName(string $name): self
+    public function setLabel(string $label): self
     {
-        $this->name = $name;
+        $this->label = $label;
 
         return $this;
     }
@@ -131,6 +137,18 @@ class Event
     public function removeProduct(Product $product): self
     {
         $this->product->removeElement($product);
+
+        return $this;
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    public function setValue(?string $value): self
+    {
+        $this->value = $value;
 
         return $this;
     }
