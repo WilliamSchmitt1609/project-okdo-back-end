@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<title>Age</title>
+
+{% block body %}
+    <h1>Age</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ age.id }}</td>
+            </tr>
+            <tr>
+                <th>Label</th>
+                <td>{{ age.label }}</td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td>{{ age.value }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('back_age_index') }}">back to list</a>
+
+    <a href="{{ path('back_age_edit', {'id': age.id}) }}">edit</a>
+
+    {{ include('back/age/_delete_form.html.twig') }}
+{% endblock %}
