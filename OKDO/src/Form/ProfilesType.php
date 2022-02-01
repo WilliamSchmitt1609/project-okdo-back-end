@@ -13,8 +13,6 @@ class ProfilesType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('createdAt')
-            ->add('updatedAt')
             ->add('User')
             ->add('categories')
             ->add('genre')

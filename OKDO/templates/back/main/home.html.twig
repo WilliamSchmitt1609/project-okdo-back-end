@@ -1,0 +1,20 @@
+{% extends "back/base.html.twig" %}
+
+{% block body %}
+<h1> Bienvenue sur le Back Office</h1>
+<h2>A quelle rubrique voulez-vous acceder?</h2>
+<div class="navbar-nav">
+        <a class="nav-link"href="{{ path('back_category_index') }}">Gérer les catégories</a>
+</div>
+<div class="navbar-nav">
+        <a class="avdivnk"href="{{ path('back_event_index') }}">Gérer les événements</a>
+</div>
+<div class="navbar-nav">
+        <a class="nav-link"href="{{ path('back_product_index') }}">Gérer les produits</a>
+</div>
+<div class="navbar-nav">
+        <a class="nav-link"href="{{ path('back_user_index') }}">Gérer les utilisateurs</a>
+</div>
+
+
+{% endblock %}

@@ -5,6 +5,7 @@ namespace App\Controller\Back;
 use App\Entity\Profiles;
 use App\Form\ProfilesType;
 use App\Repository\ProfilesRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +37,7 @@ class ProfilesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $profile->setCreatedAt(new DateTime());
             $entityManager->persist($profile);
             $entityManager->flush();
 
@@ -67,6 +69,7 @@ class ProfilesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $profile->setUpdatedAt(new DateTime());
             $entityManager->flush();
 
             return $this->redirectToRoute('back_profiles_index', [], Response::HTTP_SEE_OTHER);
