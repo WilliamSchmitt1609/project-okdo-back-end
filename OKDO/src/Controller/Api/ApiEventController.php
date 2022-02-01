@@ -12,7 +12,7 @@ class ApiEventController extends AbstractController
 /**
      * Get events collection
      *
-     * @Route("/api/secure/events", name="api_events_get", methods={"GET"})
+     * @Route("/api/events", name="api_events_get", methods={"GET"})
      */
     public function getCategoriesCollection(EventRepository $eventRepository): Response
     {
