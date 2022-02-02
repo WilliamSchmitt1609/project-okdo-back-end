@@ -24,15 +24,15 @@ class ApiProfilesController extends AbstractController
     /**
      * Get profiles collection
      *
-     * @Route("/api/secure/profiles", name="api_profiles_get", methods={"GET"})
+     * @Route("/api/secure/user/{id<\d+>}/profiles", name="api_profiles_get", methods={"GET"})
      */
-    public function getProfilesCollection(ProfilesRepository $profilesRepository): Response
+    public function getProfilesCollection($id, UserRepository $userRepository, ProfilesRepository $profilesRepository): Response
     {
         // @todo : retourner les films de la BDD
         
-        // On va chercher les données
-        $profilesList = $profilesRepository->findAll();
-        
+        $user = $userRepository->find($id);
+        $profilesList = $user->getProfiles();
+
 
         return $this->json(
             // les données à serializer
@@ -49,11 +49,13 @@ class ApiProfilesController extends AbstractController
     /**
      * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_get_item", methods={"GET"})
      */
-    public function getItem(Profiles $profiles = null): Response
+    public function getItem(Profiles $profiles = null, User $user): Response
     {
 
+
+        $profiles->setUser($user);
         // 404 ?
-        if ($profiles === null) {
+       if ($profiles === null) {
             return $this->json(['error' => 'Profil de recherche non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
@@ -64,14 +66,15 @@ class ApiProfilesController extends AbstractController
 
 
     /**
-     * @Route("/api/secure/profiles", name="api_profiles_post", methods={"POST"})
+     * @Route("/api/secure/user/{id}/profiles", name="api_profiles_post", methods={"POST"})
      * 
      */
-    public function createItem(CategoryRepository $categoryRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserRepository $userRepository): Response
+    public function createItem($id, CategoryRepository $categoryRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserRepository $userRepository): Response
     {
         $profiles = $serializer->deserialize($request->getContent(), Profiles::class, 'json');
         $jsonContent = json_decode($request->getContent(), true);
-        $user = $userRepository->find($jsonContent["User"]);
+        //  $user = $userRepository->find($jsonContent["User"]);
+        $user = $userRepository->find($id);
         $category = $categoryRepository->find("id");
         /* $category = $categoryRepository->findAll();
         $profiles->addCategory($category, ['name']); */
@@ -133,7 +136,7 @@ class ApiProfilesController extends AbstractController
             'json',
             [AbstractNormalizer::OBJECT_TO_POPULATE => $profile]
         );
-        $profile->setUser($user);
+        $profile->getUser($user);
         $profile->setUpdatedAt(new \DateTime());
         // On le sauvegarde avec les nouvelles données, et voilà !
         $entityManager = $doctrine->getManager();
@@ -158,7 +161,7 @@ class ApiProfilesController extends AbstractController
         $entityManager->remove($existingProfiles);
         $entityManager->flush();
 
-        return $this->json($existingProfiles, Response::HTTP_OK, [], ['groups' => 'create_profiles_item']);
+        return $this->json($existingProfiles, Response::HTTP_OK, [], ['groups' => 'delete_profiles_item']);
         
     }
 }

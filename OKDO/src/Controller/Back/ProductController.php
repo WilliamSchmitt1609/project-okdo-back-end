@@ -83,6 +83,17 @@ class ProductController extends AbstractController
     }
 
     /**
+     * @Route("/test/{id}", name="test", methods={"GET"})
+     */
+
+    public function Test(ProductRepository $productRepository){
+    
+        $productList= $productRepository->findAllOrderedByTitleAscDql();
+        dd($productList);
+
+    }
+
+    /**
      * @Route("/{id}", name="back_product_delete", methods={"POST"})
      */
     public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response

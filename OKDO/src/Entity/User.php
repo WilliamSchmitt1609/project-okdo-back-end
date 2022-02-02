@@ -23,6 +23,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"get_users_collection"})
+     * @Groups({"get_profiles_collection"})
      * @Groups({"create_profiles_item"})
      */
     private $id;
@@ -56,6 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=50)
      * @Groups({"get_users_collection"})
      * @Groups({"create_user_item"})
+     * @Groups({"get_login_collection"})
      */
     private $firstname;
 
@@ -63,6 +65,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=50)
      * @Groups({"get_users_collection"})
      * @Groups({"create_user_item"})
+     * @Groups({"get_login_collection"})
      */
     private $lastname;
 
@@ -70,6 +73,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="json")
      * @Groups({"get_users_collection"})
      * @Groups({"create_user_item"})
+     * @Groups({"get_login_collection"})
      */
     private $roles = [];
 

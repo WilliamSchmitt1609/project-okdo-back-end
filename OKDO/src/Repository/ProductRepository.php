@@ -72,6 +72,24 @@ class ProductRepository extends ServiceEntityRepository
     }
     */
 
+    /**
+     * Liste des products par ordre alpha
+     * en DQL
+     */
+    public function findAllOrderedByTitleAscDql()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p
+            FROM App\Entity\Product p
+            ORDER BY p.name ASC'
+        );
+
+
+        // returns an array of Movie objects
+        return $query->getResult();
+    }
     /*
     public function findOneBySomeField($value): ?Product
     {
