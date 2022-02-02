@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,7 +20,41 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    
+
+
+   /*  public function searchByCategories($categorie = null, $label = null)
+    {
+    $query = $this->createQueryBuilder('p');
+    $query->where('')
+
+
+    }  */
+
+
+    /**
+     * 
+     */
+    /*   Public function findProductCategoriesByfilters()
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb
+            ->innerJoin('App\Entity\Category', 'c',  Join::WITH , 'c = p.category')
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->isNotNull('p.name'),
+                    $qb->expr()->like('c.label', ':label')
+                )
+            )
+
+        ->setParameter('label', 'geek');
+
+        dump($qb->getQuery()->getSQL());
+
+
+    }   */
+
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

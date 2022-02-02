@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -93,4 +94,24 @@ class ProductController extends AbstractController
 
         return $this->redirectToRoute('back_product_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    /**
+     * @Route("/category/{id}/products", name="test_qb", methods={"GET"})
+     */
+    public function testQB($id, ProductRepository $productRepository, CategoryRepository $categoryRepository){
+
+        // $filteredProduct = $product->findProductCategoriesByfilters();
+
+        $category = $categoryRepository->find($id);
+        $productsList = $category->getProducts();
+
+        
+
+        dd($productsList);
+
+       
+
+
+    }
+
 }
