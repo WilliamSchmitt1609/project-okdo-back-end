@@ -242,7 +242,7 @@ class AppFixtures extends Fixture
 
         $event3 = new Event();
         $event3->setLabel('Naissance');
-        $event3->setLabel('Naissance');
+        $event3->setValue('Naissance');
         $event3->setNumber('3');
         $manager->persist($event3);
 
