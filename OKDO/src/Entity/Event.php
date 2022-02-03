@@ -19,6 +19,7 @@ class Event
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"get_profiles_collection"})
+     * @Groups({"get_events_collection"})
      */
     private $id;
 

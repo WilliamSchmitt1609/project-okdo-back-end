@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Event;
 use App\Entity\Product;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -65,5 +67,70 @@ class ProductRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+
+                    // MULTIPLE TESTS FOR ALGO SEARCH QB / DQL (not working)
+
     */
-}
+ /*    public function eventSearch($event)
+    {
+
+             $qb = $this->createQueryBuilder('p')  
+            ->select('p', 'e')
+            ->from('product', 'p') 
+            ->from('event', 'e')
+            ->leftJoin('event', 'e', Join::WITH, 'p.event = e.id')// event
+            ->where('p.events = ?1')
+            ->orderBy('p.name', 'ASC')
+            ->setParameter(1, 5);
+            // ->setParameter('event', $event);
+
+        return $qb->getQuery()
+                        ->getResult();
+    } */
+
+     /**
+     * test des genres avec expr()
+     */
+   /*     Public function findProductGenreByfilters($label)
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb
+            ->innerJoin('App\Entity\Genre', 'g',  Join::WITH , 'g = p.genre')
+            ->where(
+                $qb->expr()->orX(
+                    $qb->expr()->eq('p.genre','?1'),
+                    $qb->expr()->like('g.label', '?2')
+                )
+            )
+            
+        ->setParameter('label', $label);
+
+        dump($qb->getQuery()->getSQL());
+
+
+    }   */
+
+    /**
+     * 
+     */
+    /* public function search($categorie = null){ */
+   /*      $query = $this->createQueryBuilder('p');
+        $query->where('p.status = 1');
+
+        if($categorie != null){
+            $query->leftJoin('p.categories', 'c');
+            $query->andWhere('c.id = :id')
+                ->setParameter('id', $categorie);
+        }
+        return $query->getQuery()->getResult(); */
+/* 
+        $query = $this->createQueryBuilder('p')
+        ->from('product')
+        ->innerJoin()
+        ->where(''); */
+    }
+
+
+

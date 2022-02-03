@@ -30,8 +30,8 @@
                 <td>{{ product.description }}</td>
                 <td>{{ product.picture }}</td>
                 <td>{{ product.shoppingLink }}</td>
-                <td>{{ product.ageRange }}</td>
-                <td>{{ product.gender }}</td>
+                <td>{{ product.ages.label }}</td>
+                <td>{{ product.genre.label }}</td>
                 <td>{{ product.status ? 'Yes' : 'No' }}</td>
                 <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}</td>

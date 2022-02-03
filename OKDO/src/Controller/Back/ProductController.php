@@ -3,8 +3,10 @@
 namespace App\Controller\Back;
 
 use DateTime;
+use App\Entity\Event;
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Repository\EventRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,8 +35,11 @@ class ProductController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $product = new Product();
+
+
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $product->setCreatedAt(new DateTime);
@@ -81,18 +86,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/test/{id}", name="test", methods={"GET"})
-     */
-
-    public function Test(ProductRepository $productRepository){
-    
-        $productList= $productRepository->findAllOrderedByTitleAscDql();
-        dd($productList);
-
-    }
-
-    /**
+     /**
      * @Route("/{id}", name="back_product_delete", methods={"POST"})
      */
     public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
@@ -104,4 +98,40 @@ class ProductController extends AbstractController
 
         return $this->redirectToRoute('back_product_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+                        // TEST PRODUCT FOR SEARCH ALGO; (not working)
+
+
+    /**
+     * @Route("/test/{id}", name="test", methods={"GET"})
+     */
+   /*  public function Test(ProductRepository $product, Event $event){
+    
+        $filteredProduct = $product->eventSearch($event);
+
+        dd($filteredProduct);
+
+    } */
+
+     /**
+     * @Route("/test1", name="test", methods={"GET"})
+     */
+    /* public function search(SerializerInterface $serializer, ProductRepository $ProductRepository, Request $request)
+    {
+        $profiles = $serializer->deserialize($request->getContent(), Profiles::class, 'json');
+        $products = $ProductRepository->findBy(['status' => 1], ['created_at' => 'desc'], 20);
+        
+
+        
+            $annonces = $ProductRepository->search(
+                $search->get('category')->getData()
+            );
+        
+    } */
+
+
+   
+   
 }

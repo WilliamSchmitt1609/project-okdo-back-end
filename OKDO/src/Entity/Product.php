@@ -97,12 +97,13 @@ class Product
     private $genre;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="product")
+     * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="product", cascade={"persist"}))
      */
     private $events;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Age::class, mappedBy="product")
+     * @ORM\ManyToMany(targetEntity=Age::class, mappedBy="product", cascade={"persist"}))
+     * 
      */
     private $ages;
 

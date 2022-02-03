@@ -161,16 +161,12 @@ class ApiUsersController extends AbstractController
         
         $user = $userRepository->findOneBy(['id'=> $id]);
         $jsonContent = json_decode($request->getContent(), true);
-
-
-        
+      
         empty($jsonContent['nickname']) ? true : $user->setNickname($jsonContent['nickname']);
         empty($jsonContent['firstname']) ? true : $user->setFirstname($jsonContent['firstname']);
         empty($jsonContent['lastname']) ? true : $user->setLastname($jsonContent['lastname']);
         empty($jsonContent['email']) ? true : $user->setEmail($jsonContent['email']);
         empty($jsonContent['password']) ? true : $user->setPassword($hasher->hashPassword($user, $jsonContent['password']));
-
-
 
         // Valider l'entité
           // @link : https://symfony.com/doc/current/validation.html#using-the-validator-service
@@ -188,9 +184,6 @@ class ApiUsersController extends AbstractController
 
             return $this->json($errorsClean, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-     
-
-        
 
         // $user->getProfiles($profiles);
         $user->setUpdatedAt(new \DateTime('now'));
