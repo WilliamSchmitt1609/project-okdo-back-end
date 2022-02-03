@@ -32,13 +32,14 @@ class ProductController extends AbstractController
     /**
      * @Route("/new", name="back_product_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager, EventRepository $eventRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $product = new Product();
-        $event = $eventRepository->findBy(['product' => $product]);
+
 
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $product->setCreatedAt(new DateTime);
@@ -85,6 +86,24 @@ class ProductController extends AbstractController
         ]);
     }
 
+     /**
+     * @Route("/{id}", name="back_product_delete", methods={"POST"})
+     */
+    public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($product);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('back_product_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+
+                        // TEST PRODUCT FOR SEARCH ALGO; (not working)
+
+
     /**
      * @Route("/test/{id}", name="test", methods={"GET"})
      */
@@ -99,7 +118,7 @@ class ProductController extends AbstractController
      /**
      * @Route("/test1", name="test", methods={"GET"})
      */
-    public function search(SerializerInterface $serializer, ProductRepository $ProductRepository, Request $request)
+    /* public function search(SerializerInterface $serializer, ProductRepository $ProductRepository, Request $request)
     {
         $profiles = $serializer->deserialize($request->getContent(), Profiles::class, 'json');
         $products = $ProductRepository->findBy(['status' => 1], ['created_at' => 'desc'], 20);
@@ -110,21 +129,9 @@ class ProductController extends AbstractController
                 $search->get('category')->getData()
             );
         
-    }
+    } */
 
 
-    /**
-     * @Route("/{id}", name="back_product_delete", methods={"POST"})
-     */
-    public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($product);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('back_product_index', [], Response::HTTP_SEE_OTHER);
-    }
-
+   
    
 }

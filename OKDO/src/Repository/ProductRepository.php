@@ -67,6 +67,10 @@ class ProductRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+
+                    // MULTIPLE TESTS FOR ALGO SEARCH QB / DQL (not working)
+
     */
  /*    public function eventSearch($event)
     {
@@ -111,7 +115,7 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * 
      */
-    public function search($categorie = null){
+    /* public function search($categorie = null){ */
    /*      $query = $this->createQueryBuilder('p');
         $query->where('p.status = 1');
 
@@ -129,4 +133,4 @@ class ProductRepository extends ServiceEntityRepository
     }
 
 
-}
+
