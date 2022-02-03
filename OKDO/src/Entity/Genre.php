@@ -19,6 +19,7 @@ class Genre
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"get_profiles_collection"})
+     * @Groups({"get_genres_collection"})
      */
     private $id;
 

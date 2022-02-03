@@ -21,6 +21,7 @@ class Category
      * @Groups({"create_profiles_item"})
      * @Groups({"get_products_collection"})
      * @Groups({"get_profiles_collection"})
+     * @Groups({"get_categories_collection"})
      * 
      */
     private $id;
