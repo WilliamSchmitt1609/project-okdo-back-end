@@ -22,10 +22,13 @@ class ProductRepository extends ServiceEntityRepository
 
 
 
-   /*  public function searchByCategories($categorie = null, $label = null)
+   /*  public function searchByCategories(Request $request)
     {
-    $query = $this->createQueryBuilder('p');
-    $query->where('')
+        $em = $this->getDoctrine()->getManager();
+
+        $categoryLabel = $request->get('label');
+
+    $query = $repository->createQueryBuilder('')
 
 
     }  */
@@ -34,20 +37,20 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * 
      */
-    /*   Public function findProductCategoriesByfilters()
+    /*   Public function findProductGenreByfilters()
     {
         $qb = $this->createQueryBuilder('p');
 
         $qb
-            ->innerJoin('App\Entity\Category', 'c',  Join::WITH , 'c = p.category')
+            ->innerJoin('App\Entity\Genre', 'g',  Join::WITH , 'g = p.genre')
             ->where(
                 $qb->expr()->andX(
-                    $qb->expr()->isNotNull('p.name'),
-                    $qb->expr()->like('c.label', ':label')
+                    $qb->expr()->isNotNull('p.genre'),
+                    $qb->expr()->like('g.label', ':label')
                 )
             )
 
-        ->setParameter('label', 'geek');
+        ->setParameter('label', $label);
 
         dump($qb->getQuery()->getSQL());
 
@@ -100,5 +103,20 @@ class ProductRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+
+
+      /**
+     * 
+     */
+    public function search($category = null){
+        $query = $this->createQueryBuilder('p');
+        $query->where('p.status = 1');
+
+        if($category != null){
+            $query->leftJoin('p.category', 'c');
+            $query->andWhere('c.id = :id')
+                ->setParameter('id', $category);
+        }
+        return $query->getQuery()->getResult();
+    }
 }

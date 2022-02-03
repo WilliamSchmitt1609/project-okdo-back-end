@@ -2,6 +2,7 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\Category;
 use DateTime;
 use App\Entity\Product;
 use App\Form\ProductType;
@@ -124,5 +125,18 @@ class ProductController extends AbstractController
 
 
     }
+
+    
+
+    /**
+   * @Route("/test1", name="test", methods={"GET"})
+   */
+  public function Test1($product, Category $category){
+  
+      $filteredProduct1 = $product->search();
+
+      dd($filteredProduct1);
+
+  }  
 
 }
