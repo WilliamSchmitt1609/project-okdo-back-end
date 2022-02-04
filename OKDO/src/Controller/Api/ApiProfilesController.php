@@ -32,7 +32,7 @@ class ApiProfilesController extends AbstractController
         
         $user = $userRepository->find($id);
         $profilesList = $user->getProfiles();
-
+        
 
         return $this->json(
             // les données à serializer
@@ -128,7 +128,7 @@ class ApiProfilesController extends AbstractController
      * 
     * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_put", methods={"PUT"})
     */
-    public function updateItem(Profiles $profile, User $user, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine): Response {
+    public function updateItem($id, Profiles $profile, ProfilesRepository $profilesRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine): Response {
 
         // $profile est récupéré en argument via l'id passé à la route, on peut donc en profiter pour le mettre à jour avec les données qu'on envoi
          $serializer->deserialize($request->getContent(),
@@ -136,7 +136,7 @@ class ApiProfilesController extends AbstractController
             'json',
             [AbstractNormalizer::OBJECT_TO_POPULATE => $profile]
         );
-        $profile->setUser($user);
+        $profile = $profilesRepository->find($id);
         $profile->setUpdatedAt(new \DateTime());
         // On le sauvegarde avec les nouvelles données, et voilà !
         $entityManager = $doctrine->getManager();
