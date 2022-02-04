@@ -112,6 +112,7 @@ class Product
         $this->category = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->ages = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
