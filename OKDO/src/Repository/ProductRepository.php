@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Age;
 use App\Entity\Event;
 use App\Entity\Product;
 use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -108,33 +110,75 @@ class ProductRepository extends ServiceEntityRepository
 
                   //   MULTIPLE TESTS FOR ALGO SEARCH QB / DQL (not working)
 
-        public function findProductByFilters(){
+      
+                 /*  public function findProductByFiltersDql(){
+
+                    $rsm = new ResultSetMapping;
+                    $rsm->addEntityResult('Product', 'p');
+                    $rsm->addFieldResult('p', 'id', 'id');
+                    $rsm->addFieldResult('p','name','name');
+                    $rsm->addFieldResult('p', 'picture', 'picture');
+                    $rsm->addFieldResult('p', 'description', 'description');
+                    $rsm->addFieldResult('p', 'shopping_link', 'shopping_link');
+                    $rsm->addJoinedEntityResult('Category', 'c', 'p', 'category');
+                    $rsm->addFieldResult('c', 'category_id', 'id');
+                    $rsm->addFieldResult('c', 'label', 'label');
+                    $rsm->addFieldResult('c', 'value', 'value');
+
+                    $sql = 'SELECT `name`,`description`,`picture`,`shopping_link`
+                    FROM product p
+                    INNER JOIN age_product ap ON p.id = ap.product_id
+                    INNER JOIN event_product ep ON p.id = ep.product_id
+                    INNER JOIN product_category pc ON p.id = pc.product_id
+                    WHERE ap.age_id IN (1,2,3)
+                    AND ep.event_id IN (3,4)
+                    AND pc.category_id IN (3,4)
+                    AND p.genre_id IN (3)
+                    GROUP BY p.id';
+
+                    $query = $this->_em->createNamedNativeQuery($sql, $rsm);
+                    $query->setParameter(1, 'geek');
+
+                  } */
 
 
-            return $this->createQueryBuilder('p')
-            ->select('p.name, p.description, p.picture, p.shopping_link, p.ages_id')
-            ->from('Repository:Agerepository','a')
-            ->leftJoin('p.ages', 'a')
-            ->where('a.id  AND ')
-            ->setParameter('start', )
 
-        }
+                  public function findProductByFilters($category = null){ 
+
+ 
+                    $query = $this->createQueryBuilder('p');
+                    $query->where('p.status = 1');
+
+                    if($category != null){
+                        $query->leftJoin('p.category', 'c');
+                        $query->andwhere('c.id = :id')
+                            ->setParameter('id', $category);
+                    }
+                    return $query->getQuery()->getResult();
+                    
+               }
+
+              /*  public function findProductFilter(){
+
+                $query = $this->getEntityManager()->createQuery(
+                'SELECT `name`,`description`,`picture`,`shopping_link`
+                FROM product p
+                INNER JOIN age_product ap ON p.id = ap.product_id
+                INNER JOIN event_product ep ON p.id = ep.product_id
+                INNER JOIN product_category pc ON p.id = pc.product_id
+                WHERE ap.age_id IN (1,2,3)
+                AND ep.event_id IN (3,4)
+                AND pc.category_id IN (3,4)
+                AND p.genre_id IN (3)
+                GROUP BY p.id'
+            );
+                return $query->getResult();
+
+               } */
+
+        
+     
 
     }
 
-/* SELECT *
-FROM
- product p
-INNER JOIN age_product ap ON p.id = ap.product_id
-INNER JOIN event_product ep ON p.id = ep.product_id
-INNER JOIN product_category pc ON p.id = pc.product_id
-WHERE 
-ap.age_id IN (1,2,3,4)
-AND
- ep.event_id IN (1,2,3,4,5)
-AND 
-pc.category_id IN (1,2,3,4,5,6,7)
-AND 
-p.genre_id IN (1,2,3)
-GROUP BY p.id /*
-
+   

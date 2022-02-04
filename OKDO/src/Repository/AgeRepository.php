@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Age;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Product;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Age|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +48,6 @@ class AgeRepository extends ServiceEntityRepository
         ;
     }
     */
+
+     
 }
