@@ -12,6 +12,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ApiProductsController extends AbstractController
 {
+    /**
+     * Get products collection
+     *
+     * @Route("/api/products", name="api_products_get", methods={"GET"})
+     */
+    public function getProductsCollection(ProductRepository $productRepository): Response
+    {
+        // @todo : retourner les films de la BDD
+        
+        // On va chercher les données
+        $productsList = $productRepository->findAll();
+        
+
+        return $this->json(
+            // les données à serializer
+            $productsList,
+            // status code
+            Response::HTTP_OK,
+            // Les en-têtes de réponse à ajouter (aucune)
+            [],
+            // Les groupes à utiliser par le Serializer
+            ['groups' => 'get_products_collection']
+        );
+    }
 
     /**
      * @Route("/api/category/{id}/products", name="api_products_get_category", methods={"GET"})

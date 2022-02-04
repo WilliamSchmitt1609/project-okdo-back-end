@@ -66,7 +66,7 @@ class ProductType extends AbstractType
             ->add('events', EntityType::class, [
                 // @link https://symfony.com/doc/current/reference/forms/types/entity.html#basic-usage
                 'class' => Event::class,               
-                'choice_label' => 'label',
+                'choice_label' => 'id',
                 'multiple' => true,
                 'expanded' => true,                
                 ])

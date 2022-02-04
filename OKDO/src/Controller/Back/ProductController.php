@@ -37,17 +37,21 @@ class ProductController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $product = new Product();
-
+        $event = new Event();
 
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
+        $event =  $form->get('events')->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $product->setCreatedAt(new DateTime);
+            // dd($product);
+            $product->getEvents($event);
             $entityManager->persist($product);
+            // dd($product);
             $entityManager->flush();
-
+            
             return $this->redirectToRoute('back_product_index', [], Response::HTTP_SEE_OTHER);
         }
 
