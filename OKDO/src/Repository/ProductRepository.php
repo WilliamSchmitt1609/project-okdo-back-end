@@ -23,6 +23,47 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    /**
+     * @param array $categories
+     * @param array $ages
+     * @param array $genres
+     * @param array $events
+     */
+    public function findProductByFilters(array $categories = [], array $ages = [], array $genres = [], array $events = [])
+    {
+        $query = $this->createQueryBuilder('p')
+            ->where('p.status = 1')
+            ->groupBy('p.id');
+
+        if (!empty($categories)) {
+            $query->innerJoin('p.categories', 'c')
+                ->andWhere('c.id IN (:categories)')
+                ->setParameter('categories', $categories);
+        }
+
+        if (!empty($ages)) {
+            $query->innerJoin('p.ages', 'a')
+                ->andWhere('a.id IN (:ages)')
+                ->setParameter('ages', $ages);
+        }
+
+        if (!empty($genres)) {
+            $query->innerJoin('p.genre', 'g')
+                ->andWhere('g.id IN (:genres)')
+                ->setParameter('genres', $genres);
+        }
+
+        if (!empty($events)) {
+            $query->innerJoin('p.events', 'e')
+                ->andWhere('e.id IN (:events)')
+                ->setParameter('events', $events);
+        }
+
+//dd($query->getQuery()->getSQL());
+dd($query->getQuery()->getResult());
+        return $query->getQuery()->getResult();
+    }
+
 
 
    /*  public function searchByCategories(Request $request)
@@ -36,10 +77,6 @@ class ProductRepository extends ServiceEntityRepository
 
     }  */
 
-
-    /**
-     * 
-     */
     /*   Public function findProductGenreByfilters()
     {
         $qb = $this->createQueryBuilder('p');
@@ -59,24 +96,6 @@ class ProductRepository extends ServiceEntityRepository
 
 
     }   */
-
-
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
     /**
      * Liste des products par ordre alpha
@@ -108,77 +127,38 @@ class ProductRepository extends ServiceEntityRepository
     }*/
 
 
-                  //   MULTIPLE TESTS FOR ALGO SEARCH QB / DQL (not working)
-
-      
-                 /*  public function findProductByFiltersDql(){
-
-                    $rsm = new ResultSetMapping;
-                    $rsm->addEntityResult('Product', 'p');
-                    $rsm->addFieldResult('p', 'id', 'id');
-                    $rsm->addFieldResult('p','name','name');
-                    $rsm->addFieldResult('p', 'picture', 'picture');
-                    $rsm->addFieldResult('p', 'description', 'description');
-                    $rsm->addFieldResult('p', 'shopping_link', 'shopping_link');
-                    $rsm->addJoinedEntityResult('Category', 'c', 'p', 'category');
-                    $rsm->addFieldResult('c', 'category_id', 'id');
-                    $rsm->addFieldResult('c', 'label', 'label');
-                    $rsm->addFieldResult('c', 'value', 'value');
-
-                    $sql = 'SELECT `name`,`description`,`picture`,`shopping_link`
-                    FROM product p
-                    INNER JOIN age_product ap ON p.id = ap.product_id
-                    INNER JOIN event_product ep ON p.id = ep.product_id
-                    INNER JOIN product_category pc ON p.id = pc.product_id
-                    WHERE ap.age_id IN (1,2,3)
-                    AND ep.event_id IN (3,4)
-                    AND pc.category_id IN (3,4)
-                    AND p.genre_id IN (3)
-                    GROUP BY p.id';
-
-                    $query = $this->_em->createNamedNativeQuery($sql, $rsm);
-                    $query->setParameter(1, 'geek');
-
-                  } */
+    //   MULTIPLE TESTS FOR ALGO SEARCH QB / DQL (not working)
 
 
+    /*  public function findProductByFiltersDql()
+    {
 
-                  public function findProductByFilters($category = null){ 
+        $rsm = new ResultSetMapping;
+        $rsm->addEntityResult('Product', 'p');
+        $rsm->addFieldResult('p', 'id', 'id');
+        $rsm->addFieldResult('p','name','name');
+        $rsm->addFieldResult('p', 'picture', 'picture');
+        $rsm->addFieldResult('p', 'description', 'description');
+        $rsm->addFieldResult('p', 'shopping_link', 'shopping_link');
+        $rsm->addJoinedEntityResult('Category', 'c', 'p', 'category');
+        $rsm->addFieldResult('c', 'category_id', 'id');
+        $rsm->addFieldResult('c', 'label', 'label');
+        $rsm->addFieldResult('c', 'value', 'value');
 
- 
-                    $query = $this->createQueryBuilder('p');
-                    $query->where('p.status = 1');
+        $sql = 'SELECT `name`,`description`,`picture`,`shopping_link`
+        FROM product p
+        INNER JOIN age_product ap ON p.id = ap.product_id
+        INNER JOIN event_product ep ON p.id = ep.product_id
+        INNER JOIN product_category pc ON p.id = pc.product_id
+        WHERE ap.age_id IN (1,2,3)
+        AND ep.event_id IN (3,4)
+        AND pc.category_id IN (3,4)
+        AND p.genre_id IN (3)
+        GROUP BY p.id';
 
-                    if($category != null){
-                        $query->leftJoin('p.category', 'c');
-                        $query->andwhere('c.id = :id')
-                            ->setParameter('id', $category);
-                    }
-                    return $query->getQuery()->getResult();
-                    
-               }
-
-              /*  public function findProductFilter(){
-
-                $query = $this->getEntityManager()->createQuery(
-                'SELECT `name`,`description`,`picture`,`shopping_link`
-                FROM product p
-                INNER JOIN age_product ap ON p.id = ap.product_id
-                INNER JOIN event_product ep ON p.id = ep.product_id
-                INNER JOIN product_category pc ON p.id = pc.product_id
-                WHERE ap.age_id IN (1,2,3)
-                AND ep.event_id IN (3,4)
-                AND pc.category_id IN (3,4)
-                AND p.genre_id IN (3)
-                GROUP BY p.id'
-            );
-                return $query->getResult();
-
-               } */
-
-        
-     
-
-    }
+        $query = $this->_em->createNamedNativeQuery($sql, $rsm);
+        $query->setParameter(1, 'geek');
+    } */
+}
 
    

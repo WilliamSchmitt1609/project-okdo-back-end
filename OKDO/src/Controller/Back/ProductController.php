@@ -111,7 +111,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/", name="product_test")
      */
-    public function test(ProductRepository $productRepository):Response{
+    /* public function test(ProductRepository $productRepository):Response{
 
         
         // $profiles = $profilesRepository->find($id);
@@ -121,7 +121,7 @@ class ProductController extends AbstractController
 
 
         dd($productListForProfile);
-    }
+    } */
 
 
     /**
