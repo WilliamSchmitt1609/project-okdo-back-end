@@ -3,11 +3,15 @@
 namespace App\Controller\Back;
 
 use DateTime;
+use App\Entity\Age;
 use App\Entity\Event;
 use App\Entity\Product;
+use App\Entity\Category;
 use App\Form\ProductType;
+use App\Repository\AgeRepository;
 use App\Repository\EventRepository;
 use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -104,8 +108,20 @@ class ProductController extends AbstractController
     }
 
 
+    /**
+     * @Route("/", name="product_test")
+     */
+    /* public function test(ProductRepository $productRepository):Response{
 
-                        // TEST PRODUCT FOR SEARCH ALGO; (not working)
+        
+        // $profiles = $profilesRepository->find($id);
+        // $productsList = $productRepository->findAll();
+        // $productListForProfile = $productRepository->findFilteredProduct($productsList);
+        $productListForProfile = $productRepository->findProductByFilters();
+
+
+        dd($productListForProfile);
+    } */
 
 
     /**

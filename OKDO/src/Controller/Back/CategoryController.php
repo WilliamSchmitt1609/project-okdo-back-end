@@ -5,6 +5,7 @@ namespace App\Controller\Back;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Repository\ProductRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -93,4 +94,5 @@ class CategoryController extends AbstractController
 
         return $this->redirectToRoute('back_category_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

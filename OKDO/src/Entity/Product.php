@@ -26,6 +26,7 @@ class Product
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"get_products_collection"})
+     * @Groups({"get_searchs_collection"})
      */
     private $name;
 
@@ -33,6 +34,7 @@ class Product
      * @Assert\NotBlank
      * @ORM\Column(type="float")
      * @Groups({"get_products_collection"})
+     * @Groups({"get_searchs_collection"})
      */
     private $price;
 
@@ -45,12 +47,14 @@ class Product
     /**
      * @ORM\Column(type="string", length=2000)
      * @Groups({"get_products_collection"})
+     * @Groups({"get_searchs_collection"})
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=2000)
      * @Groups({"get_products_collection"})
+     * @Groups({"get_searchs_collection"})
      */
     private $shoppingLink;
 
@@ -69,16 +73,19 @@ class Product
     /**
      * @ORM\Column(type="boolean")
      * @Groups({"get_products_collection"})
+     * @Groups({"get_searchs_collection"})
      */
     private $status;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"get_searchs_collection"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"get_searchs_collection"})
      */
     private $updatedAt;
 
@@ -86,8 +93,9 @@ class Product
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="products")
      * @Groups({"get_products_collection"})
      * @Groups({"get_products_categories_collection"})
+     * @Groups({"get_searchs_collection"})
      */
-    private $category;
+    private $categories;
 
     /**
      * @ORM\ManyToOne(targetEntity=Genre::class, inversedBy="products", cascade={"persist"}))
@@ -103,13 +111,12 @@ class Product
 
     /**
      * @ORM\ManyToMany(targetEntity=Age::class, mappedBy="product", cascade={"persist"}))
-     * 
      */
     private $ages;
 
     public function __construct()
     {
-        $this->category = new ArrayCollection();
+        $this->categories = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->ages = new ArrayCollection();
         
@@ -241,29 +248,36 @@ class Product
     }
 
     /**
-     * @return Collection|Category[]
+     * @return Collection|Categories[]
      */
-    public function getCategory(): Collection
+    public function getCategories(): Collection
     {
-        return $this->category;
+        return $this->categories;
     }
 
+     /**
+     * @param Category $category
+     * @return $this
+     */
     public function addCategory(Category $category): self
     {
-        if (!$this->category->contains($category)) {
-            $this->category[] = $category;
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
         }
 
         return $this;
     }
 
+     /**
+     * @param Category $category
+     * @return $this
+     */
     public function removeCategory(Category $category): self
     {
-        $this->category->removeElement($category);
+        $this->categories->removeElement($category);
 
         return $this;
     }
-
 
     public function getGenre(): ?Genre
     {

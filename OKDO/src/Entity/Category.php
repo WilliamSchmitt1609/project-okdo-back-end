@@ -22,7 +22,7 @@ class Category
      * @Groups({"get_products_collection"})
      * @Groups({"get_profiles_collection"})
      * @Groups({"get_categories_collection"})
-     * 
+     * @Groups({"get_searchs_collection"})
      */
     private $id;
 
@@ -33,6 +33,7 @@ class Category
      * @Groups({"get_products_collection"})
      * @Groups({"get_profiles_collection"})
      * @Groups({"get_categories_collection"})
+     * @Groups({"get_searchs_collection"})
      */
     private $label;
 
@@ -53,7 +54,7 @@ class Category
     private $profiles;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="category")
+     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="categories")
      * @Groups({"get_products_categories_collection"})
      */
     private $products;
@@ -61,6 +62,7 @@ class Category
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Groups({"get_categories_collection"})
+     * @Groups({"get_searchs_collection"})
      */
     private $value;
 
@@ -151,6 +153,10 @@ class Category
         return $this->products;
     }
 
+     /**
+     * @param Product $product
+     * @return $this
+     */
     public function addProduct(Product $product): self
     {
         if (!$this->products->contains($product)) {
@@ -161,6 +167,10 @@ class Category
         return $this;
     }
 
+    /**
+     * @param Product $product
+     * @return $this
+     */
     public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {

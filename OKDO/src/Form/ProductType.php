@@ -50,7 +50,7 @@ class ProductType extends AbstractType
                 'expanded' => true,                
             ])
             ->add('status')
-            ->add('category', EntityType::class, [
+            ->add('categories', EntityType::class, [
                 // @link https://symfony.com/doc/current/reference/forms/types/entity.html#basic-usage
                 'class' => Category::class,               
                 'choice_label' => 'label',
