@@ -252,7 +252,7 @@ class Product
      */
     public function getCategories(): Collection
     {
-        return $this->Categories;
+        return $this->categories;
     }
 
      /**

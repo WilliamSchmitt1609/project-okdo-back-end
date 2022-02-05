@@ -28,8 +28,9 @@ class ProductRepository extends ServiceEntityRepository
      * @param array $ages
      * @param array $genres
      * @param array $events
+     * @return array
      */
-    public function findProductByFilters(array $categories = [], array $ages = [], array $genres = [], array $events = [])
+    public function findProductByFilters(array $categories = [], array $ages = [], array $genres = [], array $events = []): array
     {
         $query = $this->createQueryBuilder('p')
             ->where('p.status = 1')
@@ -59,8 +60,6 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('events', $events);
         }
 
-//dd($query->getQuery()->getSQL());
-dd($query->getQuery()->getResult());
         return $query->getQuery()->getResult();
     }
 
