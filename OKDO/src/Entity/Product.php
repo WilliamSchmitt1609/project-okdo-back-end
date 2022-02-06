@@ -58,17 +58,6 @@ class Product
      */
     private $shoppingLink;
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     * @Groups({"get_products_collection"})
-     */
-    private $ageRange;
-
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     * @Groups({"get_products_collection"})
-     */
-    private $gender;
 
     /**
      * @ORM\Column(type="boolean")
@@ -187,29 +176,6 @@ class Product
         return $this;
     }
 
-    public function getAgeRange(): ?string
-    {
-        return $this->ageRange;
-    }
-
-    public function setAgeRange(?string $ageRange): self
-    {
-        $this->ageRange = $ageRange;
-
-        return $this;
-    }
-
-    public function getGender(): ?string
-    {
-        return $this->gender;
-    }
-
-    public function setGender(?string $gender): self
-    {
-        $this->gender = $gender;
-
-        return $this;
-    }
 
     public function getStatus(): ?bool
     {
