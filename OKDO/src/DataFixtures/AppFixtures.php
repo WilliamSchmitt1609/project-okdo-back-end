@@ -288,7 +288,7 @@ class AppFixtures extends Fixture
         $product->setName('PC portable');
         $product->setPrice('400');
         $product->setDescription($faker->text());   
-        $product->setPicture('https://www.pexels.com/fr-fr/photo/ordinateur-portable-argente-et-tasse-blanche-sur-table-7974/');
+        $product->setPicture('https://cdn.pixabay.com/photo/2014/09/24/14/29/macbook-459196_960_720.jpg');
         $product->setShoppingLink('https://www.monpcmarchepas.fr');
         $product->addAge($age2);
         $product->addAge($age3);
@@ -490,7 +490,7 @@ class AppFixtures extends Fixture
         $product->setName('Bracelet Tracker Requin');
         $product->setPrice('300');
         $product->setDescription($faker->text());   
-        $product->setPicture('https://cdn.shopify.com/s/files/1/0598/6202/4371/products/32_600x.jpg?v=1637501457');
+        $product->setPicture('https://https://media.istockphoto.com/photos/handmade-shark-figurine-bracelet-with-aquamarine-stone-beads-picture-id1043383476?k=20&m=1043383476&s=612x612&w=0&h=cvb8bltLig4fO03V0TlpCnF3C1WsUFsvgHoZ56IsdiQ=');
         $product->setShoppingLink('https://www.arnaquetonpote.fr');
         $product->addAge($age1);
         $product->addAge($age2);

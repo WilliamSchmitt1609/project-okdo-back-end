@@ -13,8 +13,10 @@
                 <th>Description</th>
                 <th>Picture</th>
                 <th>ShoppingLink</th>
-                <th>AgeRange</th>
-                <th>Gender</th>
+                <th>Catégories</th>
+                <th>Ages</th>
+                <th>Events</th>
+                <th>Genre</th>
                 <th>Status</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
@@ -30,12 +32,15 @@
                 <td>{{ product.description }}</td>
                 <td>{{ product.picture }}</td>
                 <td>{{ product.shoppingLink }}</td>
+                {% for category in product.categories %}
+                <td>{{ category.label }}</td>
+                {% endfor %} 
                 {% for age in product.ages %}
                 <td>{{ age.label }}</td>
                 {% endfor %} 
-                {% for event in product.events %}
+                {# {% for event in product.events %}
                 <td>{{ event.label }}</td>
-                {% endfor %}
+                {% endfor %} #}
                 <td>{{ product.genre.label }}</td>
                 <td>{{ product.status ? 'Yes' : 'No' }}</td>
                 <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>

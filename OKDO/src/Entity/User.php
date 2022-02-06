@@ -218,6 +218,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->profiles;
     }
 
+     /**
+     * @param Profiles $profile
+     * @return $this
+     */
     public function addProfile(Profiles $profile): self
     {
         if (!$this->profiles->contains($profile)) {
@@ -228,6 +232,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @param Profiles $profile
+     * @return $this
+     */
     public function removeProfile(Profiles $profile): self
     {
         if ($this->profiles->removeElement($profile)) {

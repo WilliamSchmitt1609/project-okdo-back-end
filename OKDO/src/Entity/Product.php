@@ -94,7 +94,7 @@ class Product
     private $genre;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="product", cascade={"persist"}))
+     * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="products", cascade={"persist"}))
      */
     private $events;
 
@@ -265,6 +265,10 @@ class Product
         return $this->events;
     }
 
+    /**
+     * @param Event $event
+     * @return $this
+     */
     public function addEvent(Event $event): self
     {
         if (!$this->events->contains($event)) {
@@ -275,6 +279,10 @@ class Product
         return $this;
     }
 
+    /**
+     * @param Event $event
+     * @return $this
+     */
     public function removeEvent(Event $event): self
     {
         if ($this->events->removeElement($event)) {
@@ -292,6 +300,10 @@ class Product
         return $this->ages;
     }
 
+    /**
+     * @param Age $Age
+     * @return $this
+     */
     public function addAge(Age $age): self
     {
         if (!$this->ages->contains($age)) {
@@ -302,6 +314,10 @@ class Product
         return $this;
     }
 
+    /**
+     * @param Age $Age
+     * @return $this
+     */
     public function removeAge(Age $age): self
     {
         if ($this->ages->removeElement($age)) {

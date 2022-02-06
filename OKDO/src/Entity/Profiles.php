@@ -154,7 +154,10 @@ class Profiles
         return $this->categories;
     }
 
-
+    /**
+     * @param Category $Category
+     * @return $this
+     */
     public function addCategory(Category $category): self
     {
         if (!$this->categories->contains($category)) {
@@ -165,6 +168,10 @@ class Profiles
         return $this;
     }
 
+    /**
+     * @param Category $Category
+     * @return $this
+     */
     public function removeCategory(Category $category): self
     {
         if ($this->categories->removeElement($category)) {
@@ -206,6 +213,10 @@ class Profiles
         return $this->ages;
     }
 
+    /**
+     * @param Age $Age
+     * @return $this
+     */
     public function addAge(Age $age): self
     {
         if (!$this->ages->contains($age)) {
@@ -216,6 +227,10 @@ class Profiles
         return $this;
     }
 
+    /**
+     * @param Age $Age
+     * @return $this
+     */
     public function removeAge(Age $age): self
     {
         if ($this->ages->removeElement($age)) {

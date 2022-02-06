@@ -39,19 +39,14 @@ class ProductController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $product = new Product();
-        $event = new Event();
-
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
-        $event =  $form->get('events')->getData();
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $product->setCreatedAt(new DateTime);
-            // dd($product);
-            $product->getEvents($event);
+            
             $entityManager->persist($product);
-            // dd($product);
             $entityManager->flush();
             
             return $this->redirectToRoute('back_product_index', [], Response::HTTP_SEE_OTHER);
@@ -78,6 +73,7 @@ class ProductController extends AbstractController
      */
     public function edit(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {
+
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
@@ -107,51 +103,6 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('back_product_index', [], Response::HTTP_SEE_OTHER);
     }
 
-
-    /**
-     * @Route("/", name="product_test")
-     */
-    /* public function test(ProductRepository $productRepository):Response{
-
-        
-        // $profiles = $profilesRepository->find($id);
-        // $productsList = $productRepository->findAll();
-        // $productListForProfile = $productRepository->findFilteredProduct($productsList);
-        $productListForProfile = $productRepository->findProductByFilters();
-
-
-        dd($productListForProfile);
-    } */
-
-
-    /**
-     * @Route("/test/{id}", name="test", methods={"GET"})
-     */
-   /*  public function Test(ProductRepository $product, Event $event){
-    
-        $filteredProduct = $product->eventSearch($event);
-
-        dd($filteredProduct);
-
-    } */
-
-     /**
-     * @Route("/test1", name="test", methods={"GET"})
-     */
-    /* public function search(SerializerInterface $serializer, ProductRepository $ProductRepository, Request $request)
-    {
-        $profiles = $serializer->deserialize($request->getContent(), Profiles::class, 'json');
-        $products = $ProductRepository->findBy(['status' => 1], ['created_at' => 'desc'], 20);
-        
-
-        
-            $annonces = $ProductRepository->search(
-                $search->get('category')->getData()
-            );
-        
-    } */
-
-
-   
+ 
    
 }

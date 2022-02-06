@@ -45,7 +45,7 @@ class Event
     /**
      * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="events")
      */
-    private $product;
+    private $products;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
@@ -56,7 +56,7 @@ class Event
     public function __construct()
     {
         $this->profiles = new ArrayCollection();
-        $this->product = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,6 +96,10 @@ class Event
         return $this->profiles;
     }
 
+    /**
+     * @param Profiles $profile
+     * @return $this
+     */
     public function addProfile(Profiles $profile): self
     {
         if (!$this->profiles->contains($profile)) {
@@ -106,6 +110,10 @@ class Event
         return $this;
     }
 
+     /**
+     * @param Profiles $profile
+     * @return $this
+     */
     public function removeProfile(Profiles $profile): self
     {
         if ($this->profiles->removeElement($profile)) {
@@ -121,23 +129,31 @@ class Event
     /**
      * @return Collection|Product[]
      */
-    public function getProduct(): Collection
+    public function getProducts(): Collection
     {
-        return $this->product;
+        return $this->products;
     }
 
+    /**
+     * @param Product $product
+     * @return $this
+     */
     public function addProduct(Product $product): self
     {
-        if (!$this->product->contains($product)) {
-            $this->product[] = $product;
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
         }
 
         return $this;
     }
 
+    /**
+     * @param Product $product
+     * @return $this
+     */
     public function removeProduct(Product $product): self
     {
-        $this->product->removeElement($product);
+        $this->products->removeElement($product);
 
         return $this;
     }
