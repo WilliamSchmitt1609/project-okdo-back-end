@@ -58,17 +58,6 @@ class Product
      */
     private $shoppingLink;
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     * @Groups({"get_products_collection"})
-     */
-    private $ageRange;
-
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     * @Groups({"get_products_collection"})
-     */
-    private $gender;
 
     /**
      * @ORM\Column(type="boolean")
@@ -105,7 +94,7 @@ class Product
     private $genre;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="product", cascade={"persist"}))
+     * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="products", cascade={"persist"}))
      */
     private $events;
 
@@ -187,29 +176,6 @@ class Product
         return $this;
     }
 
-    public function getAgeRange(): ?string
-    {
-        return $this->ageRange;
-    }
-
-    public function setAgeRange(?string $ageRange): self
-    {
-        $this->ageRange = $ageRange;
-
-        return $this;
-    }
-
-    public function getGender(): ?string
-    {
-        return $this->gender;
-    }
-
-    public function setGender(?string $gender): self
-    {
-        $this->gender = $gender;
-
-        return $this;
-    }
 
     public function getStatus(): ?bool
     {
@@ -299,6 +265,10 @@ class Product
         return $this->events;
     }
 
+    /**
+     * @param Event $event
+     * @return $this
+     */
     public function addEvent(Event $event): self
     {
         if (!$this->events->contains($event)) {
@@ -309,6 +279,10 @@ class Product
         return $this;
     }
 
+    /**
+     * @param Event $event
+     * @return $this
+     */
     public function removeEvent(Event $event): self
     {
         if ($this->events->removeElement($event)) {
@@ -326,6 +300,10 @@ class Product
         return $this->ages;
     }
 
+    /**
+     * @param Age $Age
+     * @return $this
+     */
     public function addAge(Age $age): self
     {
         if (!$this->ages->contains($age)) {
@@ -336,6 +314,10 @@ class Product
         return $this;
     }
 
+    /**
+     * @param Age $Age
+     * @return $this
+     */
     public function removeAge(Age $age): self
     {
         if ($this->ages->removeElement($age)) {

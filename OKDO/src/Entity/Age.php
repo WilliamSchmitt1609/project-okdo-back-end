@@ -78,6 +78,10 @@ class Age
         return $this->profiles;
     }
 
+    /**
+     * @param Profiles $profile
+     * @return $this
+     */
     public function addProfile(Profiles $profile): self
     {
         if (!$this->profiles->contains($profile)) {
@@ -87,6 +91,11 @@ class Age
         return $this;
     }
 
+
+    /**
+     * @param Profiles $profile
+     * @return $this
+     */
     public function removeProfile(Profiles $profile): self
     {
         $this->profiles->removeElement($profile);
@@ -102,6 +111,10 @@ class Age
         return $this->product;
     }
 
+    /**
+     * @param Product $Product
+     * @return $this
+     */
     public function addProduct(Product $product): self
     {
         if (!$this->product->contains($product)) {
@@ -111,6 +124,10 @@ class Age
         return $this;
     }
 
+     /**
+     * @param Product $Product
+     * @return $this
+     */
     public function removeProduct(Product $product): self
     {
         $this->product->removeElement($product);

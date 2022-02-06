@@ -28,7 +28,7 @@ class ApiProfilesController extends AbstractController
      */
     public function getProfilesCollection($id, UserRepository $userRepository, ProfilesRepository $profilesRepository): Response
     {
-        // @todo : retourner les films de la BDD
+        
         
         $user = $userRepository->find($id);
         $profilesList = $user->getProfiles();

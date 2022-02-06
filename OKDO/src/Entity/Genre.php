@@ -79,6 +79,10 @@ class Genre
         return $this->profiles;
     }
 
+    /**
+     * @param Profiles $Profile
+     * @return $this
+     */
     public function addProfile(Profiles $profile): self
     {
         if (!$this->profiles->contains($profile)) {
@@ -89,6 +93,10 @@ class Genre
         return $this;
     }
 
+    /**
+     * @param Profiles $Profile
+     * @return $this
+     */
     public function removeProfile(Profiles $profile): self
     {
         if ($this->profiles->removeElement($profile)) {
@@ -110,6 +118,10 @@ class Genre
         return $this->products;
     }
 
+    /**
+     * @param Product $Product
+     * @return $this
+     */
     public function addProduct(Product $product): self
     {
         if (!$this->products->contains($product)) {
@@ -120,6 +132,10 @@ class Genre
         return $this;
     }
 
+    /**
+     * @param Product $Product
+     * @return $this
+     */
     public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {

@@ -269,8 +269,6 @@ class AppFixtures extends Fixture
         $product->setDescription($faker->text());   
         $product->setPicture('https://wp.oclock.io/wp-content/uploads/2016/10/DSC_0250-800x550.jpg');
         $product->setShoppingLink('https://www.oclock.io');
-        $product->setAgeRange('19-34 ans');
-        $product->setGender('homme');
         $product->addAge($age2);
         $product->addAge($age3);
         $product->addAge($age4);
@@ -290,10 +288,8 @@ class AppFixtures extends Fixture
         $product->setName('PC portable');
         $product->setPrice('400');
         $product->setDescription($faker->text());   
-        $product->setPicture('https://www.pexels.com/fr-fr/photo/ordinateur-portable-argente-et-tasse-blanche-sur-table-7974/');
+        $product->setPicture('https://cdn.pixabay.com/photo/2014/09/24/14/29/macbook-459196_960_720.jpg');
         $product->setShoppingLink('https://www.monpcmarchepas.fr');
-        $product->setAgeRange('19-34 ans');
-        $product->setGender('homme');
         $product->addAge($age2);
         $product->addAge($age3);
         $product->addAge($age4);
@@ -315,8 +311,6 @@ class AppFixtures extends Fixture
         $product->setDescription($faker->text());  
         $product->setPicture('https://images.unsplash.com/photo-1514302240736-b1fee5985889?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Z2Vla3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60');
         $product->setShoppingLink('https://www.mabellefigurine.fr');
-        $product->setAgeRange('19-34 ans');
-        $product->setGender('homme');
         $product->addAge($age1);
         $product->addAge($age2);
         $product->addAge($age3);
@@ -340,8 +334,6 @@ class AppFixtures extends Fixture
         $product->addAge($age3); 
         $product->setPicture('https://images.pexels.com/photos/7682341/pexels-photo-7682341.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
         $product->setShoppingLink('https://www.monmicromarchepas.fr');
-        $product->setAgeRange('19-34 ans');
-        $product->setGender('homme');
         $product->addAge($age2);
         $product->addAge($age3);
         $product->addAge($age4);
@@ -362,8 +354,6 @@ class AppFixtures extends Fixture
         $product->setDescription($faker->text()); 
         $product->setPicture('https://images.pexels.com/photos/3761267/pexels-photo-3761267.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
         $product->setShoppingLink('https://www.vendunreinpouruncasqueVR.com');
-        $product->setAgeRange('19-34 ans');
-        $product->setGender('homme');
         $product->addAge($age1);
         $product->addAge($age2);
         $product->addAge($age3);
@@ -386,8 +376,6 @@ class AppFixtures extends Fixture
         $product->setDescription($faker->text());   
         $product->setPicture('https://cdn.pixabay.com/photo/2016/03/27/13/53/bottle-1282705_960_720.jpg');
         $product->setShoppingLink('https://www.unebouteillealamer.net');
-        $product->setAgeRange('35-50 ans');
-        $product->setGender('femme');
         $product->addAge($age3);
         $product->addAge($age4);
         $product->addEvent($event4);
@@ -408,8 +396,6 @@ class AppFixtures extends Fixture
         $product->setDescription($faker->text());   
         $product->setPicture('https://previews.123rf.com/images/starkovphoto/starkovphoto1602/starkovphoto160200025/52658110-la-bo%C3%AEte-de-macarons-en-forme-de-coeur-avec-des-fleurs-et-du-ruban-sur-une-table-en-bois-cadeau-cr%C3%A9a.jpg');
         $product->setShoppingLink('https://www.lesbonschoco.fr');
-        $product->setAgeRange('35-50 ans');
-        $product->setGender('femme');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setGenre($genre3);
@@ -430,8 +416,6 @@ class AppFixtures extends Fixture
         $product->addAge($age3);   
         $product->setPicture('https://images.pexels.com/photos/9981093/pexels-photo-9981093.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
         $product->setShoppingLink('https://www.ocaro.fr');
-        $product->setAgeRange('35-50 ans');
-        $product->setGender('femme');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setGenre($genre2);
@@ -452,8 +436,6 @@ class AppFixtures extends Fixture
         $product->setDescription($faker->text());   
         $product->setPicture('https://cdn.pixabay.com/photo/2014/12/31/14/11/wedding-ring-584974_960_720.jpg');
         $product->setShoppingLink('https://www.clear.com');
-        $product->setAgeRange('35-50 ans');
-        $product->setGender('Femme');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setGenre($genre2);
@@ -474,8 +456,6 @@ class AppFixtures extends Fixture
         $product->setDescription($faker->text());   
         $product->setPicture('https://www.programme-tv.net/imgre/fit/https.3A.2F.2Fprd2-tel-epg-img.2Es3-eu-west-1.2Eamazonaws.2Ecom.2Fprogram.2F44691aba5c165697.2Ejpg/630x355/quality/80/malcolm.jpg');
         $product->setShoppingLink('http://www.haladustyle.com');
-        $product->setAgeRange('35-50 ans');
-        $product->setGender('Mixte');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setGenre($genre3);
@@ -494,8 +474,6 @@ class AppFixtures extends Fixture
         $product->setDescription($faker->text());   
         $product->setPicture('https://images.pexels.com/photos/7005769/pexels-photo-7005769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
         $product->setShoppingLink('https://www.grosport.fr');
-        $product->setAgeRange('35-50 ans');
-        $product->setGender('Mixte');
         $product->addAge($age3);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
@@ -504,6 +482,28 @@ class AppFixtures extends Fixture
         $product->addEvent($event5);
         $product->setStatus(1);
         $product->addCategory($category1);
+
+        $manager->persist($product);
+
+        // product 12 
+        $product = new Product();
+        $product->setName('Bracelet Tracker Requin');
+        $product->setPrice('300');
+        $product->setDescription($faker->text());   
+        $product->setPicture('https://https://media.istockphoto.com/photos/handmade-shark-figurine-bracelet-with-aquamarine-stone-beads-picture-id1043383476?k=20&m=1043383476&s=612x612&w=0&h=cvb8bltLig4fO03V0TlpCnF3C1WsUFsvgHoZ56IsdiQ=');
+        $product->setShoppingLink('https://www.arnaquetonpote.fr');
+        $product->addAge($age1);
+        $product->addAge($age2);
+        $product->addAge($age3);
+        $product->addAge($age4);
+        //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
+        $product->setGenre($genre3);
+        $product->setCreatedAt(new \datetime('now'));
+        $product->setStatus(1);
+        $product->addCategory($category1);
+        $product->addEvent($event1);
+        $product->addEvent($event2);
+        $product->addEvent($event4);
 
         $manager->persist($product);
         

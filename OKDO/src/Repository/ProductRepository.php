@@ -63,39 +63,6 @@ class ProductRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
-
-
-   /*  public function searchByCategories(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $categoryLabel = $request->get('label');
-
-    $query = $repository->createQueryBuilder('')
-
-
-    }  */
-
-    /*   Public function findProductGenreByfilters()
-    {
-        $qb = $this->createQueryBuilder('p');
-
-        $qb
-            ->innerJoin('App\Entity\Genre', 'g',  Join::WITH , 'g = p.genre')
-            ->where(
-                $qb->expr()->andX(
-                    $qb->expr()->isNotNull('p.genre'),
-                    $qb->expr()->like('g.label', ':label')
-                )
-            )
-
-        ->setParameter('label', $label);
-
-        dump($qb->getQuery()->getSQL());
-
-
-    }   */
-
     /**
      * Liste des products par ordre alpha
      * en DQL
@@ -114,36 +81,10 @@ class ProductRepository extends ServiceEntityRepository
         // returns an array of Movie objects
         return $query->getResult();
     }
-    /*
-    public function findOneBySomeField($value): ?Product
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }*/
-
 
     //   MULTIPLE TESTS FOR ALGO SEARCH QB / DQL (not working)
-
-
-    /*  public function findProductByFiltersDql()
-    {
-
-        $rsm = new ResultSetMapping;
-        $rsm->addEntityResult('Product', 'p');
-        $rsm->addFieldResult('p', 'id', 'id');
-        $rsm->addFieldResult('p','name','name');
-        $rsm->addFieldResult('p', 'picture', 'picture');
-        $rsm->addFieldResult('p', 'description', 'description');
-        $rsm->addFieldResult('p', 'shopping_link', 'shopping_link');
-        $rsm->addJoinedEntityResult('Category', 'c', 'p', 'category');
-        $rsm->addFieldResult('c', 'category_id', 'id');
-        $rsm->addFieldResult('c', 'label', 'label');
-        $rsm->addFieldResult('c', 'value', 'value');
-
+      
+    /* 
         $sql = 'SELECT `name`,`description`,`picture`,`shopping_link`
         FROM product p
         INNER JOIN age_product ap ON p.id = ap.product_id
@@ -153,11 +94,9 @@ class ProductRepository extends ServiceEntityRepository
         AND ep.event_id IN (3,4)
         AND pc.category_id IN (3,4)
         AND p.genre_id IN (3)
-        GROUP BY p.id';
+        GROUP BY p.id'; */
 
-        $query = $this->_em->createNamedNativeQuery($sql, $rsm);
-        $query->setParameter(1, 'geek');
-    } */
+  
 }
 
    
