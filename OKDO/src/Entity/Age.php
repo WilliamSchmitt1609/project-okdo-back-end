@@ -20,6 +20,7 @@ class Age
      * @ORM\Column(type="integer")
      * @Groups({"get_ages_collection"})
      * @Groups({"get_profiles_collection"})
+     * @Groups({"get_searchs_collection"})
      */
     private $id;
 
@@ -28,6 +29,7 @@ class Age
      * @Groups({"create_profiles_item"})
      * @Groups({"get_profiles_collection"})
      * @Groups({"get_ages_collection"})
+     * @Groups({"get_searchs_collection"})
      */
     private $label;
 
@@ -37,20 +39,21 @@ class Age
     private $profiles;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="ages")
+     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="ages")
      */
-    private $product;
+    private $products;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Groups({"get_ages_collection"})
+     * @Groups({"get_searchs_collection"})
      */
     private $value;
 
     public function __construct()
     {
         $this->profiles = new ArrayCollection();
-        $this->product = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,9 +109,9 @@ class Age
     /**
      * @return Collection|Product[]
      */
-    public function getProduct(): Collection
+    public function getProducts(): Collection
     {
-        return $this->product;
+        return $this->products;
     }
 
     /**
@@ -117,8 +120,9 @@ class Age
      */
     public function addProduct(Product $product): self
     {
-        if (!$this->product->contains($product)) {
-            $this->product[] = $product;
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addAge($this);
         }
 
         return $this;
@@ -130,7 +134,7 @@ class Age
      */
     public function removeProduct(Product $product): self
     {
-        $this->product->removeElement($product);
+        $this->products->removeElement($product);
 
         return $this;
     }

@@ -19,6 +19,7 @@ class Product
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"get_products_collection"})
+     * @Groups({"get_searchs_collection"})
      * @Groups({"get_products_categories_collection"})
      */
     private $id;
@@ -93,13 +94,15 @@ class Product
      */
     private $genre;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="products", cascade={"persist"}))
+   /**
+     * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="products")
+     * @Groups({"get_searchs_collection"})
      */
     private $events;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Age::class, mappedBy="product", cascade={"persist"}))
+     * @ORM\ManyToMany(targetEntity=Age::class, inversedBy="products")
+     * @Groups({"get_searchs_collection"})
      */
     private $ages;
 
@@ -265,15 +268,14 @@ class Product
         return $this->events;
     }
 
-    /**
-     * @param Event $event
-     * @return $this
-     */
+     /**
+      * @param Event $event
+      * @return $this
+      */
     public function addEvent(Event $event): self
     {
         if (!$this->events->contains($event)) {
             $this->events[] = $event;
-            $event->addProduct($this);
         }
 
         return $this;
@@ -308,7 +310,6 @@ class Product
     {
         if (!$this->ages->contains($age)) {
             $this->ages[] = $age;
-            $age->addProduct($this);
         }
 
         return $this;
