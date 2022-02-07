@@ -80,16 +80,17 @@ class ApiUsersController extends AbstractController
     }
 
     /**
-    * @Route("/api/secure/users", name="api_users_post", methods={"POST"})
+    * @Route("/api/users", name="api_users_post", methods={"POST"})
      */
     public function createItem(Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $hasher)
     {
         // Récupérer contenu JSON
         $jsonContent = $request->getContent();
-
+    
         try {
             // Désérialiser (convertir) le JSON en entité Doctrine User
             $user = $serializer->deserialize($jsonContent, User::class, 'json');
+            $user->setRoles(['ROLE_USER']);
         } catch (NotEncodableValueException $e) {
             // Si le JSON fourni est "malformé" ou manquant, on prévient le client
             return $this->json(
@@ -117,12 +118,13 @@ class ApiUsersController extends AbstractController
             return $this->json($errorsClean, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
  
+ 
         // Here, we hashed our password getting by json.
         $hashedPassword = $hasher->hashPassword($user, $user->getPassword());
         // then we send it to our bdd.
         $user->setPassword($hashedPassword);
         // determine role user
-        $user->setRoles(['ROLE_USER']);
+
         // creation date = now
         $user->setCreatedAt(new \DateTime('now'));
 
@@ -162,7 +164,6 @@ class ApiUsersController extends AbstractController
         $user = $userRepository->findOneBy(['id'=> $id]);
         $jsonContent = json_decode($request->getContent(), true);
       
-        empty($jsonContent['nickname']) ? true : $user->setNickname($jsonContent['nickname']);
         empty($jsonContent['firstname']) ? true : $user->setFirstname($jsonContent['firstname']);
         empty($jsonContent['lastname']) ? true : $user->setLastname($jsonContent['lastname']);
         empty($jsonContent['email']) ? true : $user->setEmail($jsonContent['email']);

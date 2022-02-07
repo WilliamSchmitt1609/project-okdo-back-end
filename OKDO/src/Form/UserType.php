@@ -25,7 +25,6 @@ class UserType extends AbstractType
                     'Gestionnaire' => 'ROLE_MANAGER',
                     'Administrateur' => 'ROLE_ADMIN',
                 ],
-                // Choix multiple => Tableau ;)
                 'multiple' => true,
                 // On veut des checkboxes !
                 'expanded' => true,
@@ -37,6 +36,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'attr' => ['novalidate' => 'novalidate']
         ]);
     }
 }
