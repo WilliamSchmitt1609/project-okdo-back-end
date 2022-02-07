@@ -45,7 +45,6 @@ class ProductController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $product->setCreatedAt(new DateTime);
-            
             $entityManager->persist($product);
             $entityManager->flush();
             

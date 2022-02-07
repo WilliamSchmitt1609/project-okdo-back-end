@@ -20,6 +20,7 @@ class Event
      * @ORM\Column(type="integer")
      * @Groups({"get_profiles_collection"})
      * @Groups({"get_events_collection"})
+     * @Groups({"get_searchs_collection"})
      */
     private $id;
 
@@ -28,6 +29,7 @@ class Event
      * @Groups({"create_profiles_item"})
      * @Groups({"get_profiles_collection"})
      * @Groups({"get_events_collection"})
+     * @Groups({"get_searchs_collection"})
      */
     private $label;
 
@@ -43,13 +45,14 @@ class Event
     private $profiles;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="events")
+     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="events")
      */
     private $products;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Groups({"get_events_collection"})
+     * @Groups({"get_searchs_collection"})
      */
     private $value;
 
@@ -134,7 +137,7 @@ class Event
         return $this->products;
     }
 
-    /**
+        /**
      * @param Product $product
      * @return $this
      */
@@ -142,10 +145,13 @@ class Event
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
+            $product->addEvent($this); 
         }
 
         return $this;
     }
+
+
 
     /**
      * @param Product $product

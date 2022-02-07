@@ -34,6 +34,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"get_profiles_collection"})
      * @Groups({"create_user_item"})
      * @Groups({"get_login_collection"})
+     * @Assert\NotBlank
      * 
      */
     private $nickname;
@@ -43,6 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\Email
      * @Groups({"get_users_collection"})
      * @Groups({"create_user_item"})
+     * @Assert\NotBlank
      */
     private $email;
 
@@ -50,6 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      * @Groups({"get_users_collection"})
      * @Groups({"create_user_item"})
+     * @Assert\NotBlank
      */
     private $password;
 
@@ -58,6 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"get_users_collection"})
      * @Groups({"create_user_item"})
      * @Groups({"get_login_collection"})
+     * @Assert\NotBlank
      */
     private $firstname;
 
@@ -66,6 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"get_users_collection"})
      * @Groups({"create_user_item"})
      * @Groups({"get_login_collection"})
+     * @Assert\NotBlank
      */
     private $lastname;
 
@@ -74,6 +79,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"get_users_collection"})
      * @Groups({"create_user_item"})
      * @Groups({"get_login_collection"})
+     * @Assert\NotBlank
      */
     private $roles = [];
 
