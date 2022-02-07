@@ -42,11 +42,12 @@ class ProductController extends AbstractController
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
+        dump ($product);
         
         if ($form->isSubmitted() && $form->isValid()) {
             $product->setCreatedAt(new DateTime);
-            
             $entityManager->persist($product);
+            dump($product);
             $entityManager->flush();
             
             return $this->redirectToRoute('back_product_index', [], Response::HTTP_SEE_OTHER);
