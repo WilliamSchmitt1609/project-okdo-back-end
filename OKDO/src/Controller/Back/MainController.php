@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MainController extends AbstractController
 {
     /**
+     *  Homepage back-office
+     * 
      * @Route("/back", name="back_main_home")
      */
     public function home()

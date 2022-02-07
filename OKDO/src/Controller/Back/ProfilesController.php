@@ -18,6 +18,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfilesController extends AbstractController
 {
     /**
+     * Show list profile page 
+     * 
      * @Route("/", name="back_profiles_index", methods={"GET"})
      */
     public function index(ProfilesRepository $profilesRepository): Response
@@ -28,6 +30,8 @@ class ProfilesController extends AbstractController
     }
 
     /**
+     * Create profile page 
+     * 
      * @Route("/new", name="back_profiles_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -51,6 +55,8 @@ class ProfilesController extends AbstractController
     }
 
     /**
+     * Show single profile page 
+     * 
      * @Route("/{id}", name="back_profiles_show", methods={"GET"})
      */
     public function show(Profiles $profile): Response
@@ -61,6 +67,8 @@ class ProfilesController extends AbstractController
     }
 
     /**
+     * Update profile page 
+     * 
      * @Route("/{id}/edit", name="back_profiles_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Profiles $profile, EntityManagerInterface $entityManager): Response
@@ -82,6 +90,8 @@ class ProfilesController extends AbstractController
     }
 
     /**
+     * DELETE profile page 
+     * 
      * @Route("/{id}", name="back_profiles_delete", methods={"POST"})
      */
     public function delete(Request $request, Profiles $profile, EntityManagerInterface $entityManager): Response

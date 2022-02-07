@@ -28,11 +28,11 @@ class ApiUsersController extends AbstractController
      */
     public function getUsersCollection(UserRepository $userRepository): Response
     {
-        // On va chercher les données
+        // User's data
         $usersList = $userRepository->findAll();
 
         return $this->json(
-            // les données à serializer
+            // serialized data
             $usersList,
             // status code
             200,
@@ -44,6 +44,8 @@ class ApiUsersController extends AbstractController
     }
 
     /**
+     * Get One user collection
+     * 
      * @Route("/api/secure/users/{id<\d+>}", name="api_users_get_item", methods={"GET"})
      */
     public function getItem(User $user = null): Response
@@ -80,6 +82,8 @@ class ApiUsersController extends AbstractController
     }
 
     /**
+     * Create one [role_user]user
+     * 
     * @Route("/api/users", name="api_users_post", methods={"POST"})
      */
     public function createItem(Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $hasher)
@@ -88,11 +92,12 @@ class ApiUsersController extends AbstractController
         $jsonContent = $request->getContent();
     
         try {
-            // Désérialiser (convertir) le JSON en entité Doctrine User
+            // Deserialized JSON in Doctrine Entity User
             $user = $serializer->deserialize($jsonContent, User::class, 'json');
+            // Set user to [role_user]
             $user->setRoles(['ROLE_USER']);
         } catch (NotEncodableValueException $e) {
-            // Si le JSON fourni est "malformé" ou manquant, on prévient le client
+            // if given JSON is missing or wrongly configured
             return $this->json(
                 ['error' => 'JSON invalide'],
                 Response::HTTP_UNPROCESSABLE_ENTITY
@@ -100,15 +105,14 @@ class ApiUsersController extends AbstractController
         }
 
 
-        // Valider l'entité
+        // Entity's validation
         // @link : https://symfony.com/doc/current/validation.html#using-the-validator-service
         $errors = $validator->validate($user);
 
-        // Y'a-t-il des erreurs ?
+        // Errors ?
         if (count($errors) > 0) {
-            // tableau de retour
             $errorsClean = [];
-            // @Retourner des erreurs de validation propres
+            // @Return validation's errors
             /** @var ConstraintViolation $error */
             foreach ($errors as $error) {
                 $errorsClean[$error->getPropertyPath()][] = $error->getMessage();
@@ -129,7 +133,7 @@ class ApiUsersController extends AbstractController
         $user->setCreatedAt(new \DateTime('now'));
 
         
-        // On sauvegarde l'entité
+        // Save entity
 
         $entityManager = $doctrine->getManager();
         $entityManager->persist($user);
@@ -137,6 +141,7 @@ class ApiUsersController extends AbstractController
 
         // Get adapted responsed
         return $this->json(
+            //Data to serialized
             $user,
 
             // status code
@@ -144,17 +149,17 @@ class ApiUsersController extends AbstractController
             Response::HTTP_CREATED,
             // REST demande un header Location + URL de la ressource
             [
-                // nom de l'en-tête + URL
+                // header response + URL
                 'Location' => $this->generateUrl('api_users_get_item', ['id' => $user->getId()])
             ],
 
-            // Groupe
+            // Groups used for the serializer
             ['groups' => 'create_user_item']
         );
     }
 
     /**
-     *   
+     *   Update single user data
      * 
     * @Route("/api/secure/users/{id<\d+>}", name="api_users_put", methods={"PUT"})
     */
@@ -169,15 +174,14 @@ class ApiUsersController extends AbstractController
         empty($jsonContent['email']) ? true : $user->setEmail($jsonContent['email']);
         empty($jsonContent['password']) ? true : $user->setPassword($hasher->hashPassword($user, $jsonContent['password']));
 
-        // Valider l'entité
+        // Entity's validation
           // @link : https://symfony.com/doc/current/validation.html#using-the-validator-service
           $errors = $validator->validate($user);
         
-        // Y'a-t-il des erreurs ?
+        // Errors ?
         if (count($errors) > 0) {
-            // tableau de retour
             $errorsClean = [];
-            // @Retourner des erreurs de validation propres
+            // @Return validation's errors
             /** @var ConstraintViolation $error */
             foreach ($errors as $error) {
                 $errorsClean[$error->getPropertyPath()][] = $error->getMessage();
@@ -185,9 +189,9 @@ class ApiUsersController extends AbstractController
 
             return $this->json($errorsClean, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
-        // $user->getProfiles($profiles);
+        //Set actual time
         $user->setUpdatedAt(new \DateTime('now'));
+        //Set role user
         $user->setRoles(['ROLE_USER']);
 
         $entityManager = $doctrine->getManager();
@@ -199,7 +203,9 @@ class ApiUsersController extends AbstractController
 
     }
 
-         /** 
+    /**
+    * Delete one user
+    *  
     * @Route("/api/secure/users/{id<\d+>}", name="api_users_delete", methods={"DELETE"})
     */
     public function deleteUsers($id, UserRepository $user, EntityManagerInterface $entityManager): Response

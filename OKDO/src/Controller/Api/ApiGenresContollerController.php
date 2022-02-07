@@ -16,20 +16,19 @@ class ApiGenresContollerController extends AbstractController
      */
     public function getGenresCollection(GenreRepository $genreRepository): Response
     {
-        // @todo : retourner les films de la BDD
         
-        // On va chercher les données
+        // Get genre's data
         $genresList = $genreRepository->findAll();
         
 
         return $this->json(
-            // les données à serializer
+            // Serialize data
             $genresList,
             // status code
             Response::HTTP_OK,
-            // Les en-têtes de réponse à ajouter (aucune)
+            // Header response (None)
             [],
-            // Les groupes à utiliser par le Serializer
+            // needed groups for serialize
             ['groups' => 'get_genres_collection']
         );
     }

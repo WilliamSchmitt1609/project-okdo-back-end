@@ -28,8 +28,8 @@ class AppFixtures extends Fixture
     {
         // each time we called hasher on our load, it will hash the password
         $this->hasher = $hasher;
-        // On récupère la connexion à la BDD (DBAL ~= PDO)
-        // pour exécuter des requêtes manuelles en SQL pur
+        // get connection to Database (DBAL ~= PDO)
+        // execut requests manually in SQL
         $this->connection = $connection;
         
     }
@@ -55,7 +55,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
-        // On TRUNCATE manuellement
+        // TRUNCATE
         $this->truncate();
         
         // use the factory to create a Faker\Generator instance
@@ -88,7 +88,7 @@ class AppFixtures extends Fixture
         $managerUser->setFirstname('William');
         $managerUser->setLastname('Schmitt');
         $managerUser->setCreatedAt(new \datetime('now'));
-        // Attention $manager = le Manager de Doctrine :D
+        // $manager = Manager Doctrine
         $manager->persist($managerUser);
 
         // user 

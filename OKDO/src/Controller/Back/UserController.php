@@ -19,6 +19,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserController extends AbstractController
 {
     /**
+     * show list user page 
+     * 
      * @Route("/", name="back_user_index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
@@ -29,6 +31,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * Create new user page 
+     * 
      * @Route("/new", name="back_user_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
@@ -55,6 +59,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * show single user page 
+     * 
      * @Route("/{id}", name="back_user_show", methods={"GET"})
      */
     public function show(User $user): Response
@@ -65,6 +71,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * UPDATE new user page 
+     * 
      * @Route("/{id}/edit", name="back_user_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
@@ -90,6 +98,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * DELETE new user page 
+     * 
      * @Route("/{id}", name="back_user_delete", methods={"POST"})
      */
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
