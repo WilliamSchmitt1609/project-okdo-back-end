@@ -29,17 +29,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     * @Groups({"get_users_collection"})
-     * @Groups({"get_profiles_collection"})
-     * @Groups({"create_user_item"})
-     * @Groups({"get_login_collection"})
-     * @Assert\NotBlank
-     * 
-     */
-    private $nickname;
-
-    /**
      * @ORM\Column(type="string", length=128)
      * @Assert\Email
      * @Groups({"get_users_collection"})
@@ -116,17 +105,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * 
      */
     
-    public function getNickname(): ?string
-    {
-        return $this->nickname;
-    }
-
-    public function setNickname(string $nickname): self
-    {
-        $this->nickname = $nickname;
-
-        return $this;
-    }
 
     public function getEmail(): ?string
     {
