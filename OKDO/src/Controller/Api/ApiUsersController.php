@@ -86,10 +86,11 @@ class ApiUsersController extends AbstractController
     {
         // Récupérer contenu JSON
         $jsonContent = $request->getContent();
-
+    
         try {
             // Désérialiser (convertir) le JSON en entité Doctrine User
             $user = $serializer->deserialize($jsonContent, User::class, 'json');
+            $user->setRoles(['ROLE_USER']);
         } catch (NotEncodableValueException $e) {
             // Si le JSON fourni est "malformé" ou manquant, on prévient le client
             return $this->json(
@@ -117,12 +118,13 @@ class ApiUsersController extends AbstractController
             return $this->json($errorsClean, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
  
+ 
         // Here, we hashed our password getting by json.
         $hashedPassword = $hasher->hashPassword($user, $user->getPassword());
         // then we send it to our bdd.
         $user->setPassword($hashedPassword);
         // determine role user
-        $user->setRoles(['ROLE_USER']);
+
         // creation date = now
         $user->setCreatedAt(new \DateTime('now'));
 
