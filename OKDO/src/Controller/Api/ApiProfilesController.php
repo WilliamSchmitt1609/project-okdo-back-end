@@ -35,18 +35,20 @@ class ApiProfilesController extends AbstractController
         
 
         return $this->json(
-            // les données à serializer
+            // Serialize data
             $profilesList,
             // status code
             Response::HTTP_OK,
-            // Les en-têtes de réponse à ajouter (aucune)
+            // Header response (None)
             [],
-            // Les groupes à utiliser par le Serializer
+            // needed groups for serialize
             ['groups' => 'get_profiles_collection']
         );
     }
 
     /**
+     * Get single profile
+     * 
      * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_get_item", methods={"GET"})
      */
     public function getItem(Profiles $profiles = null, User $user): Response
@@ -66,30 +68,31 @@ class ApiProfilesController extends AbstractController
 
 
     /**
+     * Create profiles linked by one user
+     * 
      * @Route("/api/secure/user/{id}/profiles", name="api_profiles_post", methods={"POST"})
      * 
      */
     public function createItem($id, CategoryRepository $categoryRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserRepository $userRepository): Response
     {
         $profiles = $serializer->deserialize($request->getContent(), Profiles::class, 'json');
+
         $jsonContent = json_decode($request->getContent(), true);
-        //  $user = $userRepository->find($jsonContent["User"]);
+
         $user = $userRepository->find($id);
+
         $category = $categoryRepository->find("id");
-        /* $category = $categoryRepository->findAll();
-        $profiles->addCategory($category, ['name']); */
         $profiles->setCreatedAt(new \DateTime('now'));
        
   
-          // Valider l'entité
+          // Entity's validation
           // @link : https://symfony.com/doc/current/validation.html#using-the-validator-service
           $errors = $validator->validate($profiles);
   
-          // Y'a-t-il des erreurs ?
+          // Errors ?
           if (count($errors) > 0) {
-              // tableau de retour
               $errorsClean = [];
-              // @Retourner des erreurs de validation propres
+              // @Return validation's error 
               /** @var ConstraintViolation $error */
               foreach ($errors as $error) {
                   $errorsClean[$error->getPropertyPath()][] = $error->getMessage();
@@ -97,62 +100,67 @@ class ApiProfilesController extends AbstractController
   
               return $this->json($errorsClean, Response::HTTP_UNPROCESSABLE_ENTITY);
           }
-  
+          
           $profiles->setUser($user);
+          // Associate category to profile
           $profiles->getCategories($category);
           
-          // On sauvegarde l'entité
+          // Save entity
           $entityManager = $doctrine->getManager();
           $entityManager->persist($profiles);
           $entityManager->flush();
   
           // On retourne la réponse adaptée (201 + Location: URL de la ressource)
           return $this->json(
-              // Le film créé peut être ajouté au retour
+              // // Serialize data
               $profiles,
-              // Le status code : 201 CREATED
-              // utilisons les constantes de classes !
+              //status code : 201 CREATED
               Response::HTTP_CREATED,
-              // REST demande un header Location + URL de la ressource
+              // REST ask for a header location + URL of the ressource
               [
-                  // Nom de l'en-tête + URL
+                  //  Header response + URL
                   'Location' => $this->generateUrl('api_profiles_get_item', ['id' => $profiles->getId()])
               ],
-            // Groupe
+            // needed groups for serialize
             ['groups' => 'create_profiles_item']
         );
     }
 
     /**
-     *   
+     *   Update profile
      * 
     * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_put", methods={"PUT"})
     */
     public function updateItem($id, Profiles $profile, ProfilesRepository $profilesRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine): Response {
 
-        // $profile est récupéré en argument via l'id passé à la route, on peut donc en profiter pour le mettre à jour avec les données qu'on envoi
+        // Getting $profile with ID on route.
          $serializer->deserialize($request->getContent(),
             Profiles::class,
             'json',
+            //Object to populate : updated from the normalized data, instead of the denormalizer re-creating them
             [AbstractNormalizer::OBJECT_TO_POPULATE => $profile]
         );
         $profile = $profilesRepository->find($id);
         $profile->setUpdatedAt(new \DateTime());
-        // On le sauvegarde avec les nouvelles données, et voilà !
+        // Save with new data.
         $entityManager = $doctrine->getManager();
         $entityManager->flush();
         
         return $this->json(
+            // Serialize data
             $profile,
+            // status code
             JsonResponse::HTTP_OK,
-            // REST demande un header Location + URL de la ressource
+            // Header response (None)
             [],
-            // Groupe
+            // needed groups for serialize
             ['groups' => 'create_profiles_item']
         );
       }
     
     /** 
+     * Delete profile
+     * 
     * @Route("/api/secure/profiles/{id<\d+>}", name="api_profiles_delete", methods={"DELETE"})
     */
     public function deleteProfiles($id, ProfilesRepository $profiles, EntityManagerInterface $entityManager): Response

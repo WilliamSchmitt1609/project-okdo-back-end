@@ -18,6 +18,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class EventController extends AbstractController
 {
     /**
+     *  Index event page
+     * 
      * @Route("/", name="back_event_index", methods={"GET"})
      */
     public function index(EventRepository $eventRepository): Response
@@ -28,6 +30,8 @@ class EventController extends AbstractController
     }
 
     /**
+     * Create event page
+     * 
      * @Route("/new", name="back_event_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -50,6 +54,8 @@ class EventController extends AbstractController
     }
 
     /**
+     * Show single event page 
+     * 
      * @Route("/{id}", name="back_event_show", methods={"GET"})
      */
     public function show(Event $event): Response
@@ -60,6 +66,8 @@ class EventController extends AbstractController
     }
 
     /**
+     *  Update single event page
+     * 
      * @Route("/{id}/edit", name="back_event_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Event $event, EntityManagerInterface $entityManager): Response
@@ -80,6 +88,8 @@ class EventController extends AbstractController
     }
 
     /**
+     * DELETE single event page
+     * 
      * @Route("/{id}", name="back_event_delete", methods={"POST"})
      */
     public function delete(Request $request, Event $event, EntityManagerInterface $entityManager): Response

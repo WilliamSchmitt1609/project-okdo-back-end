@@ -24,6 +24,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProductController extends AbstractController
 {
     /**
+     * Index list product page 
+     * 
      * @Route("/", name="back_product_index", methods={"GET"})
      */
     public function index(ProductRepository $productRepository): Response
@@ -34,6 +36,8 @@ class ProductController extends AbstractController
     }
 
     /**
+     *  Create product page 
+     * 
      * @Route("/new", name="back_product_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -58,6 +62,8 @@ class ProductController extends AbstractController
     }
 
     /**
+     * Show single product page 
+     * 
      * @Route("/{id}", name="back_product_show", methods={"GET"})
      */
     public function show(Product $product): Response
@@ -68,6 +74,8 @@ class ProductController extends AbstractController
     }
 
     /**
+     * Update product page 
+     * 
      * @Route("/{id}/edit", name="back_product_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Product $product, EntityManagerInterface $entityManager): Response
@@ -89,9 +97,11 @@ class ProductController extends AbstractController
         ]);
     }
 
-     /**
-     * @Route("/{id}", name="back_product_delete", methods={"POST"})
-     */
+    /**
+    * Delete product page  
+    *
+    * @Route("/{id}", name="back_product_delete", methods={"POST"})
+    */
     public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {

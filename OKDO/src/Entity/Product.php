@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,7 +19,7 @@ class Product
      * @ORM\Column(type="integer")
      * @Groups({"get_products_collection"})
      * @Groups({"get_searchs_collection"})
-     * @Groups({"get_products_categories_collection"})
+     * 
      */
     private $id;
 
@@ -28,6 +27,7 @@ class Product
      * @ORM\Column(type="string", length=50)
      * @Groups({"get_products_collection"})
      * @Groups({"get_searchs_collection"})
+     * 
      */
     private $name;
 
@@ -36,12 +36,15 @@ class Product
      * @ORM\Column(type="float")
      * @Groups({"get_products_collection"})
      * @Groups({"get_searchs_collection"})
+     * 
      */
     private $price;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"get_products_collection"})
+     * @Groups({"get_searchs_collection"})
+     * 
      */
     private $description;
 
@@ -49,6 +52,7 @@ class Product
      * @ORM\Column(type="string", length=2000)
      * @Groups({"get_products_collection"})
      * @Groups({"get_searchs_collection"})
+     * 
      */
     private $picture;
 
@@ -56,6 +60,7 @@ class Product
      * @ORM\Column(type="string", length=2000)
      * @Groups({"get_products_collection"})
      * @Groups({"get_searchs_collection"})
+     * 
      */
     private $shoppingLink;
 
@@ -82,7 +87,7 @@ class Product
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="products")
      * @Groups({"get_products_collection"})
-     * @Groups({"get_products_categories_collection"})
+     * 
      * @Groups({"get_searchs_collection"})
      */
     private $categories;

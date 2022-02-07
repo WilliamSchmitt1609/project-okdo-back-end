@@ -14,22 +14,20 @@ class ApiAgeController extends AbstractController
      *
      * @Route("/api/ages", name="api_ages_get", methods={"GET"})
      */
-    public function getCategoriesCollection(AgeRepository $ageRepository): Response
+    public function getAgeCollection(AgeRepository $ageRepository): Response
     {
-        // @todo : retourner les films de la BDD
-        
-        // On va chercher les données
+        // Get age's data
         $agesList = $ageRepository->findAll();
         
 
         return $this->json(
-            // les données à serializer
+            // Serialize data
             $agesList,
             // status code
             Response::HTTP_OK,
-            // Les en-têtes de réponse à ajouter (aucune)
+            // Header response (None)
             [],
-            // Les groupes à utiliser par le Serializer
+            // needed groups for serialize
             ['groups' => 'get_ages_collection']
         );
     }
