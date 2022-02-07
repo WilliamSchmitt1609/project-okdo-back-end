@@ -16,7 +16,6 @@ class ApiAgeController extends AbstractController
      */
     public function getCategoriesCollection(AgeRepository $ageRepository): Response
     {
-        // @todo : retourner les films de la BDD
         
         // On va chercher les données
         $agesList = $ageRepository->findAll();
