@@ -80,7 +80,7 @@ class ApiUsersController extends AbstractController
     }
 
     /**
-    * @Route("/api/secure/users", name="api_users_post", methods={"POST"})
+    * @Route("/api/users", name="api_users_post", methods={"POST"})
      */
     public function createItem(Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $hasher)
     {
@@ -162,7 +162,6 @@ class ApiUsersController extends AbstractController
         $user = $userRepository->findOneBy(['id'=> $id]);
         $jsonContent = json_decode($request->getContent(), true);
       
-        empty($jsonContent['nickname']) ? true : $user->setNickname($jsonContent['nickname']);
         empty($jsonContent['firstname']) ? true : $user->setFirstname($jsonContent['firstname']);
         empty($jsonContent['lastname']) ? true : $user->setLastname($jsonContent['lastname']);
         empty($jsonContent['email']) ? true : $user->setEmail($jsonContent['email']);

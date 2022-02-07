@@ -68,7 +68,6 @@ class AppFixtures extends Fixture
 
        // here we create our custom fixtures admin for our user
         $admin = new User();
-        $admin->setNickname('admin');
         $admin->setEmail('admin@admin.com');
         $admin->setRoles(['ROLE_ADMIN']);
         // we call our dependance hasher for admin fixture
@@ -82,7 +81,6 @@ class AppFixtures extends Fixture
         $manager->persist($admin);
 
         $managerUser = new User();
-        $managerUser->setNickname('manager');
         $managerUser->setEmail('manager@manager.com');
         $managerUser->setRoles(['ROLE_MANAGER']);
         $password = $this->hasher->hashPassword($managerUser, 'manager');
@@ -95,7 +93,6 @@ class AppFixtures extends Fixture
 
         // user 
         $user = new User();
-        $user->setNickname('user');
         $user->setEmail('user@user.com');
         $user->setRoles(['ROLE_USER']);
         $password = $this->hasher->hashPassword($user, 'user');
@@ -108,7 +105,6 @@ class AppFixtures extends Fixture
 
         //user 1 
         $user1 = new User();
-        $user1->setNickname('francois');
         $user1->setEmail('francois@lefrancais.com');
         $user1->setRoles(['ROLE_USER']);
         $password = $this->hasher->hashPassword($user1, 'francois');
