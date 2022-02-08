@@ -1,13 +1,11 @@
-<!DOCTYPE html>
+{% extends "back/base.html.twig" %}
 
-<title>Edit Product</title>
 
 {% block body %}
-    <h1>Edit Product</h1>
-
-    {{ include('back/product/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('back_product_index') }}">back to list</a>
-
-    {{ include('back/product/_delete_form.html.twig') }}
+    <div class="container">
+        <h1 class="text-xl mb-2 flex justify-center p-12 capitalize font-semibold tracking-wide">Edit Product</h1>
+        <div class="form-container">
+        {{ include('back/product/_form.html.twig', {'button_label': 'Update'}) }}
+        </div>
+    </div>
 {% endblock %}

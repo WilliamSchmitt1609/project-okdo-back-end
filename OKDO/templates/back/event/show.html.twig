@@ -1,34 +1,57 @@
-<!DOCTYPE html>
-
-<title>Event</title>
+{% extends "back/navbar.html.twig" %}
 
 {% block body %}
-    <h1>Event</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ event.id }}</td>
-            </tr>
-            <tr>
-                <th>Label</th>
-                <td>{{ event.label }}</td>
-            </tr>
-            <tr>
-                <th>Number</th>
-                <td>{{ event.number }}</td>
-            </tr>
-            <tr>
-                <th>Value</th>
-                <td>{{ event.value }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('back_event_index') }}">back to list</a>
-
-    <a href="{{ path('back_event_edit', {'id': event.id}) }}">edit</a>
+   <div class="p-4 w-3/4 bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700 mt-6 ml-6">
+    <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Event</h3>
+   </div>
+   <div class="flow-root">
+        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+            <li class="py-3 sm:py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                            Id
+                        </p>
+                    </div>
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        {{ event.id }}
+                    </div>
+                </div>
+            </li>
+            <li class="py-3 sm:py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                            Label
+                        </p>
+                    </div>
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        {{ event.label }}
+                    </div>
+                </div>
+            </li>
+            <li class="py-3 sm:py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                            Value
+                        </p>
+                    </div>
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        {{ event.value }}
+                    </div>
+                </div>
+            </li>
+        </ul>
+   </div>
+</div>
 
     {{ include('back/event/_delete_form.html.twig') }}
+
+    <div class ="flex flex-wrap">
+        <a class ="mt-5 font-medium px-3 py-2 text-dark rounded-lg hover:bg-yellow-600 hover:text-slate-900" href="{{ path('back_event_edit', {'id': event.id}) }}">edit</a>
+        <a class="mt-5 font-medium px-3 py-2 text-dark rounded-lg  hover:bg-slate-400 hover:text-slate-900" href="{{ path('back_event_index') }}">back to list</a>
+
+    
 {% endblock %}
