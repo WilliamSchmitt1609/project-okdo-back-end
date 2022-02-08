@@ -455,13 +455,9 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setGenre($genre2);
-        $product->setGenre($genre3);
         $product->setStatus(1);
         $product->addCategory($category4);
         $product->addAge($age3);
-        $product->addAge($age4);
-        $product->addEvent($event1);
-        $product->addEvent($event4);
         $product->addEvent($event5);
 
         $manager->persist($product);
@@ -476,16 +472,13 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setGenre($genre2);
-        $product->setGenre($genre3);
         $product->setStatus(1);
         $product->addCategory($category4);
         $product->addAge($age3);
-        $product->addAge($age4);
-        $product->addEvent($event1);
-        $product->addEvent($event4);
         $product->addEvent($event5);
 
         $manager->persist($product);
+
 
         //product 12
         $product = new Product();
@@ -549,14 +542,13 @@ class AppFixtures extends Fixture
         $product->setName('Bracelet Tracker Requin');
         $product->setPrice('300');
         $product->setDescription($faker->text());   
-        $product->setPicture('https://https://media.istockphoto.com/photos/handmade-shark-figurine-bracelet-with-aquamarine-stone-beads-picture-id1043383476?k=20&m=1043383476&s=612x612&w=0&h=cvb8bltLig4fO03V0TlpCnF3C1WsUFsvgHoZ56IsdiQ=');
+        $product->setPicture('https://media.istockphoto.com/photos/handmade-shark-figurine-bracelet-with-aquamarine-stone-beads-picture-id1043383476?k=20&m=1043383476&s=612x612&w=0&h=cvb8bltLig4fO03V0TlpCnF3C1WsUFsvgHoZ56IsdiQ=');
         $product->setShoppingLink('https://www.arnaquetonpote.fr');
         $product->addAge($age2);
         $product->addAge($age3);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setGenre($genre1);
         $product->setGenre($genre2);
-        $product->setGenre($genre3);
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
         $product->addCategory($category6);
