@@ -377,7 +377,7 @@ class AppFixtures extends Fixture
         $product->setPicture('https://previews.123rf.com/images/starkovphoto/starkovphoto1602/starkovphoto160200025/52658110-la-bo%C3%AEte-de-macarons-en-forme-de-coeur-avec-des-fleurs-et-du-ruban-sur-une-table-en-bois-cadeau-cr%C3%A9a.jpg');
         $product->setShoppingLink('https://www.lesbonschoco.fr');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
-        $product->setCreatedAt(new \datetime('now'));
+        $product->setCreatedAt(new \datetime('now')) ;
         $product->setGenre($genre3);
         $product->setStatus(1);
         $product->addCategory($category2);
