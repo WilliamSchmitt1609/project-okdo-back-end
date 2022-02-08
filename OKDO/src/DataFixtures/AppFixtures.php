@@ -371,7 +371,7 @@ class AppFixtures extends Fixture
 
         // product 7
         $product = new Product();
-        $product->setName('Chocolat / Macarons ');
+        $product->setName('Chocolat / Macarons');
         $product->setPrice('20');
         $product->setDescription($faker->text());   
         $product->setPicture('https://previews.123rf.com/images/starkovphoto/starkovphoto1602/starkovphoto160200025/52658110-la-bo%C3%AEte-de-macarons-en-forme-de-coeur-avec-des-fleurs-et-du-ruban-sur-une-table-en-bois-cadeau-cr%C3%A9a.jpg');
