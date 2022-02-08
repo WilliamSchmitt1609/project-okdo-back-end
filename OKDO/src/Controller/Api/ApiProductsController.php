@@ -19,25 +19,25 @@ class ApiProductsController extends AbstractController
      */
     public function getProductsCollection(ProductRepository $productRepository): Response
     {
-        // @todo : retourner les films de la BDD
-        
-        // On va chercher les données
+        // Get product's data
         $productsList = $productRepository->findAll();
         
 
         return $this->json(
-            // les données à serializer
+            // Serialize data
             $productsList,
             // status code
             Response::HTTP_OK,
-            // Les en-têtes de réponse à ajouter (aucune)
+            // Header response (None)
             [],
-            // Les groupes à utiliser par le Serializer
+            // needed groups for serialize
             ['groups' => 'get_products_collection']
         );
     }
 
     /**
+     * Get a product with one category associate
+     * 
      * @Route("/api/category/{id}/products", name="api_products_get_category", methods={"GET"})
      */
     public function getProductsByCategory($id, CategoryRepository $categoryRepository): Response
@@ -45,13 +45,13 @@ class ApiProductsController extends AbstractController
         // 404 ?
         
         // if ($product === null) {
-        //     return $this->json(['error' => 'Genre non trouvé.'], Response::HTTP_NOT_FOUND);
+        //     return $this->json(['error' => 'Product not find.'], Response::HTTP_NOT_FOUND);
         // }
 
         $category = $categoryRepository->find($id);
         $productsList = $category->getProducts();
 
-        // Tableau PHP à convertir en JSON
+        // array PHP convert to JSON
         $data = [
             'category' => $category,
             'products' => $productsList,
@@ -63,13 +63,15 @@ class ApiProductsController extends AbstractController
             [],
             [
                 'groups' => [
-                    // Le groupe des films
+                    // Product group
                     'get_products_collection'
                 ]
             ]);
     }
 
     /**
+     * Get a single product
+     * 
      * @Route("/api/products/{id<\d+>}", name="api_products_get_item", methods={"GET"})
      */
     public function getItem(Product $product = null): Response
@@ -77,7 +79,7 @@ class ApiProductsController extends AbstractController
 
         // 404 ?
         if ($product === null) {
-            return $this->json(['error' => 'Profil de recherche non trouvé.'], Response::HTTP_NOT_FOUND);
+            return $this->json(['error' => 'Product Not find.'], Response::HTTP_NOT_FOUND);
         }
 
         return $this->json($product, Response::HTTP_OK, [], ['groups' => 'get_products_collection']);

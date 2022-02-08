@@ -20,29 +20,29 @@ class EntityDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * Ce denormalizer doit-il s'appliquer sur la donnée courante ?
-     * Si oui, on appelle $this->denormalize()
+     * Should this denormalizer be applied to the current data?
+     * yes ? we call $this->denormalize()
      * 
-     * $data => l'id du Genre
-     * $type => le type de la classe vers laquelle on souhaite dénormaliser $data
+     * $data => Genre_id
+     * $type => the type of the class to which we want to denormalize $data
      * 
      * @inheritDoc
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        // Est-ce que la classe est de type Entité doctrine ?
-        // Est-ce que la donnée fournie est numérique ?
+        // Is the class of type Entity doctrine ?
+        // Is the data provided numerical ?
         return strpos($type, 'App\\Entity\\') === 0 && (is_numeric($data));
     }
 
     /**
-     * Cette méthode sera appelée si la condition du dessus est valide
+     * This method will be called if the condition above is valid
      * 
      * @inheritDoc
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        // Raccourci depuis l'EntityManager pour aller checher une entité
+        // Shortcut from the EntityManager to check an entity
         return $this->em->find($class, $data);
     }
 }

@@ -14,11 +14,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ *  Back office category page
+ * 
  * @Route("/back/category")
  */
 class CategoryController extends AbstractController
 {
     /**
+     * Index category page
+     * 
      * @Route("/", name="back_category_index", methods={"GET"})
      */
     public function index(CategoryRepository $categoryRepository): Response
@@ -29,6 +33,8 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * Creation of new category
+     * 
      * @Route("/new", name="back_category_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -52,6 +58,8 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * Show one category
+     * 
      * @Route("/{id}", name="back_category_show", methods={"GET"})
      */
     public function show(Category $category): Response
@@ -62,6 +70,8 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * Edit one category
+     * 
      * @Route("/{id}/edit", name="back_category_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Category $category, EntityManagerInterface $entityManager): Response
@@ -83,6 +93,8 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * Delete one category
+     * 
      * @Route("/{id}", name="back_category_delete", methods={"POST"})
      */
     public function delete(Request $request, Category $category, EntityManagerInterface $entityManager): Response

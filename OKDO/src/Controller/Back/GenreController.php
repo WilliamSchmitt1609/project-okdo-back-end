@@ -17,6 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class GenreController extends AbstractController
 {
     /**
+     * Index genre page
+     * 
      * @Route("/", name="back_genre_index", methods={"GET"})
      */
     public function index(GenreRepository $genreRepository): Response
@@ -27,6 +29,8 @@ class GenreController extends AbstractController
     }
 
     /**
+     * Create genre page
+     * 
      * @Route("/new", name="back_genre_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -49,6 +53,8 @@ class GenreController extends AbstractController
     }
 
     /**
+     * Show single genre page
+     * 
      * @Route("/{id}", name="back_genre_show", methods={"GET"})
      */
     public function show(Genre $genre): Response
@@ -59,6 +65,8 @@ class GenreController extends AbstractController
     }
 
     /**
+     *  Update genre page
+     * 
      * @Route("/{id}/edit", name="back_genre_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Genre $genre, EntityManagerInterface $entityManager): Response
@@ -79,6 +87,8 @@ class GenreController extends AbstractController
     }
 
     /**
+     *  DELETE single event page
+     * 
      * @Route("/{id}", name="back_genre_delete", methods={"POST"})
      */
     public function delete(Request $request, Genre $genre, EntityManagerInterface $entityManager): Response

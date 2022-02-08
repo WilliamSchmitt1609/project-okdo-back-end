@@ -38,20 +38,17 @@ class ProductType extends AbstractType
                 'expanded' => true,                
                 ])
             ->add('genre', EntityType::class, [
-                // @link https://symfony.com/doc/current/reference/forms/types/entity.html#basic-usage
                 'class' => Genre::class,               
                 'choice_label' => 'label',
                 'expanded' => true,   
                 ])
             ->add('events', EntityType::class, [
-                // @link https://symfony.com/doc/current/reference/forms/types/entity.html#basic-usage
                 'class' => Event::class,
                 'choice_label' => 'label',
                 'multiple' => true,
                 'expanded' => true,                  
                 ])
             ->add('ages', EntityType::class, [
-                // @link https://symfony.com/doc/current/reference/forms/types/entity.html#basic-usage
                 'class' => Age::class,               
                 'choice_label' => 'label',
                 'multiple' => true,
