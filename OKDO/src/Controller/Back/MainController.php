@@ -10,7 +10,7 @@ class MainController extends AbstractController
     /**
      *  Homepage back-office
      * 
-     * @Route("/back", name="back_main_home")
+     * @Route("/", name="back_main_home")
      */
     public function home()
     {
