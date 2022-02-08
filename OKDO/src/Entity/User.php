@@ -41,7 +41,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      * @Groups({"get_users_collection"})
      * @Groups({"create_user_item"})
-     * @Assert\NotBlank
+     * @Assert\Regex(
+    *   pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
+    *   message="Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial")
      */
     private $password;
 

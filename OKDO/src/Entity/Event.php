@@ -151,8 +151,6 @@ class Event
         return $this;
     }
 
-
-
     /**
      * @param Product $product
      * @return $this
