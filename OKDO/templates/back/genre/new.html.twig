@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-
-<title>New Genre</title>
+{% extends "back/base.html.twig" %}
 
 {% block body %}
-    <h1>Create new Genre</h1>
-
-    {{ include('back/genre/_form.html.twig') }}
-
-    <a href="{{ path('back_genre_index') }}">back to list</a>
+    <div class="container">
+        <h1 class= "text-xl mb-2 flex justify-center p-12 capitalize font-semibold tracking-wide">Create new Genre</h1>
+        <div class="form-container">
+            {{ include('back/genre/_form.html.twig') }}
+        </div>
+    </div>
+    
 {% endblock %}

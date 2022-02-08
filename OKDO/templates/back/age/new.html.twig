@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-
-<title>New Age</title>
+{% extends "back/base.html.twig" %}
 
 {% block body %}
-    <h1>Create new Age</h1>
-
-    {{ include('back/age/_form.html.twig') }}
-
-    <a href="{{ path('back_age_index') }}">back to list</a>
+    <div class="container">
+        <h1>Create new Age</h1>
+        <div class="form-container">
+            {{ include('back/age/_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}
