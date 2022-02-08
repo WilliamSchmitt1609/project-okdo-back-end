@@ -61,6 +61,7 @@ security:
         # l'API secure nécessite une authentification
         - { path: ^/api/secure, roles: IS_AUTHENTICATED_FULLY }
                 # Penser à utiliser bin/console debug:router pour avoir tous les motifs d'URL sous les yeux
+
         # BACK
         # page édition création (les castins seront pris en compte aussi)
         - { path: ^/back/(.*)/(new|edit), roles: ROLE_ADMIN}
