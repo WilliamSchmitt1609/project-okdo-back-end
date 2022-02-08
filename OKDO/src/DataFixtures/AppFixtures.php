@@ -73,8 +73,8 @@ class AppFixtures extends Fixture
         // we call our dependance hasher for admin fixture
         $password = $this->hasher->hashPassword($admin, 'admin');
         $admin->setPassword($password);
-        $admin->setFirstname('Ladislas');
-        $admin->setLastname('Marchand');
+        $admin->setFirstname('William');
+        $admin->setLastname('Schmitt');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $admin->setCreatedAt(new \datetime('now'));
     // persist before push
@@ -85,8 +85,8 @@ class AppFixtures extends Fixture
         $managerUser->setRoles(['ROLE_MANAGER']);
         $password = $this->hasher->hashPassword($managerUser, 'manager');
         $managerUser->setPassword($password);
-        $managerUser->setFirstname('William');
-        $managerUser->setLastname('Schmitt');
+        $managerUser->setFirstname('Ladislas');
+        $managerUser->setLastname('Marchand');
         $managerUser->setCreatedAt(new \datetime('now'));
         // $manager = Manager Doctrine
         $manager->persist($managerUser);
