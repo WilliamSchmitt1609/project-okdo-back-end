@@ -458,7 +458,6 @@ class AppFixtures extends Fixture
         $product->setStatus(1);
         $product->addCategory($category4);
         $product->addAge($age3);
-        $product->addAge($age4);
         $product->addEvent($event5);
 
         $manager->persist($product);
@@ -473,16 +472,13 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setGenre($genre2);
-        $product->setGenre($genre3);
         $product->setStatus(1);
         $product->addCategory($category4);
         $product->addAge($age3);
-        $product->addAge($age4);
-        $product->addEvent($event1);
-        $product->addEvent($event4);
         $product->addEvent($event5);
 
         $manager->persist($product);
+
 
         //product 12
         $product = new Product();
@@ -553,7 +549,6 @@ class AppFixtures extends Fixture
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setGenre($genre1);
         $product->setGenre($genre2);
-        $product->setGenre($genre3);
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
         $product->addCategory($category6);
