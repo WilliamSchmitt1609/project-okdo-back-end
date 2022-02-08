@@ -73,8 +73,8 @@ class AppFixtures extends Fixture
         // we call our dependance hasher for admin fixture
         $password = $this->hasher->hashPassword($admin, 'admin');
         $admin->setPassword($password);
-        $admin->setFirstname('Ladislas');
-        $admin->setLastname('Marchand');
+        $admin->setFirstname('William');
+        $admin->setLastname('Schmitt');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $admin->setCreatedAt(new \datetime('now'));
     // persist before push
@@ -85,8 +85,8 @@ class AppFixtures extends Fixture
         $managerUser->setRoles(['ROLE_MANAGER']);
         $password = $this->hasher->hashPassword($managerUser, 'manager');
         $managerUser->setPassword($password);
-        $managerUser->setFirstname('William');
-        $managerUser->setLastname('Schmitt');
+        $managerUser->setFirstname('Ladislas');
+        $managerUser->setLastname('Marchand');
         $managerUser->setCreatedAt(new \datetime('now'));
         // $manager = Manager Doctrine
         $manager->persist($managerUser);
@@ -371,13 +371,13 @@ class AppFixtures extends Fixture
 
         // product 7
         $product = new Product();
-        $product->setName('Chocolat / Macarons ');
+        $product->setName('Chocolat / Macarons');
         $product->setPrice('20');
         $product->setDescription($faker->text());   
         $product->setPicture('https://previews.123rf.com/images/starkovphoto/starkovphoto1602/starkovphoto160200025/52658110-la-bo%C3%AEte-de-macarons-en-forme-de-coeur-avec-des-fleurs-et-du-ruban-sur-une-table-en-bois-cadeau-cr%C3%A9a.jpg');
         $product->setShoppingLink('https://www.lesbonschoco.fr');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
-        $product->setCreatedAt(new \datetime('now'));
+        $product->setCreatedAt(new \datetime('now')) ;
         $product->setGenre($genre3);
         $product->setStatus(1);
         $product->addCategory($category2);
