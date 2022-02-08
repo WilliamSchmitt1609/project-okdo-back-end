@@ -71,7 +71,7 @@ security:
 
         # BACK
         # page édition création 
-        - { path: ^/back/$, roles: ROLE_MANAGER }
+        - { path: ^/back/, roles: ROLE_MANAGER }
         # back office pour les managers, uniquement en consultation
         - { path: ^/back/(.*)/(new|edit), roles: ROLE_ADMIN}
         # suppression que pour les admins (méthode HTTP POST)
