@@ -29,28 +29,40 @@
   <!-- Logo text or image -->
   <div class="flex items-center justify-between mb-4 md:mb-0  ">
     <h1 class="leading-none text-2xl text-grey-darkest">
+<<<<<<< HEAD
       <a class="no-underline text-black font-semibold hover:text-blue" href="{{ path('back_main_home') }}">
+=======
+      <a class="no-underline text-white font-semibold hover:text-blue" href="{{ path('back_main_home') }}">
+>>>>>>> 2886eaa6afbf4738ab7b7e299186d01cdaa3a599
         OKDO Back office
       </a>
     </h1>
 
-    <a class="text-black hover:text-orange md:hidden" href="#">
+    <a class="text-white hover:text-orange md:hidden" href="#">
       <i class="fa fa-2x fa-bars"></i>
     </a>
   </div>
     <div class="navbar-nav" class="hidden md:block md:ml-10 md:pr-4 md:space-x-8 width: 100% bg-transparent text-transform: capitalize;">
 
-        <a href="{{ path('back_category_index') }}" class="p-4 text-transform: uppercase font-medium hover:text-orange-900 text-white-700 ">catégories</a>
+        <a href="{{ path('back_category_index') }}" class="p-4 text-transform: uppercase font-medium hover:text-orange-900 text-white ">catégories</a>
 
-        <a href="{{ path('back_genre_index') }}" class="p-4 text-transform: uppercase font-medium hover:text-orange-900 text-white-700 ">genres</a>
+        <a href="{{ path('back_genre_index') }}" class="p-4 text-transform: uppercase font-medium hover:text-orange-900 text-white ">genres</a>
 
-        <a href="{{ path('back_age_index') }}" class="p-4 text-transform: uppercase font-medium hover:text-orange-900 text-white-700 ">Ages</a>
+        <a href="{{ path('back_age_index') }}" class="p-4 text-transform: uppercase font-medium hover:text-orange-900 text-white ">Ages</a>
 
-        <a href="{{ path('back_event_index') }}" class=" p-4 flex-grow: 1 text-transform: uppercase font-medium hover:text-orange-900 text-white-700">Events</a>
+        <a href="{{ path('back_event_index') }}" class=" p-4 flex-grow: 1 text-transform: uppercase font-medium hover:text-orange-900 text-white">Events</a>
 
-        <a href="{{ path('back_product_index') }}" class=" p-4 text-transform: uppercase font-medium hover:text-orange-900 text-white-700">products</a>
+        <a href="{{ path('back_product_index') }}" class=" p-4 text-transform: uppercase font-medium hover:text-orange-900 text-white">products</a>
 
-        <a href="{{ path('back_user_index') }}" class="pl-4 text-transform: uppercase font-medium hover:text-orange-900 text-white-700">utilisateurs</a>
+        <a href="{{ path('back_user_index') }}" class="pl-4 text-transform: uppercase font-medium hover:text-orange-900 text-white">utilisateurs</a>
+
+        {% if is_granted('ROLE_MANAGER') %}
+        <a href="{{ path('login_logout') }}" class="pl-4 text-transform: uppercase font-medium hover:text-orange-900 text-white">Déconnexion</a>
+        
+
+         {% else %}
+                <button type="button" class="btn btn-danger me-2"> <a class="dropdown-item" href="{{ path('login_index') }}">CONNEXION</a></button>
+        {% endif %}
       </div>
 </header>
 

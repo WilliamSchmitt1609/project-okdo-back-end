@@ -39,6 +39,13 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            form_login:
+                # name of the route created previously
+                login_path: login_index # GET => affiche le form
+                check_path: login_index # POST => traite le form
+            
+            logout:
+                path: login_logout
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -61,13 +68,16 @@ security:
         # l'API secure nécessite une authentification
         - { path: ^/api/secure, roles: IS_AUTHENTICATED_FULLY }
                 # Penser à utiliser bin/console debug:router pour avoir tous les motifs d'URL sous les yeux
+
         # BACK
-        # page édition création (les castins seront pris en compte aussi)
-        #- { path: ^/back/(.*)/(new|edit), roles: ROLE_ADMIN}
-        # suppression que pour les admins (méthode HTTP POST)
-        #- { path: ^/back/(.*)/\d+$, roles: ROLE_ADMIN, methods: [POST]} 
+        # page édition création 
+        - { path: ^/back/, roles: ROLE_MANAGER }
         # back office pour les managers, uniquement en consultation
-        #- { path: ^/back/, roles: ROLE_MANAGER }
+        - { path: ^/back/(.*)/(new|edit), roles: ROLE_ADMIN}
+        # suppression que pour les admins (méthode HTTP POST)
+        - { path: ^/back/(.*)/\d+$, roles: ROLE_ADMIN, methods: [POST]} 
+
+
 
     role_hierarchy:
         # MANAGER hérite du rôle USER

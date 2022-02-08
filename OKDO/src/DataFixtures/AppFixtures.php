@@ -73,8 +73,8 @@ class AppFixtures extends Fixture
         // we call our dependance hasher for admin fixture
         $password = $this->hasher->hashPassword($admin, 'admin');
         $admin->setPassword($password);
-        $admin->setFirstname('Ladislas');
-        $admin->setLastname('Marchand');
+        $admin->setFirstname('William');
+        $admin->setLastname('Schmitt');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $admin->setCreatedAt(new \datetime('now'));
     // persist before push
@@ -85,8 +85,8 @@ class AppFixtures extends Fixture
         $managerUser->setRoles(['ROLE_MANAGER']);
         $password = $this->hasher->hashPassword($managerUser, 'manager');
         $managerUser->setPassword($password);
-        $managerUser->setFirstname('William');
-        $managerUser->setLastname('Schmitt');
+        $managerUser->setFirstname('Ladislas');
+        $managerUser->setLastname('Marchand');
         $managerUser->setCreatedAt(new \datetime('now'));
         // $manager = Manager Doctrine
         $manager->persist($managerUser);
@@ -121,8 +121,8 @@ class AppFixtures extends Fixture
 
         // category 1
         $category1 = new Category();
-        $category1->setLabel('geek');
-        $category1->setValue('geek');
+        $category1->setLabel('Geek');
+        $category1->setValue('Geek');
         $category1->setcreatedAt(new \datetime('now'));
 
         $manager->persist($category1);
@@ -267,15 +267,12 @@ class AppFixtures extends Fixture
         $product->setShoppingLink('https://www.oclock.io');
         $product->addAge($age2);
         $product->addAge($age3);
-        $product->addAge($age4);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
-        $product->setGenre($genre3);
+        $product->setGenre($genre1);
         $product->addCategory($category1);
-        $product->addCategory($category3);
         $product->addEvent($event1);
-        $product->addEvent($event4);
 
         $manager->persist($product);
 
@@ -288,15 +285,12 @@ class AppFixtures extends Fixture
         $product->setShoppingLink('https://www.monpcmarchepas.fr');
         $product->addAge($age2);
         $product->addAge($age3);
-        $product->addAge($age4);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
-        $product->setGenre($genre3);
+        $product->setGenre($genre1);
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
         $product->addCategory($category1);
         $product->addEvent($event1);
-        $product->addEvent($event2);
-        $product->addEvent($event4);
 
         $manager->persist($product);
 
@@ -307,19 +301,15 @@ class AppFixtures extends Fixture
         $product->setDescription($faker->text());  
         $product->setPicture('https://images.unsplash.com/photo-1514302240736-b1fee5985889?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Z2Vla3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60');
         $product->setShoppingLink('https://www.mabellefigurine.fr');
-        $product->addAge($age1);
         $product->addAge($age2);
         $product->addAge($age3);
-        $product->addAge($age4);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setGenre($genre1);
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
         $product->addCategory($category1);
-        $product->addCategory($category7);
         $product->addEvent($event1);
-        $product->addEvent($event2);
-        $product->addEvent($event4);
+
         $manager->persist($product);
 
         // product 4
@@ -332,14 +322,12 @@ class AppFixtures extends Fixture
         $product->setShoppingLink('https://www.monmicromarchepas.fr');
         $product->addAge($age2);
         $product->addAge($age3);
-        $product->addAge($age4);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
+        $product->setGenre($genre1);
         $product->setCreatedAt(new \datetime('now'));
-        $product->setGenre($genre3);
         $product->setStatus(1);
         $product->addCategory($category1);
         $product->addEvent($event1);
-        $product->addEvent($event4);
 
         $manager->persist($product);
 
@@ -350,18 +338,14 @@ class AppFixtures extends Fixture
         $product->setDescription($faker->text()); 
         $product->setPicture('https://images.pexels.com/photos/3761267/pexels-photo-3761267.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
         $product->setShoppingLink('https://www.vendunreinpouruncasqueVR.com');
-        $product->addAge($age1);
         $product->addAge($age2);
         $product->addAge($age3);
-        $product->addAge($age4);
-        $product->addEvent($event1);
-        $product->addEvent($event2);
-        $product->addEvent($event4);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
+        $product->setGenre($genre1);
         $product->setCreatedAt(new \datetime('now'));
-        $product->setGenre($genre3);
         $product->setStatus(1);
         $product->addCategory($category1);
+        $product->addEvent($event1);
 
         $manager->persist($product);
 
@@ -387,13 +371,13 @@ class AppFixtures extends Fixture
 
         // product 7
         $product = new Product();
-        $product->setName('Chocolat / Macarons ');
+        $product->setName('Chocolat / Macarons');
         $product->setPrice('20');
         $product->setDescription($faker->text());   
         $product->setPicture('https://previews.123rf.com/images/starkovphoto/starkovphoto1602/starkovphoto160200025/52658110-la-bo%C3%AEte-de-macarons-en-forme-de-coeur-avec-des-fleurs-et-du-ruban-sur-une-table-en-bois-cadeau-cr%C3%A9a.jpg');
         $product->setShoppingLink('https://www.lesbonschoco.fr');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
-        $product->setCreatedAt(new \datetime('now'));
+        $product->setCreatedAt(new \datetime('now')) ;
         $product->setGenre($genre3);
         $product->setStatus(1);
         $product->addCategory($category2);
@@ -445,7 +429,63 @@ class AppFixtures extends Fixture
 
         $manager->persist($product);
 
-        // product 10
+        //product 10
+        $product = new Product();
+        $product->setName('Voyage aux Maldives');
+        $product->setPrice('800');
+        $product->setDescription($faker->text());   
+        $product->setPicture('https://cdn.pixabay.com/photo/2018/03/12/20/07/maldives-3220702_960_720.jpg');
+        $product->setShoppingLink('https://www.voyagevoyage.com');
+        //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
+        $product->setCreatedAt(new \datetime('now'));
+        $product->setGenre($genre2);
+        $product->setStatus(1);
+        $product->addCategory($category4);
+        $product->addAge($age3);
+        $product->addEvent($event5);
+
+        $manager->persist($product);
+
+        //product 11
+        $product = new Product();
+        $product->setName('Séjour au ski');
+        $product->setPrice('400');
+        $product->setDescription($faker->text());   
+        $product->setPicture('https://cdn.pixabay.com/photo/2017/02/15/11/15/wintry-2068298_960_720.jpg');
+        $product->setShoppingLink('https://www.voyageauski.com');
+        //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
+        $product->setCreatedAt(new \datetime('now'));
+        $product->setGenre($genre2);
+        $product->setStatus(1);
+        $product->addCategory($category4);
+        $product->addAge($age3);
+        $product->addEvent($event5);
+
+        $manager->persist($product);
+
+
+        //product 12
+        $product = new Product();
+        $product->setName('Collier');
+        $product->setPrice('50');
+        $product->setDescription($faker->text());   
+        $product->setPicture('https://cdn.pixabay.com/photo/2017/08/02/01/34/pocket-watch-2569573_960_720.jpg');
+        $product->setShoppingLink('https://www.creatordebijoux.com');
+        //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
+        $product->setCreatedAt(new \datetime('now'));
+        $product->setGenre($genre2);
+        $product->setStatus(1);
+        $product->addCategory($category6);
+        $product->addAge($age2);
+        $product->addAge($age3);
+        $product->addAge($age4);
+        $product->addEvent($event1);
+        $product->addEvent($event4);
+        $product->addEvent($event5);
+
+        $manager->persist($product);
+
+        // product 13
         $product = new Product();
         $product->setName('Magnifique tenue de marche athlétique');
         $product->setPrice('150');
@@ -454,16 +494,16 @@ class AppFixtures extends Fixture
         $product->setShoppingLink('http://www.haladustyle.com');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
-        $product->setGenre($genre3);
+        $product->setGenre($genre1);
+        $product->addAge($age2);
         $product->addAge($age3);
-        $product->addAge($age4);
         $product->addEvent($event1);     
         $product->setStatus(1);
-        $product->addCategory($category1);
+        $product->addCategory($category2);
 
         $manager->persist($product);
 
-        // product 11
+        // product 14
         $product = new Product();
         $product->setName('Tenue de basket');
         $product->setPrice('60');
@@ -473,37 +513,89 @@ class AppFixtures extends Fixture
         $product->addAge($age3);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
-        $product->setGenre($genre3);
-        $product->addEvent($event1);
-        $product->addEvent($event5);
+        $product->setGenre($genre1);
+        $product->addAge($age2);
+        $product->addAge($age3);
+        $product->addEvent($event1);     
         $product->setStatus(1);
-        $product->addCategory($category1);
+        $product->addCategory($category2);
 
         $manager->persist($product);
 
-        // product 12 
+        // product 15
         $product = new Product();
         $product->setName('Bracelet Tracker Requin');
         $product->setPrice('300');
         $product->setDescription($faker->text());   
-        $product->setPicture('https://https://media.istockphoto.com/photos/handmade-shark-figurine-bracelet-with-aquamarine-stone-beads-picture-id1043383476?k=20&m=1043383476&s=612x612&w=0&h=cvb8bltLig4fO03V0TlpCnF3C1WsUFsvgHoZ56IsdiQ=');
+        $product->setPicture('https://media.istockphoto.com/photos/handmade-shark-figurine-bracelet-with-aquamarine-stone-beads-picture-id1043383476?k=20&m=1043383476&s=612x612&w=0&h=cvb8bltLig4fO03V0TlpCnF3C1WsUFsvgHoZ56IsdiQ=');
         $product->setShoppingLink('https://www.arnaquetonpote.fr');
-        $product->addAge($age1);
         $product->addAge($age2);
         $product->addAge($age3);
-        $product->addAge($age4);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
-        $product->setGenre($genre3);
+        $product->setGenre($genre1);
+        $product->setGenre($genre2);
         $product->setCreatedAt(new \datetime('now'));
         $product->setStatus(1);
-        $product->addCategory($category1);
-        $product->addEvent($event1);
-        $product->addEvent($event2);
-        $product->addEvent($event4);
+        $product->addCategory($category6);
+        $product->addEvent($event5);
 
         $manager->persist($product);
         
-        
+         // product 16
+         $product = new Product();
+         $product->setName('Montre connectée');
+         $product->setPrice('400');
+         $product->setDescription($faker->text()); 
+         $product->setPicture('https://cdn.pixabay.com/photo/2019/11/05/16/32/hour-4603921_960_720.jpg');
+         $product->setShoppingLink('https://www.montrecc.com');
+         $product->addAge($age2);
+         $product->addAge($age3);
+         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
+         $product->setGenre($genre1);
+         $product->setCreatedAt(new \datetime('now'));
+         $product->setStatus(1);
+         $product->addCategory($category1);
+         $product->addEvent($event1);
+ 
+         $manager->persist($product);
+
+          // product 14
+        $product = new Product();
+        $product->setName('Maillot de foot');
+        $product->setPrice('80');
+        $product->setDescription($faker->text());   
+        $product->setPicture('https://cdn.pixabay.com/photo/2020/08/02/09/05/jersey-5457103_960_720.jpg');
+        $product->setShoppingLink('https://www.grosport.fr');
+        $product->addAge($age3);
+        //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
+        $product->setCreatedAt(new \datetime('now'));
+        $product->setGenre($genre1);
+        $product->addAge($age2);
+        $product->addAge($age3);
+        $product->addEvent($event1);     
+        $product->setStatus(1);
+        $product->addCategory($category2);
+
+        $manager->persist($product);
+
+        // product 14
+        $product = new Product();
+        $product->setName('Chaussure de sport');
+        $product->setPrice('50');
+        $product->setDescription($faker->text());   
+        $product->setPicture('https://cdn.pixabay.com/photo/2018/09/22/18/00/shoes-3695750_960_720.jpg');
+        $product->setShoppingLink('https://www.intrasport.fr');
+        $product->addAge($age3);
+        //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
+        $product->setCreatedAt(new \datetime('now'));
+        $product->setGenre($genre1);
+        $product->addAge($age2);
+        $product->addAge($age3);
+        $product->addEvent($event1) ;     
+        $product->setStatus(1);
+        $product->addCategory($category2);
+
+        $manager->persist($product);
 
         // Profiles fixtures
 
