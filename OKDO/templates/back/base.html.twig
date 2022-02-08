@@ -48,6 +48,14 @@
         <a href="{{ path('back_product_index') }}" class=" p-4 text-transform: uppercase font-medium hover:text-orange-900 text-white-700">products</a>
 
         <a href="{{ path('back_user_index') }}" class="pl-4 text-transform: uppercase font-medium hover:text-orange-900 text-white-700">utilisateurs</a>
+
+        {% if is_granted('ROLE_MANAGER') %}
+        <a href="{{ path('login_logout') }}" class="pl-4 text-transform: uppercase font-medium hover:text-orange-900 text-white-700">Déconnexion</a>
+        
+
+         {% else %}
+                <button type="button" class="btn btn-danger me-2"> <a class="dropdown-item" href="{{ path('login_index') }}">CONNEXION</a></button>
+        {% endif %}
       </div>
 </header>
 
