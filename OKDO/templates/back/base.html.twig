@@ -3,18 +3,33 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Bienvenue dans le Back Office d'OKDO !{% endblock %}</title>
+  <!--VUE.JS-->
  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>  
- <script src="https://cdn.tailwindcss.com"></script>
- <link rel="stylesheet" href="../../assets/style.css">
+<!--Tailwind -->
+ <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+<link href="https://unpkg.com/@tailwindcss/forms/dist/forms.min.css" rel="stylesheet">
+<!--OWN CSS-->
+<link rel="stylesheet" href="{{ asset('assets/style.css') }}">
+ <script>
+   tailwind.config = {
+     theme: {
+      extend: {
+        colors: {
+          Okdo: '#2f4f4f',
+        }
+      }
+    }
+  }
+</script>
 </head>
 <body>
 
-<header class="p-12 border-b md:flex md:items-center md:justify-between p-4 pb-0 shadow-lg md:pb-4 bg-yellow-500">
+<header class="p-12 border-b md:flex md:items-center md:justify-between p-4 pb-0 shadow-lg md:pb-4 bg-Okdo">
   
   <!-- Logo text or image -->
   <div class="flex items-center justify-between mb-4 md:mb-0  ">
     <h1 class="leading-none text-2xl text-grey-darkest">
-      <a class="no-underline text-black font-semibold hover:text-blue" href="#">
+      <a class="no-underline text-black font-semibold hover:text-blue" href="{{ path('back_main_home') }}">
         OKDO Back office
       </a>
     </h1>
@@ -24,7 +39,6 @@
     </a>
   </div>
     <div class="navbar-nav" class="hidden md:block md:ml-10 md:pr-4 md:space-x-8 width: 100% bg-transparent text-transform: capitalize;">
-        <a href="{{ path('back_main_home') }}" class="text-transform: uppercase font-medium hover:text-orange-900 text-white-800">Accueil</a>
 
         <a href="{{ path('back_category_index') }}" class="p-4 text-transform: uppercase font-medium hover:text-orange-900 text-white-700 ">catégories</a>
 

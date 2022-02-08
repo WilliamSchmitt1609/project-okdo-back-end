@@ -16,12 +16,7 @@ class ApiAgeController extends AbstractController
      */
     public function getAgeCollection(AgeRepository $ageRepository): Response
     {
-<<<<<<< HEAD
-        
-        // On va chercher les données
-=======
         // Get age's data
->>>>>>> 1567e08cc2d19268261bae57a628309959dfddfd
         $agesList = $ageRepository->findAll();
         
 
