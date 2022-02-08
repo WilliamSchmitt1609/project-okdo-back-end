@@ -591,7 +591,7 @@ class AppFixtures extends Fixture
         $product->setGenre($genre1);
         $product->addAge($age2);
         $product->addAge($age3);
-        $product->addEvent($event1);     
+        $product->addEvent($event1) ;     
         $product->setStatus(1);
         $product->addCategory($category2);
 
