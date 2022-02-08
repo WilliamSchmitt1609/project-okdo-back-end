@@ -2,13 +2,11 @@
 
 namespace App\Repository;
 
-use App\Entity\Age;
-use App\Entity\Event;
+
 use App\Entity\Product;
-use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\ORM\Query\ResultSetMapping;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
