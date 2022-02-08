@@ -14,7 +14,7 @@ class LoginController extends AbstractController
      */
      public function index(AuthenticationUtils $authenticationUtils): Response
       {
-          // les deux lignes suivantes servent d'échec à la connexion
+
          // get the login error if there is one
          $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -37,8 +37,8 @@ class LoginController extends AbstractController
      */
     public function logout()
     {
-        // Ce code ne sera jamais exécuté
-        // le composant de sécurité va intercepter la requête avant.
+
+         return $this->render('back/login/index.html.twig');
     }
 
 
