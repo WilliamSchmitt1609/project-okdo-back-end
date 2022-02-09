@@ -38,17 +38,17 @@
   </div>
     <div class="navbar-nav" class="hidden md:block md:ml-10 md:pr-4 md:space-x-8 width: 100% bg-transparent text-transform: capitalize;">
 
-        <a href="{{ path('back_category_index') }}" class="p-4 text-transform: uppercase font-medium hover:text-yellow-500 text-white ">catégories</a>
+        <a href="{{ path('back_category_index') }}" class="p-4 text-transform: uppercase font-medium hover:text-yellow-500 text-white ">Categories</a>
 
-        <a href="{{ path('back_genre_index') }}" class="p-4 text-transform: uppercase font-medium hover:hover:text-yellow-500 text-white ">genres</a>
+        <a href="{{ path('back_genre_index') }}" class="p-4 text-transform: uppercase font-medium hover:hover:text-yellow-500 text-white ">Genres</a>
 
         <a href="{{ path('back_age_index') }}" class="p-4 text-transform: uppercase font-medium hover:hover:text-yellow-500 text-white ">Ages</a>
 
         <a href="{{ path('back_event_index') }}" class=" p-4 flex-grow: 1 text-transform: uppercase font-medium hover:hover:text-yellow-500 text-white">Events</a>
 
-        <a href="{{ path('back_product_index') }}" class=" p-4 text-transform: uppercase font-medium hover:hover:text-yellow-500 text-white">products</a>
+        <a href="{{ path('back_product_index') }}" class=" p-4 text-transform: uppercase font-medium hover:hover:text-yellow-500 text-white">Products</a>
 
-        <a href="{{ path('back_user_index') }}" class="pl-4 text-transform: uppercase font-medium hover:hover:text-yellow-500 text-white">utilisateurs</a>
+        <a href="{{ path('back_user_index') }}" class="pl-4 text-transform: uppercase font-medium hover:hover:text-yellow-500 text-white">Users</a>
 
         {% if is_granted('ROLE_MANAGER') %}
         <a href="{{ path('login_logout') }}" class="pl-4 text-transform: uppercase font-medium hover:hover:text-yellow-500 text-white">Déconnexion</a>
