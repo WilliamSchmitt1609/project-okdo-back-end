@@ -22,8 +22,8 @@
                 <td class='p-3 text-sm text-gray-700'>{{ event.id }}</td>
                 <td class='p-3 text-sm text-gray-700'>{{ event.label }}</td>
                 <td>
-                    <a href="{{ path('back_event_show', {'id': event.id}) }}">show</a>
-                    <a href="{{ path('back_event_edit', {'id': event.id}) }}">edit</a>
+                    <a class="border-2 border-gray" href="{{ path('back_event_show', {'id': event.id}) }}">show</a>
+                    <a class="border-2 border-gray" href="{{ path('back_event_edit', {'id': event.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

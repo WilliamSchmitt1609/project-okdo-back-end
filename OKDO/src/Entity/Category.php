@@ -129,6 +129,10 @@ class Category
         return $this->profiles;
     }
 
+    /**
+     * @param Profiles $profile
+     * @return $this
+     */
     public function addProfile(Profiles $profile): self
     {
         if (!$this->profiles->contains($profile)) {
@@ -138,6 +142,10 @@ class Category
         return $this;
     }
 
+    /**
+     * @param Profiles $profile
+     * @return $this
+     */
     public function removeProfile(Profiles $profile): self
     {
         $this->profiles->removeElement($profile);

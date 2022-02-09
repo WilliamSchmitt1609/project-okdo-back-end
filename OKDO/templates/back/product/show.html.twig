@@ -120,13 +120,12 @@
 
         </ul>
    </div>
-</div>
 
-    {{ include('back/product/_delete_form.html.twig') }}
 
-    <div class ="flex flex-wrap">
-        <a class="mt-5 font-medium px-3 py-2 text-dark rounded-lg hover:bg-yellow-600 hover:text-slate-900" href="{{ path('back_product_edit', {'id': product.id}) }}">edit</a>
-        <a class="mt-5 font-medium px-3 py-2 text-dark rounded-lg hover:bg-slate-400 hover:text-slate-900" href="{{ path('back_product_index') }}">back to list</a>
+    <div class ="flex flex-wrap space-x-4 space-x-reverse">
+        <a class="mx-2 mt-5 font-medium px-3 py-2 bg-zinc-300 text-white rounded-lg hover:bg-slate-700 hover:text-white" href="{{ path ('back_product_index') }}">back to list</a>
+        <a class="mt-5 font-medium px-3 py-2 bg-yellow-500 text-white rounded-lg hover:bg-slate-600 hover:white" href="{{ path('back_product_edit', {'id': product.id}) }}">edit</a>
+        {{ include('back/product/_delete_form.html.twig') }}
     </div> 
         
        
