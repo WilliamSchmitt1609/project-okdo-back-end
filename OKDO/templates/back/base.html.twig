@@ -3,8 +3,6 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Bienvenue dans le Back Office d'OKDO !{% endblock %}</title>
-  <!--VUE.JS-->
- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>  
 <!--Tailwind -->
  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 <link href="https://unpkg.com/@tailwindcss/forms/dist/forms.min.css" rel="stylesheet">
@@ -64,6 +62,9 @@
 
 {% block nav %}{% endblock %}
 {% block body %}{% endblock %}
-
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>   
+    <script src="https://unpkg.com/vue-cookies@1.7.4/vue-cookies.js"></script>
+    <script src="./assets/js/vue.js"></script>
 </body>
 </html>
