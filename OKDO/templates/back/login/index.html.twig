@@ -15,7 +15,7 @@
             </div>
             {% endif %}
 
-            <form action="{{ path('login_index') }}" method="post">
+            <form action="{{ path('login_index') }} " method="post">
                 <div class="mb-3">
                     <label for="username" class="form-label">Email</label>
                     <input class="focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-10 ring-1 ring-slate-200 shadow-sm" type="email" class="form-control" id="username" name="_username" value="{{ last_username }}">
