@@ -3,44 +3,6 @@
 
 {% block body %}
 
-<<<<<<< HEAD
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-=======
 <div class="p-4 w-3/4 bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700 mt-6 ml-6">
     <div class="flex justify-between items-center mb-4">
         <h3 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Users</h3>
@@ -143,18 +105,14 @@
                     </div>
                 </div>
             </li>            
->>>>>>> 2886eaa6afbf4738ab7b7e299186d01cdaa3a599
 
         </ul>
    </div>
-</div>
 
-
-    {{ include('back/user/_delete_form.html.twig') }}
-
-    <div class ="flex flex-wrap">
-    <a class ="mt-5 font-medium px-3 py-2 text-dark rounded-lg hover:bg-yellow-600 hover:text-slate-900" href="{{ path('back_user_edit', {'id': user.id}) }}">edit</a>
-        <a class="mt-5 font-medium px-3 py-2 text-dark rounded-lg hover:bg-slate-400 hover:text-slate-900" href="{{ path('back_user_index') }}">back to list</a>
-    </div> 
+    <div class ="flex flex-wrap space-x-4 space-x-reverse">
+        <a class="mx-2 mt-5 font-medium px-3 py-2 bg-zinc-300 text-white rounded-lg hover:bg-slate-700 hover:text-white" href="{{ path('back_user_index') }}">back to list</a>
+        <a class ="mt-5 font-medium px-3 py-2 bg-yellow-500 text-white rounded-lg hover:bg-slate-600 hover:white" href="{{ path('back_user_edit', {'id': user.id}) }}">edit</a>
+        {{ include('back/user/_delete_form.html.twig') }}
+</div> 
    
 {% endblock %}
