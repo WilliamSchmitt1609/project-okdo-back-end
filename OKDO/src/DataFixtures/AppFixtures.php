@@ -192,12 +192,7 @@ class AppFixtures extends Fixture
 
         $manager->persist($genre2);
 
-        //genre 3 
-        $genre3 = new Genre;
-        $genre3->setLabel('Mixte');
-        $genre3->setValue('Mixte');
-
-        $manager->persist($genre3);
+     
 
         // Age fixtures
 
@@ -316,8 +311,6 @@ class AppFixtures extends Fixture
         $product = new Product();
         $product->setName('casque micro');
         $product->setPrice('20');
-        $product->setDescription($faker->text());  
-        $product->addAge($age3); 
         $product->setPicture('https://images.pexels.com/photos/7682341/pexels-photo-7682341.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
         $product->setShoppingLink('https://www.monmicromarchepas.fr');
         $product->addAge($age2);
@@ -378,7 +371,7 @@ class AppFixtures extends Fixture
         $product->setShoppingLink('https://www.lesbonschoco.fr');
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now')) ;
-        $product->setGenre($genre3);
+        $product->setGenre($genre1);
         $product->setStatus(1);
         $product->addCategory($category2);
         $product->addAge($age3);
@@ -510,10 +503,10 @@ class AppFixtures extends Fixture
         $product->setDescription($faker->text());   
         $product->setPicture('https://images.pexels.com/photos/7005769/pexels-photo-7005769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
         $product->setShoppingLink('https://www.grosport.fr');
-        $product->addAge($age3);
         //get the createdAtValue, he get the actual time/hour and put it on setcreatedAt.
         $product->setCreatedAt(new \datetime('now'));
         $product->setGenre($genre1);
+        $product->addAge($age1);
         $product->addAge($age2);
         $product->addAge($age3);
         $product->addEvent($event1);     
